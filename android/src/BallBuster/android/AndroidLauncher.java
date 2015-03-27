@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import BallBuster.BallBusterView;
+import BallBuster.View.BallBusterView;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

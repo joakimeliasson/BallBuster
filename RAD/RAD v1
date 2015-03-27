@@ -1,0 +1,163 @@
+More readable file can be found at google drive at the following link:
+https://drive.google.com/open?id=1uy9u3EVd32-351mhzwFi_Zp4nx5AKG5dwLItGoWKviI&authuser=0
+
+Requirements and Analysis Document for NNN
+
+  Version: 1
+
+  Date : 2015-03-23
+
+  Author : Joakim Eliasson, Johan Segerlund, Jacob Lundberg, Matthias Andersson
+
+This version overrides all previous versions.
+
+1 Introduction
+
+
+A computer game application used for entertainment. Users will be have access to a menu, which will let them change the settings of the game, and start the game itself.
+The game features a board with set borders and obstacles in the form of blocks which prevent movement. Users will be in control of a Ball, an entity which can roll around on the board. The game also features so called Powerups, which users can roll over (with their Balls) to acquire a temporary activatable ability.
+The goal of the game is to destroy the enemies Balls by ramming into them, eventually reducing their Shields to zero strength at which point the game is over.
+
+
+This section gives a brief overview of the project.
+
+1.1 Purpose of application
+Ball-Buster is an entertaining two-player game inspired by an idea from DICE. It gives two or more players a platform to challenge each other.
+
+1.2 General characteristics of application
+Ball-Buster is a standalone java desktop application. It’s a multiplayer application with support for two players minimum, open for extension allowing more players.
+
+The players share the same keyboard, each player are assigned different controls.
+
+The two players a competing with each other, the goal is the get the other players shield down in order to win. This is possible by colliding with the other player where angle and speed is a factor.
+
+In the middle of the field, superpowers will be frequently spawned. This can for instance affect the speed of the ball or restore parts of the shield.
+
+The application will run on platforms that support java such as Mac, Windows and Linux.
+
+1.3 Scope of application
+ The application will not support online functions.
+
+
+
+
+1.4 Objectives and success criteria of the project
+The user can start a game together with another player.
+The players can accelerate the ball, if they don't the ball will automatically stop.
+ The ball will take damage when the player hit the wall or collide with the other player. The collision damage will be calculated depending on the where the balls collided.
+
+1.5 Definitions, acronyms and abbreviations
+Powerup - a usable item within the game, which can be acquired by players.
+Map - The board on which the users play.
+Ball - The entities controlled by the users.
+Shield - How many hits a Ball can take before loss? occurs
+Aura - An area, centered on the Ball, meant to cause an attractive or repelling force.
+
+2 Requirements
+
+In this section we specify all requirements
+
+2.1 Functional requirements
+
+Create a list of high level functions here (from the use cases).
+
+Create game
+Choose number of players.
+Choose map.
+
+Move the ball
+Use keys to move the ball on the playing field.
+
+Hit other player’s ball
+Drive the ball into another player’s ball. Lose speed and possibly health, depending on the other player’s direction.
+
+Hit wall
+Drive the ball into a wall. Lose health and speed.
+
+Win the game
+Be the last player which a functional shield.
+
+Lose the game
+Lose your shield completely.
+
+
+
+
+2.2 Non-functional requirements
+
+2.2.1 Usability
+ BallBuster should be easy to use for everyone. For more experienced users a number of extra features, such as harder maps, should be available.
+
+
+2.2.2 Reliability
+ The application should always be available and never crash during normal flow.
+
+
+2.2.3 Performance
+ The main purpose is to have the application running without delay for all users, therefore it is designed as a light weight application. No GPU or CPU demands are necessary.
+
+
+2.2.4 Supportability
+ Automatic code testing and manual GUI tests to ensure a highly functional application.
+
+
+2.2.5 Implementation
+
+2.2.6 Packaging and installation
+
+2.2.7 Legal
+
+2.3 Application models
+
+2.3.1 Use case model
+Accelerate Ball
+Move Ball
+Hit Wall
+Hit Ball
+Powerup Acquired
+Activate Aura
+Quit to Menu
+
+UML and a list of UC names (text for all in appendix)
+
+2.3.2 Use cases priority
+
+
+Move Ball
+Accelerate Ball
+Hit Wall
+Hit Ball
+Powerup Acquired
+Quit to Menu
+Activate Aura
+
+2.3.3 Domain model
+
+UML, possible some text.
+
+2.3.4 User interface
+
+
+
+
+Text to motivate a picture.
+
+The blue star in the middle: Power-up spawn location.
+
+Player one bottom left (white ball) and player two top right (black ball). The white ball have a blue shield that have taken a bit of damage. The black ball have enabled its aura which changes the color of the shield to yellow.
+
+
+White and black square-obstacles on the map can be used to repel or attract the players when the aura is enabled.
+
+2.4 References
+
+  APPENDIX
+
+  GUI
+
+  Domain model
+
+  Use case texts
+
+
+

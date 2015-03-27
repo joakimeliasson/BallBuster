@@ -1,0 +1,44 @@
+Meeting Agenda
+
+  Date: 2015-03-23
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+
+
+2. Reports (15 min) from previous meeting
+
+  - First meeting, nothing to report.
+
+3. Discussion items (35 min)
+
+  - Discussed initial use cases
+  - Mathematical and physics calculations of impacts
+
+4. Outcomes and assignments (5 min)
+
+
+  - Discussed general ideas and demands for the application
+
+  - Use cases determined:
+hit wall
+hit ball
+move ball
+accelerate ball
+activate aura
+activate ability
+create game
+change number of players
+change map
+
+  - Formula for impacts: v = sin-1 (z/x) for impact angles between -90 and 90 degrees.
+
+
+5. Wrap up
+
+  - Start working on RAD.
+
+  - Next meeting will take place 26/03-2015 at 10:00 in 3511E (Group room in Idéläran)
