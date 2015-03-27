@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class BallBusterView extends ApplicationAdapter {
     SpriteBatch batch;
     Texture img;
+    Texture t;
 
     @Override
     public void create () {
