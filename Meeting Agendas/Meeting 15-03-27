@@ -1,0 +1,15 @@
+Meeting Agenda
+
+  Date: 2015-03-27
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+
+
+Extra meeting:
+
+After feedback given at the meeting with our supervisor yesterday, we decided to call an extra meeting. All the group members agree that we should use graphical library LibGDX and the extra plugin Bullet to handle the physics during collisions and so on.
+
+Today we will start writing our model classes and possibly factory classes and JUnit tests.

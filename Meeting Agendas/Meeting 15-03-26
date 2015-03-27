@@ -1,0 +1,44 @@
+Meeting Agenda
+
+  Date: 2015-03-26
+
+  Facilitator: Joakim Eliasson
+
+  Participants: Jacob Lundberg, Johan Segerlund, Matthias Andersson
+
+1. Objectives (5 min). Resolve any issues preventing the team to
+  continue.
+
+Discuss further Use cases for the RAD document
+Make a preliminary sketch of the design
+
+
+2. Reports (15 min) from previous meeting
+
+Jacob has continued working with the RAD document
+Everyone has set up the project on their laptops and installed Maven
+GitHub repository is up and running
+
+3. Discussion items (35 min)
+
+
+The mathematical calculations of accelerating a ball while moving was discussed.
+Discussion regarding if, and in that case which, graphical library should be used.
+Discussions about Use cases
+
+4. Outcomes and assignments (5 min)
+
+
+Mutual decission not to use graphics library LibGDX, seems too complicated for the purpose of our application.
+No solution found yet to the vector mathematics.
+
+Johan will sketch the application
+Jacob, Matthias and Joakim will write Use cases
+
+
+5. Wrap up
+
+
+We will need to continue working on the relationship between our vectors and the velocity and how to calculate damage dealt on impact with another ball and so on.
+
+Next meeting will take place 2015-03-27 at 10:00
