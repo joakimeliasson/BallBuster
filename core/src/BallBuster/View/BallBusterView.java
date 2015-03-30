@@ -27,7 +27,7 @@ public class BallBusterView implements ApplicationListener {
     public void create() {
         batch = new SpriteBatch();
         Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
-        FileHandle ballFileHandle = Gdx.files.internal("core/Images/ball.png");
+        FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
         ballTexture = new Texture(ballFileHandle);
         ball = new Sprite(ballTexture, 0, 0, 32, 32);
         ballTwo = new Sprite(ballTexture, 0, 0, 32, 32);
