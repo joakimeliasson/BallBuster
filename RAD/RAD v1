@@ -66,19 +66,19 @@ Choose number of players.
 Choose map.
 
 Move the ball
-Use keys to move the ball on the playing field.
+Use keys to accelerate the ball in a specified direction on the playing field.
 
-Hit other player’s ball
-Drive the ball into another player’s ball. Lose speed and possibly health, depending on the other player’s direction.
+Activate aura
+Press a key to activate the ball’s aura.
 
-Hit wall
-Drive the ball into a wall. Lose health and speed.
+Activate powerup
+Press a key to activate a powerup (if it exists for the user).
 
-Win the game
-Be the last player which a functional shield.
+Open menu
+Press esc(?) to open the menu.
 
-Lose the game
-Lose your shield completely.
+Quit
+Press a key or use mouse to exit program
 
 
 
@@ -111,25 +111,27 @@ Lose your shield completely.
 
 2.3.1 Use case model
 Accelerate Ball
-Move Ball
-Hit Wall
-Hit Ball
-Powerup Acquired
+Start game
+Choose number of players
+Choose map
+Activate powerup
 Activate Aura
-Quit to Menu
+Open Menu
+Quit
 
 UML and a list of UC names (text for all in appendix)
 
 2.3.2 Use cases priority
 
 
-Move Ball
+Start game
 Accelerate Ball
-Hit Wall
-Hit Ball
-Powerup Acquired
-Quit to Menu
+Activate powerup
 Activate Aura
+Quit
+Choose number of players
+Choose map
+Open menu
 
 2.3.3 Domain model
 
