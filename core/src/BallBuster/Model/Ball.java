@@ -24,6 +24,7 @@ public class Ball {
 
         shield = 100;
         position = new Point(0,0);
+        ballSpeed = 0;
     }
 
     public void moveRight() {
@@ -59,6 +60,9 @@ public class Ball {
     public int shieldDamage() {
 
         return 0;
+    }
+    public float getBallSpeed() {
+        return ballSpeed;
     }
 
 }
