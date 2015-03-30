@@ -1,0 +1,43 @@
+Meeting Agenda
+
+  Date: 2015-03-23
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+Draw UML map of use cases
+Discuss and change current use cases
+Start working on the model classes
+
+2. Reports (15 min) from previous meeting
+LibGDX project is up and running. Jacob uploaded a first GUI which contains two movable balls.
+
+3. Discussion items (35 min)
+UML discussions
+Modification of the use cases made last week.
+
+4. Outcomes and assignments (5 min)
+Some of the use cases found last week was wrong. New list of Use cases:
+
+accelerate ball
+start game
+choose number of players
+choose map
+activate aura
+activate power up
+open menu
+quit program
+
+UML diagram
+
+
+5. Wrap up
+Until next time the following tasks are assigned:
+Joakim will write model class for Player
+Johan will write model class for Map
+Jacob will write model class for Ball
+Matthias will write model class for Tile
+
+Next meeting will take place 02/04-2015 at 10:00 in 3511E (Group room in Idéläran)
