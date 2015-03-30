@@ -35,6 +35,7 @@ public class BallTest {
     @Test
     public void testSlow() {
         Ball ball = new Ball(null, null, null);
+        ball.accelerateBall();
         ball.slowBall();
         assertEquals(0, (ball.getBallSpeed()));
     }
@@ -43,7 +44,8 @@ public class BallTest {
     public void testChangePosition() {
         Ball ball = new Ball(null, null, null);
         ball.changePosition(5,8);
-        assertEquals(5, ball.);
+        assertEquals(5, ball.getX());
+        assertEquals(8, ball.getY());
     }
 
 }
