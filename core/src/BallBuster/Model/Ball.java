@@ -64,5 +64,11 @@ public class Ball {
     public int getBallSpeed() {
         return ballSpeed;
     }
+    public int getX() {
+        return position.x;
+    }
+    public int getY() {
+        return position.y;
+    }
 
 }

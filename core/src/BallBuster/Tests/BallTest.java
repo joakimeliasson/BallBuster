@@ -24,11 +24,26 @@ public class BallTest {
         Ball  ball = new Ball(new Player(),new Aura(),new Map());
         assertNotNull(ball);
     }
+
     @Test
     public void testAcceleration() {
         Ball ball = new Ball(null, null, null);
         ball.accelerateBall();
         assertEquals(1,(ball.getBallSpeed()));
+    }
+
+    @Test
+    public void testSlow() {
+        Ball ball = new Ball(null, null, null);
+        ball.slowBall();
+        assertEquals(0, (ball.getBallSpeed()));
+    }
+
+    @Test
+    public void testChangePosition() {
+        Ball ball = new Ball(null, null, null);
+        ball.changePosition(5,8);
+        assertEquals(5, ball.);
     }
 
 }
