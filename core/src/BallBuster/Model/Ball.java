@@ -24,7 +24,7 @@ public class Ball {
     }
 
     public void accelerateBall() {
-        
+
     }
 
     public void slowBall() {
