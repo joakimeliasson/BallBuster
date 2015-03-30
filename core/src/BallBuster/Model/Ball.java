@@ -17,7 +17,6 @@ public class Ball {
     private Map map;
     private Point position;
 
-
     public Ball(Player player, Aura aura, Map map) {
         this.player = player;
         this.aura = aura;
@@ -41,11 +40,11 @@ public class Ball {
     }
 
     public void accelerateBall() {
-
+            ballSpeed++;
     }
 
     public void slowBall() {
-
+        ballSpeed--;
     }
 
     public void changePosition(int x, int y) {
