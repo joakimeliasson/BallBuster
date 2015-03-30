@@ -10,7 +10,7 @@ import java.awt.*;
 public class Ball {
 
     private int shield;
-    private float ballSpeed;
+    private int ballSpeed;
 
     private Player player;
     private Aura aura;
@@ -41,7 +41,7 @@ public class Ball {
     }
 
     public void accelerateBall() {
-            ballSpeed++;
+        ballSpeed++;
     }
 
     public void slowBall() {
@@ -61,7 +61,7 @@ public class Ball {
 
         return 0;
     }
-    public float getBallSpeed() {
+    public int getBallSpeed() {
         return ballSpeed;
     }
 
