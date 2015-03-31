@@ -12,13 +12,11 @@ public class Ball {
     private int shield;
     private int ballSpeed;
 
-    private Player player;
     private Aura aura;
     private Map map;
     private Point position;
 
-    public Ball(Player player, Aura aura, Map map) {
-        this.player = player;
+    public Ball(Aura aura, Map map) {
         this.aura = aura;
         this.map = map;
 
