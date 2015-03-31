@@ -21,20 +21,20 @@ public class BallTest {
 
     @Test
     public void testCreateBall() {
-        Ball  ball = new Ball(new Player(),new Aura(),new Map());
+        Ball  ball = new Ball(new Aura(),new Map());
         assertNotNull(ball);
     }
 
     @Test
     public void testAcceleration() {
-        Ball ball = new Ball(null, null, null);
+        Ball ball = new Ball(null, null);
         ball.accelerateBall();
         assertEquals(1,(ball.getBallSpeed()));
     }
 
     @Test
     public void testSlow() {
-        Ball ball = new Ball(null, null, null);
+        Ball ball = new Ball(null, null);
         ball.accelerateBall();
         ball.slowBall();
         assertEquals(0, (ball.getBallSpeed()));
@@ -42,7 +42,7 @@ public class BallTest {
 
     @Test
     public void testChangePosition() {
-        Ball ball = new Ball(null, null, null);
+        Ball ball = new Ball(null, null);
         ball.changePosition(5,8);
         assertEquals(5, ball.getX());
         assertEquals(8, ball.getY());
