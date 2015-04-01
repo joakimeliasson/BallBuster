@@ -8,6 +8,7 @@ public class Player {
     private Ball ball;
 
     public Player(int playerId, String playerName, Ball ball){
+        this.playerName = playerName;
         this.playerId = playerId;
         this.ball = ball;
     }
