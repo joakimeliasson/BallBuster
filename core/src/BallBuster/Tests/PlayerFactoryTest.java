@@ -1,9 +1,6 @@
 package BallBuster.Tests;
 
-import BallBuster.Model.Aura;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Map;
-import BallBuster.Model.PlayerFactory;
+import BallBuster.Model.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -16,6 +13,7 @@ public class PlayerFactoryTest {
     @Test
     public void testAddPlayer(){
         PlayerFactory pf = new PlayerFactory();
-        assertNotNull(pf.addPlayer(1, "Player1", new Ball(new Aura(), new Map())));
+        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map()));
+        assertNotNull(player);
     }
 }
