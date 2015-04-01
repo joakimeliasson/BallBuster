@@ -9,7 +9,7 @@ public class Map {
 
     private int HEIGHT;
     private int WIDTH;
-    private ArrayList entities = new ArrayList<>();
+    private ArrayList entities = new ArrayList<Player>();
 
     public Map() {
         new Map(100, 100, 2); //just for now
