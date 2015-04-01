@@ -26,7 +26,7 @@ public class Map {
         for(int i = 0; i < amountOfPlayers; i++) {
             //entities.add(new Player(i, startlocatoin)); i = which player => player 0 uses wasd as keybinds?
         }
-        TiledMap map = new TmxMapLoader().load("dummyMap.tmx");
+        //TiledMap map = new TmxMapLoader().load("core/TiledMaps/dummyMap.tmx");
         //TiledMap map = new TmxMapLoader().load("level1.tmx");
     }
 
