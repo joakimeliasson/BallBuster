@@ -29,9 +29,16 @@ public class PlayerTest {
     }
 
     @Test
-    public void testPlayerName(){
+    public void testGetPlayerName(){
         Player p = new Player(1, "Player1", new Ball(new Aura(), new Map()));
         assertEquals("Player1", p.getPlayerName());
+    }
+
+    @Test
+    public void testSetPlayerName(){
+        Player p = new Player(1, "Player1", new Ball(new Aura(), new Map()));
+        p.setPlayerName("Player2");
+        assertEquals("Player2", p.getPlayerName());
     }
 
     @Test
