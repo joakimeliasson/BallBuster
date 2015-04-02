@@ -1,6 +1,9 @@
 package BallBuster.Model;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import java.awt.*;
 
@@ -12,9 +15,15 @@ public class Ball {
     private int shield;
     private int ballSpeed;
 
+    private Texture ballTexture;
+    private Texture shieldTexture;
+
     private Aura aura;
     private Map map;
     private Point position;
+
+    private Sprite ball;
+    private Sprite shieldSprite;
 
     public Ball(Aura aura, Map map) {
         this.aura = aura;
@@ -23,6 +32,14 @@ public class Ball {
         shield = 100;
         position = new Point(0,0);
         ballSpeed = 0;
+
+        FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
+        ballTexture = new Texture(ballFileHandle);
+        ball = new Sprite(ballTexture,position.x,position.y,ballTexture.getWidth(),ballTexture.getHeight());
+
+        FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
+        shieldTexture = new Texture(shieldFileHandle);
+        shieldSprite = new Sprite(shieldTexture,position.x,position.y,shieldTexture.getWidth(),shieldTexture.getHeight());
     }
 
     public void moveRight() {
@@ -67,6 +84,13 @@ public class Ball {
     }
     public int getY() {
         return position.y;
+    }
+
+    public Sprite getBallSprite() {
+        return ball;
+    }
+    public Sprite getShieldSprite() {
+        return shieldSprite;
     }
 
 }
