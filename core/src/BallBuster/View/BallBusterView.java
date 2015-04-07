@@ -68,16 +68,16 @@ public class BallBusterView implements ApplicationListener {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         debugRenderer.render(world,camera.combined);
-/*
+
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-            ballX -= Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball2.moveLeft();
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
-            ballX += Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball2.moveRight();
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-            ballY += Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball2.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-            ballY -= Gdx.graphics.getDeltaTime() * ballSpeed;
-*/
+            ball2.moveDown();
+
         if(Gdx.input.isKeyPressed(Input.Keys.A))
             ball.moveLeft();
         if(Gdx.input.isKeyPressed(Input.Keys.D))
@@ -90,6 +90,7 @@ public class BallBusterView implements ApplicationListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(ball.getBallSprite(),ball.getBodyPosition().x, ball.getBodyPosition().y,ball.getBallSprite().getWidth()/SCALE,ball.getBallSprite().getHeight()/SCALE);
+        batch.draw(ball2.getBallSprite(),ball2.getBodyPosition().x, ball2.getBodyPosition().y,ball2.getBallSprite().getWidth()/SCALE,ball2.getBallSprite().getHeight()/SCALE);
         batch.end();
 
     }
