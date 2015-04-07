@@ -4,11 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.awt.*;
 
 /**
- * Created by Joakim on 2015-03-30.
+ * Created by Jacob Lundberg on 2015-03-30.
  */
 public class Ball {
 
@@ -22,10 +23,14 @@ public class Ball {
     private Map map;
     private Point position;
 
-    private Sprite ball;
+    private Sprite sprite;
     private Sprite shieldSprite;
 
-    public Ball(Aura aura, Map map) {
+    private Body body;
+
+    private final float SCALE = 100;
+
+    public Ball(Aura aura, Map map, World world) {
         this.aura = aura;
         this.map = map;
 
@@ -35,11 +40,36 @@ public class Ball {
 
         FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
         ballTexture = new Texture(ballFileHandle);
-        ball = new Sprite(ballTexture,position.x,position.y,ballTexture.getWidth(),ballTexture.getHeight());
+        sprite = new Sprite(ballTexture,position.x,position.y,ballTexture.getWidth(),ballTexture.getHeight());
 
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         shieldTexture = new Texture(shieldFileHandle);
         shieldSprite = new Sprite(shieldTexture,position.x,position.y,shieldTexture.getWidth(),shieldTexture.getHeight());
+
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+
+        bodyDef.position.set(sprite.getX(), sprite.getY());
+
+        body = world.createBody(bodyDef);
+
+        //Create the body as a circle
+        CircleShape shape = new CircleShape();
+
+        shape.setRadius(sprite.getWidth()/(2*SCALE));
+
+        //Set physical attributes to the body
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 7f;
+        fixtureDef.friction = 1f;
+        //Make the ball bounce on other bodies
+        fixtureDef.restitution = 1f;
+
+        body.createFixture(fixtureDef);
+
+        //Make the body still when no acceleration are applied
+        body.setLinearDamping(1f);
     }
 
     public void moveRight() {
@@ -68,9 +98,6 @@ public class Ball {
         position.y = y;
     }
 
-    public void wallCollision() {
-
-    }
 
     public int shieldDamage() {
 

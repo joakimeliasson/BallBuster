@@ -41,13 +41,15 @@ public class BallBusterView implements ApplicationListener {
         camera.setToOrtho(false, 1280/SCALE, 720/SCALE);
         camera.update();
 
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+
         //Creating box2d world with no gravity
         world = new World(new Vector2(0, 0), true);
 
         debugRenderer = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
-        Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
+
         FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
         ballTexture = new Texture(ballFileHandle);
         ball = new Sprite(ballTexture, 0, 0, 32, 32);
