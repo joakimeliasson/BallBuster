@@ -28,6 +28,7 @@ public class BallBusterView implements ApplicationListener {
     private Box2DDebugRenderer debugRenderer;
 
     private Ball ball;
+    private Ball ball2;
 
     @Override
     public void create() {
@@ -45,6 +46,7 @@ public class BallBusterView implements ApplicationListener {
         batch = new SpriteBatch();
 
         ball = new Ball(null,null, world);
+        ball2 = new Ball(null,null,world);
 
         Wall groundWall = new Wall(world);
         groundWall.renderWall(0,0,camera.viewportWidth,0);
@@ -87,7 +89,7 @@ public class BallBusterView implements ApplicationListener {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(ball.getBallSprite(), ball.getBody().getPosition().x, ball.getBody().getPosition().y, ball.getBallSprite().getWidth()/SCALE, ball.getBallSprite().getHeight()/SCALE);
+        batch.draw(ball.getBallSprite(),ball.getBodyPosition().x, ball.getBodyPosition().y,ball.getBallSprite().getWidth()/SCALE,ball.getBallSprite().getHeight()/SCALE);
         batch.end();
 
     }

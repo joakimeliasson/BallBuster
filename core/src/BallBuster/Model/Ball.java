@@ -74,6 +74,7 @@ public class Ball {
         body.setLinearDamping(1f);
 
         pos = body.getPosition();
+
     }
 
     public void moveRight() {
@@ -90,7 +91,6 @@ public class Ball {
     }
 
     public int shieldDamage() {
-
         return 0;
     }
 
@@ -102,6 +102,13 @@ public class Ball {
     }
     public Body getBody() {
         return body;
+    }
+    public Vector2 getBodyPosition() {
+        return body.getPosition();
+    }
+
+    private void setSpriteSize() {
+       sprite.setSize(sprite.getWidth()/SCALE, sprite.getHeight()/SCALE);
     }
 
 }
