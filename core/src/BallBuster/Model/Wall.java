@@ -29,7 +29,7 @@ public class Wall {
         wallDef.position.set(x, y);
 
         Body body = world.createBody(wallDef);
-        box.setAsBox(width/2, height/2);
+        box.setAsBox(width, height);
 
         body.createFixture(box, 0.0f);
         //box no longer needed

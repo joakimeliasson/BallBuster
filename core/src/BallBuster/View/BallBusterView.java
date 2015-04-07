@@ -1,6 +1,7 @@
 package BallBuster.View;
 
 import BallBuster.Model.Ball;
+import BallBuster.Model.Wall;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -44,6 +45,18 @@ public class BallBusterView implements ApplicationListener {
         batch = new SpriteBatch();
 
         ball = new Ball(null,null, world);
+
+        Wall groundWall = new Wall(world);
+        groundWall.renderWall(0,0,camera.viewportWidth,0);
+
+        Wall upperWall = new Wall(world);
+        upperWall.renderWall(0,camera.viewportHeight,camera.viewportWidth,0);
+
+        Wall leftWall = new Wall(world);
+        leftWall.renderWall(0,0,0,camera.viewportHeight);
+
+        Wall rightWall = new Wall(world);
+        rightWall.renderWall(camera.viewportWidth,0,0,camera.viewportHeight);
     }
 
     @Override
