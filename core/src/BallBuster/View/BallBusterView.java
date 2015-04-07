@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class BallBusterView implements ApplicationListener {
 
@@ -25,16 +28,23 @@ public class BallBusterView implements ApplicationListener {
     private float ballTwoY;
 
     private OrthographicCamera camera;
+    private World world;
 
+    //SCALE due to speed issues
     private final float SCALE = 100f;
+
+    private Box2DDebugRenderer debugRenderer;
 
     @Override
     public void create() {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1280/SCALE, 720/SCALE);
-
         camera.update();
 
+        //Creating box2d world with no gravity
+        world = new World(new Vector2(0, 0), true);
+
+        debugRenderer = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
         Gdx.gl.glClearColor(135/255f, 206/255f, 235/255f, 1);
@@ -52,6 +62,11 @@ public class BallBusterView implements ApplicationListener {
 
     @Override
     public void render() {
+        world.step(1f/60f, 6, 2);
+
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        debugRenderer.render(world,camera.combined);
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
             ballX -= Gdx.graphics.getDeltaTime() * ballSpeed;
