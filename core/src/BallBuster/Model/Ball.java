@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.awt.*;
@@ -27,6 +28,8 @@ public class Ball {
     private Sprite shieldSprite;
 
     private Body body;
+
+    private Vector2 pos;
 
     private final float SCALE = 100;
 
@@ -70,19 +73,21 @@ public class Ball {
 
         //Make the body still when no acceleration are applied
         body.setLinearDamping(1f);
+
+        pos = body.getPosition();
     }
 
     public void moveRight() {
-        position.x += Gdx.graphics.getDeltaTime() * ballSpeed;
+        body.applyLinearImpulse(0.10f, 0, pos.x, pos.y, true);
     }
     public void moveLeft() {
-        position.x -= Gdx.graphics.getDeltaTime() * ballSpeed;
+        body.applyLinearImpulse(-0.10f, 0, pos.x, pos.y, true);
     }
     public void moveUp() {
-        position.y += Gdx.graphics.getDeltaTime() * ballSpeed;
+        body.applyLinearImpulse(0, 0.10f, pos.x, pos.y, true);
     }
     public void moveDown() {
-        position.y -= Gdx.graphics.getDeltaTime() * ballSpeed;
+        body.applyLinearImpulse(0, -0.10f, pos.x, pos.y, true);
     }
 
     public void accelerateBall() {
@@ -114,7 +119,7 @@ public class Ball {
     }
 
     public Sprite getBallSprite() {
-        return ball;
+        return sprite;
     }
     public Sprite getShieldSprite() {
         return shieldSprite;
