@@ -15,7 +15,6 @@ import java.awt.*;
 public class Ball {
 
     private int shield;
-    private int ballSpeed;
 
     private Texture ballTexture;
     private Texture shieldTexture;
@@ -38,12 +37,10 @@ public class Ball {
         this.map = map;
 
         shield = 100;
-        position = new Point(0,0);
-        ballSpeed = 0;
 
         FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
         ballTexture = new Texture(ballFileHandle);
-        sprite = new Sprite(ballTexture,position.x,position.y,ballTexture.getWidth(),ballTexture.getHeight());
+        sprite = new Sprite(ballTexture,position.x,position.y);
 
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         shieldTexture = new Texture(shieldFileHandle);
@@ -90,32 +87,9 @@ public class Ball {
         body.applyLinearImpulse(0, -0.10f, pos.x, pos.y, true);
     }
 
-    public void accelerateBall() {
-        ballSpeed++;
-    }
-
-    public void slowBall() {
-        ballSpeed--;
-    }
-
-    public void changePosition(int x, int y) {
-        position.x = x;
-        position.y = y;
-    }
-
-
     public int shieldDamage() {
 
         return 0;
-    }
-    public int getBallSpeed() {
-        return ballSpeed;
-    }
-    public int getX() {
-        return position.x;
-    }
-    public int getY() {
-        return position.y;
     }
 
     public Sprite getBallSprite() {
@@ -123,6 +97,9 @@ public class Ball {
     }
     public Sprite getShieldSprite() {
         return shieldSprite;
+    }
+    public Body getBody() {
+        return body;
     }
 
 }
