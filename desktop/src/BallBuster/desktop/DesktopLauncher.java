@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new BallBusterView(), config);
 
-        config.height = Gdx.graphics.getHeight();
-        config.width = Gdx.graphics.getWidth();
+        config.height = 720;
+        config.width = 1280;
     }
 }
