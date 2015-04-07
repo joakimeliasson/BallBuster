@@ -104,8 +104,8 @@ public class BallBusterView implements ApplicationListener {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(ball.getBallSprite(), ball.getBodyPosition().x, ball.getBodyPosition().y, ball.getBallSprite().getWidth() / SCALE, ball.getBallSprite().getHeight() / SCALE);
-        batch.draw(ball2.getBallSprite(),ball2.getBodyPosition().x, ball2.getBodyPosition().y,ball2.getBallSprite().getWidth()/SCALE,ball2.getBallSprite().getHeight()/SCALE);
+        batch.draw(ball.getBallSprite(), ball.getBodyPosition().x, ball.getBodyPosition().y, ball.getWidth(), ball.getHeight());
+        batch.draw(ball2.getBallSprite(),ball2.getBodyPosition().x, ball2.getBodyPosition().y,ball2.getWidth(), ball2.getHeight());
         batch.draw(magnet.getSprite(), magnet.getX(),magnet.getY(),magnet.getWidth(),magnet.getHeight());
         batch.end();
 

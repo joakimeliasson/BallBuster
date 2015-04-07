@@ -106,6 +106,12 @@ public class Ball {
     public Vector2 getBodyPosition() {
         return body.getPosition();
     }
+    public float getWidth() {
+        return sprite.getWidth()/SCALE;
+    }
+    public float getHeight() {
+        return sprite.getHeight()/SCALE;
+    }
 
     private void setSpriteSize() {
        sprite.setSize(sprite.getWidth()/SCALE, sprite.getHeight()/SCALE);
