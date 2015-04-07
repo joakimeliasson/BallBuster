@@ -2,7 +2,7 @@ package BallBuster.View;
 
 import BallBuster.Model.Ball;
 import BallBuster.Model.Tile.BlockTile;
-import BallBuster.Model.Wall;
+import BallBuster.Model.Tile.WallTile;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -53,19 +53,19 @@ public class BallBusterView implements ApplicationListener {
         FileHandle boxFileHandle = Gdx.files.internal("core/images/normal.png");
         Texture boxTexture = new Texture(boxFileHandle);
 
-        magnet = new BlockTile(camera.viewportWidth/2,camera.viewportHeight/2,null,world, boxTexture);
+        magnet = new BlockTile(camera.viewportWidth/2, camera.viewportHeight/2, world, boxTexture);
 
-        Wall groundWall = new Wall(world);
-        groundWall.renderWall(0,0,camera.viewportWidth,0);
+        WallTile groundWall = new WallTile(0, 0, world);
+        groundWall.renderWall(camera.viewportWidth,0);
 
-        Wall upperWall = new Wall(world);
-        upperWall.renderWall(0,camera.viewportHeight,camera.viewportWidth,0);
+        WallTile upperWall = new WallTile(0,camera.viewportHeight, world);
+        upperWall.renderWall(camera.viewportWidth,0);
 
-        Wall leftWall = new Wall(world);
-        leftWall.renderWall(0,0,0,camera.viewportHeight);
+        WallTile leftWall = new WallTile(0,0,world);
+        leftWall.renderWall(0, camera.viewportHeight);
 
-        Wall rightWall = new Wall(world);
-        rightWall.renderWall(camera.viewportWidth,0,0,camera.viewportHeight);
+        WallTile rightWall = new WallTile(camera.viewportWidth,0, world);
+        rightWall.renderWall(0, camera.viewportHeight);
     }
 
     @Override

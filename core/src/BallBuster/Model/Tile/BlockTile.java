@@ -18,7 +18,7 @@ public class BlockTile extends Tile {
     private Sprite boxSprite;
     private Body body;
 
-    public BlockTile(float x, float y, String color, World world, Texture texture) {
+    public BlockTile(float x, float y, World world, Texture texture) {
         super(x, y);
 
         boxSprite = new Sprite(texture);
