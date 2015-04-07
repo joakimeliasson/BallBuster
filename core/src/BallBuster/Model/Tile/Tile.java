@@ -5,18 +5,18 @@ package BallBuster.Model.Tile;
  */
 public abstract class Tile {
 
-    private int x;
-    private int y;
-    public Tile(int x, int y){
+    private float x;
+    private float y;
+    public Tile(float x, float y){
         this.x = x;
         this.y = y;
     }
 
-    public int getX(){
+    public float getX(){
         return x;
     }
 
-    public int getY(){
+    public float getY(){
         return y;
     }
 
