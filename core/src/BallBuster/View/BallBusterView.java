@@ -32,8 +32,6 @@ public class BallBusterView implements ApplicationListener {
 
     private BlockTile magnet;
 
-
-    private Sprite test;
     @Override
     public void create() {
         camera = new OrthographicCamera();
@@ -86,6 +84,10 @@ public class BallBusterView implements ApplicationListener {
             ball2.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
             ball2.moveDown();
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
+            magnet.activateMagnet(ball2.getBody());
+        else
+            magnet.resetRestitution(ball2.getBody());
 
         if(Gdx.input.isKeyPressed(Input.Keys.A))
             ball.moveLeft();
@@ -95,6 +97,10 @@ public class BallBusterView implements ApplicationListener {
             ball.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.S))
             ball.moveDown();
+        if(Gdx.input.isKeyPressed(Input.Keys.ALT_LEFT))
+            magnet.activateMagnet(ball.getBody());
+        else
+            magnet.resetRestitution(ball.getBody());
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();

@@ -16,15 +16,10 @@ import java.awt.geom.RectangularShape;
 public class BlockTile extends Tile {
 
     private Sprite boxSprite;
-    private World world;
-    private PolygonShape box;
-    private BodyDef boxDef;
     private Body body;
 
     public BlockTile(float x, float y, String color, World world, Texture texture) {
         super(x, y);
-
-        this.world = world;
 
         boxSprite = new Sprite(texture);
 
@@ -56,8 +51,16 @@ public class BlockTile extends Tile {
     public float getHeight() {
         return boxSprite.getHeight()/100;
     }
-    public void setPosition(float x, float y) {
-        boxSprite.setPosition(x,y);
+    public void activateMagnet(Body body) {
+        float xDiff = this.body.getPosition().x - body.getPosition().x;
+        float yDiff = this.body.getPosition().y - body.getPosition().y;
+        float rad2 = xDiff*xDiff + yDiff*yDiff;
+
+        body.getFixtureList().get(0).setRestitution(0f);
+        body.applyLinearImpulse(((2f * xDiff)/rad2), (2f * yDiff) / rad2, body.getPosition().x, body.getPosition().y,true);
+    }
+    public void resetRestitution(Body body) {
+        body.getFixtureList().get(0).setRestitution(1f);
     }
 
 
