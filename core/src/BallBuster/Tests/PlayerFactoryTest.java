@@ -14,28 +14,28 @@ public class PlayerFactoryTest {
     @Test
     public void testAddPlayer(){
         PlayerFactory pf = new PlayerFactory();
-        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map()));
+        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map(),null));
         assertNotNull(player);
     }
 
     @Test
     public void testPlayerId(){
         PlayerFactory pf = new PlayerFactory();
-        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map()));
+        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map(),null));
         assertEquals(1,player.getPlayerId());
     }
 
     @Test
     public void testPlayerName(){
         PlayerFactory pf = new PlayerFactory();
-        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map()));
+        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map(),null));
         assertEquals("Player1", player.getPlayerName());
     }
 
     @Test
     public void testSetPlayerName(){
         PlayerFactory pf = new PlayerFactory();
-        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map()));
+        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map(),null));
         pf.setPlayerName(player,"Player2");
         assertEquals("Player2", player.getPlayerName());
     }
@@ -43,7 +43,7 @@ public class PlayerFactoryTest {
     @Test
     public void testPlayerBall(){
         PlayerFactory pf = new PlayerFactory();
-        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map()));
+        Player player = pf.addPlayer(1,"Player1", new Ball(new Aura(), new Map(),null));
         assertNotNull(player.getPlayerBall());
     }
 }

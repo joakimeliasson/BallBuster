@@ -40,11 +40,13 @@ public class Ball {
 
         FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
         ballTexture = new Texture(ballFileHandle);
-        sprite = new Sprite(ballTexture,position.x,position.y);
+        sprite = new Sprite(ballTexture);
 
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         shieldTexture = new Texture(shieldFileHandle);
-        shieldSprite = new Sprite(shieldTexture,position.x,position.y,shieldTexture.getWidth(),shieldTexture.getHeight());
+        shieldSprite = new Sprite(shieldTexture);
+
+        sprite.setPosition(1f,1f);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;

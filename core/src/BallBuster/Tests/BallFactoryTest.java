@@ -17,7 +17,7 @@ public class BallFactoryTest {
 
     @Test
     public void testCreateBall() {
-        BallFactory ballFactory = new BallFactory(new Aura(), new Map());
+        BallFactory ballFactory = new BallFactory(new Aura(), new Map(),null);
         Ball ball = ballFactory.createBall();
         assertNotNull(ball);
     }

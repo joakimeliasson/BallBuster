@@ -1,5 +1,6 @@
 package BallBuster.View;
 
+import BallBuster.Model.Ball;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,16 +17,6 @@ import com.badlogic.gdx.physics.box2d.World;
 public class BallBusterView implements ApplicationListener {
 
     private SpriteBatch batch;
-    private Texture ballTexture;
-    private Sprite ball;
-    private Sprite ballTwo;
-
-    private float ballSpeed = 200.0f; // 100 pixels per second.
-    private float ballX;
-    private float ballY;
-
-    private float ballTwoX;
-    private float ballTwoY;
 
     private OrthographicCamera camera;
     private World world;
@@ -34,6 +25,8 @@ public class BallBusterView implements ApplicationListener {
     private final float SCALE = 100f;
 
     private Box2DDebugRenderer debugRenderer;
+
+    private Ball ball;
 
     @Override
     public void create() {
@@ -50,16 +43,7 @@ public class BallBusterView implements ApplicationListener {
 
         batch = new SpriteBatch();
 
-        FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
-        ballTexture = new Texture(ballFileHandle);
-        ball = new Sprite(ballTexture, 0, 0, 32, 32);
-        ballTwo = new Sprite(ballTexture, 0, 0, 32, 32);
-
-        ballX = 0;
-        ballY = 0;
-
-        ballTwoX = 200;
-        ballTwoY = 200;
+        ball = new Ball(null,null, world);
     }
 
     @Override
@@ -69,7 +53,7 @@ public class BallBusterView implements ApplicationListener {
         camera.update();
         batch.setProjectionMatrix(camera.combined);
         debugRenderer.render(world,camera.combined);
-
+/*
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
             ballX -= Gdx.graphics.getDeltaTime() * ballSpeed;
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
@@ -78,20 +62,19 @@ public class BallBusterView implements ApplicationListener {
             ballY += Gdx.graphics.getDeltaTime() * ballSpeed;
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
             ballY -= Gdx.graphics.getDeltaTime() * ballSpeed;
-
+*/
         if(Gdx.input.isKeyPressed(Input.Keys.A))
-            ballTwoX -= Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball.moveLeft();
         if(Gdx.input.isKeyPressed(Input.Keys.D))
-            ballTwoX += Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball.moveRight();
         if(Gdx.input.isKeyPressed(Input.Keys.W))
-            ballTwoY += Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.S))
-            ballTwoY -= Gdx.graphics.getDeltaTime() * ballSpeed;
+            ball.moveDown();
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(ball, (int) ballX, (int) ballY);
-        batch.draw(ballTwo, (int) ballTwoX, (int) ballTwoY);
+        batch.draw(ball.getBallSprite(), ball.getBody().getPosition().x, ball.getBody().getPosition().y, ball.getBallSprite().getWidth()/SCALE, ball.getBallSprite().getHeight()/SCALE);
         batch.end();
 
     }
