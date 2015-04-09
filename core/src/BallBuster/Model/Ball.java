@@ -30,7 +30,7 @@ public class Ball {
 
     private Vector2 pos;
 
-    private final float SCALE = 100;
+    private final float SCALE = 100f;
 
     public Ball(Aura aura, Map map, World world) {
         this.aura = aura;
@@ -41,6 +41,7 @@ public class Ball {
         FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
         ballTexture = new Texture(ballFileHandle);
         sprite = new Sprite(ballTexture);
+        sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         shieldTexture = new Texture(shieldFileHandle);
@@ -51,7 +52,7 @@ public class Ball {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
-        bodyDef.position.set(sprite.getX(), sprite.getY());
+        bodyDef.position.set((sprite.getX() +sprite.getWidth()/2)/SCALE, (sprite.getY() + sprite.getHeight()/2)/SCALE);
 
         body = world.createBody(bodyDef);
 
@@ -72,6 +73,7 @@ public class Ball {
 
         //Make the body still when no acceleration are applied
         body.setLinearDamping(1f);
+        shape.dispose();
 
         pos = body.getPosition();
 
@@ -115,6 +117,10 @@ public class Ball {
 
     private void setSpriteSize() {
        sprite.setSize(sprite.getWidth()/SCALE, sprite.getHeight()/SCALE);
+    }
+    public void setPosition() {
+        sprite.setPosition((body.getPosition().x*SCALE)-sprite.getWidth()/2, (body.getPosition().y*SCALE)-sprite.getHeight()/2);
+        //sprite.setRotation((float)Math.toDegrees(body.getAngle()));
     }
 
 }
