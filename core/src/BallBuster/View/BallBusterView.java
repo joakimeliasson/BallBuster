@@ -114,8 +114,9 @@ public class BallBusterView extends ApplicationAdapter {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(ball.getBallSprite(), ball.getBallSprite().getX(), ball.getBallSprite().getY(), ball.getBallSprite().getOriginX(), ball.getBallSprite().getOriginY(),ball.getBallSprite().getWidth(),ball.getBallSprite().getHeight(),ball.getBallSprite().getScaleX(),ball.getBallSprite().getScaleY(),ball.getBallSprite().getRotation());
+        batch.draw(ball.getBallSprite(), ball.getBallSprite().getX(), ball.getBallSprite().getY(), ball.getBallSprite().getOriginX(), ball.getBallSprite().getOriginY(), ball.getBallSprite().getWidth(), ball.getBallSprite().getHeight(), ball.getBallSprite().getScaleX(), ball.getBallSprite().getScaleY(), ball.getBallSprite().getRotation());
         batch.draw(ball2.getBallSprite(), ball2.getBallSprite().getX(), ball2.getBallSprite().getY(), ball2.getBallSprite().getOriginX(), ball2.getBallSprite().getOriginY(),ball2.getBallSprite().getWidth(),ball2.getBallSprite().getHeight(),ball2.getBallSprite().getScaleX(),ball2.getBallSprite().getScaleY(),ball2.getBallSprite().getRotation());
+        batch.draw(magnet.getSprite(), magnet.getSprite().getX(), magnet.getSprite().getY(), magnet.getSprite().getOriginX(), magnet.getSprite().getOriginY(),magnet.getSprite().getWidth(),magnet.getSprite().getHeight(),magnet.getSprite().getScaleX(),magnet.getSprite().getScaleY(),magnet.getSprite().getRotation());
         //batch.draw(magnet.getSprite(), magnet.getX(),magnet.getY(),magnet.getWidth(),magnet.getHeight());
         batch.end();
 

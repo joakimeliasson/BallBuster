@@ -47,8 +47,6 @@ public class Ball {
         shieldTexture = new Texture(shieldFileHandle);
         shieldSprite = new Sprite(shieldTexture);
 
-        sprite.setPosition(1f,1f);
-
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
 
@@ -104,19 +102,6 @@ public class Ball {
     }
     public Body getBody() {
         return body;
-    }
-    public Vector2 getBodyPosition() {
-        return body.getPosition();
-    }
-    public float getWidth() {
-        return sprite.getWidth()/SCALE;
-    }
-    public float getHeight() {
-        return sprite.getHeight()/SCALE;
-    }
-
-    private void setSpriteSize() {
-       sprite.setSize(sprite.getWidth()/SCALE, sprite.getHeight()/SCALE);
     }
     public void setPosition() {
         sprite.setPosition((body.getPosition().x*SCALE)-sprite.getWidth()/2, (body.getPosition().y*SCALE)-sprite.getHeight()/2);

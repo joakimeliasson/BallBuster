@@ -1,11 +1,10 @@
 package BallBuster.Model.Tile;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.awt.geom.RectangularShape;
 
@@ -15,41 +14,52 @@ import java.awt.geom.RectangularShape;
 
 public class BlockTile extends Tile {
 
-    private Sprite boxSprite;
+    private Sprite sprite;
     private Body body;
+
+    private final float SCALE = 100f;
 
     public BlockTile(float x, float y, World world, Texture texture) {
         super(x, y);
 
-        boxSprite = new Sprite(texture);
+        sprite = new Sprite(texture);
 
-        PolygonShape magnetShape = new PolygonShape();
+        sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 
-        magnetShape.setAsBox(boxSprite.getWidth()/(200), boxSprite.getHeight()/(200));
-        BodyDef bd = new BodyDef();
-        bd.type = BodyDef.BodyType.StaticBody;
-        bd.position.set(x,y);
-        body = world.createBody(bd);
-        body.createFixture(magnetShape, 0f);
-        magnetShape.dispose();
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
+
+        bodyDef.position.set((sprite.getX() +sprite.getWidth()/2)/SCALE, (sprite.getY() + sprite.getHeight()/2)/SCALE);
+
+        body = world.createBody(bodyDef);
+
+        //Create the body as a circle
+        PolygonShape shape = new PolygonShape();
+
+        shape.setAsBox(sprite.getWidth()/2 /SCALE, sprite.getHeight()/2 /SCALE);
+
+        //Set physical attributes to the body
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 7f;
+        fixtureDef.friction = 1f;
+
+        body.createFixture(fixtureDef);
+
+        //Make the body still when no acceleration are applied
+        shape.dispose();
 
 
     }
 
     public Sprite getSprite() {
-        return boxSprite;
+        return sprite;
     }
     public float getX() {
         return body.getPosition().x;
     }
     public float getY() {
         return body.getPosition().y;
-    }
-    public float getWidth() {
-        return boxSprite.getWidth()/100;
-    }
-    public float getHeight() {
-        return boxSprite.getHeight()/100;
     }
     public void activateMagnet(Body body) {
         float xDiff = this.body.getPosition().x - body.getPosition().x;
