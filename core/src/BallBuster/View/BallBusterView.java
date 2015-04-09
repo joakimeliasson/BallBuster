@@ -17,9 +17,13 @@ import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
+import java.util.ArrayList;
+
 public class BallBusterView extends ApplicationAdapter {
 
     private SpriteBatch batch;
+
+    private ArrayList<Sprite> spriteList;
 
     private OrthographicCamera camera;
     private World world;
@@ -54,6 +58,8 @@ public class BallBusterView extends ApplicationAdapter {
 
         batch = new SpriteBatch();
 
+        spriteList = new ArrayList<Sprite>();
+
         FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
         Texture ballTexture = new Texture(ballFileHandle);
 
@@ -81,14 +87,26 @@ public class BallBusterView extends ApplicationAdapter {
         ball = new Ball(-camera.viewportWidth/2+verticalTexture.getWidth(), -camera.viewportHeight/2+horizontalTexture.getHeight(), null,null, world, ballTexture);
         ball2 = new Ball(600f, camera.viewportHeight/2-horizontalTexture.getHeight()*2, null,null,world, ball2Texture);
 
+        spriteList.add(ball.getBallSprite());
+        spriteList.add(ball2.getBallSprite());
+
         rightBox = new BlockTile(300f, 20f, world, rightTexture);
         groundBox = new BlockTile(-100f, -300f, world, groundTexture);
         leftBox = new BlockTile(-400, 20f, world, leftTexture);
+
+        spriteList.add(rightBox.getSprite());
+        spriteList.add(groundBox.getSprite());
+        spriteList.add(leftBox.getSprite());
 
         groundWall = new BlockTile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, horizontalTexture);
         upperWall = new BlockTile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight(), world, horizontalTexture);
         leftWall = new BlockTile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, verticalTexture);
         rightWall = new BlockTile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2, world, verticalTexture);
+
+        spriteList.add(groundWall.getSprite());
+        spriteList.add(upperWall.getSprite());
+        spriteList.add(leftWall.getSprite());
+        spriteList.add(rightWall.getSprite());
 
     }
 
@@ -136,17 +154,10 @@ public class BallBusterView extends ApplicationAdapter {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(ball.getBallSprite(), ball.getBallSprite().getX(), ball.getBallSprite().getY(), ball.getBallSprite().getOriginX(), ball.getBallSprite().getOriginY(), ball.getBallSprite().getWidth(), ball.getBallSprite().getHeight(), ball.getBallSprite().getScaleX(), ball.getBallSprite().getScaleY(), ball.getBallSprite().getRotation());
-        batch.draw(ball2.getBallSprite(), ball2.getBallSprite().getX(), ball2.getBallSprite().getY(), ball2.getBallSprite().getOriginX(), ball2.getBallSprite().getOriginY(),ball2.getBallSprite().getWidth(),ball2.getBallSprite().getHeight(),ball2.getBallSprite().getScaleX(),ball2.getBallSprite().getScaleY(),ball2.getBallSprite().getRotation());
-
-        batch.draw(rightBox.getSprite(), rightBox.getSprite().getX(), rightBox.getSprite().getY(), rightBox.getSprite().getOriginX(), rightBox.getSprite().getOriginY(),rightBox.getSprite().getWidth(),rightBox.getSprite().getHeight(),rightBox.getSprite().getScaleX(),rightBox.getSprite().getScaleY(),rightBox.getSprite().getRotation());
-        batch.draw(groundBox.getSprite(), groundBox.getSprite().getX(), groundBox.getSprite().getY(), groundBox.getSprite().getOriginX(), groundBox.getSprite().getOriginY(),groundBox.getSprite().getWidth(),groundBox.getSprite().getHeight(),groundBox.getSprite().getScaleX(),groundBox.getSprite().getScaleY(),groundBox.getSprite().getRotation());
-        batch.draw(leftBox.getSprite(), leftBox.getSprite().getX(), leftBox.getSprite().getY(), leftBox.getSprite().getOriginX(), leftBox.getSprite().getOriginY(),leftBox.getSprite().getWidth(),leftBox.getSprite().getHeight(),leftBox.getSprite().getScaleX(),leftBox.getSprite().getScaleY(),leftBox.getSprite().getRotation());
-
-        batch.draw(groundWall.getSprite(), groundWall.getSprite().getX(), groundWall.getSprite().getY(), groundWall.getSprite().getOriginX(), groundWall.getSprite().getOriginY(),groundWall.getSprite().getWidth(),groundWall.getSprite().getHeight(),groundWall.getSprite().getScaleX(),groundWall.getSprite().getScaleY(),groundWall.getSprite().getRotation());
-        batch.draw(upperWall.getSprite(), upperWall.getSprite().getX(), upperWall.getSprite().getY(), upperWall.getSprite().getOriginX(), upperWall.getSprite().getOriginY(),upperWall.getSprite().getWidth(),upperWall.getSprite().getHeight(),upperWall.getSprite().getScaleX(),upperWall.getSprite().getScaleY(),upperWall.getSprite().getRotation());
-        batch.draw(leftWall.getSprite(), leftWall.getSprite().getX(), leftWall.getSprite().getY(), leftWall.getSprite().getOriginX(), leftWall.getSprite().getOriginY(),leftWall.getSprite().getWidth(),leftWall.getSprite().getHeight(),leftWall.getSprite().getScaleX(),leftWall.getSprite().getScaleY(),leftWall.getSprite().getRotation());
-        batch.draw(rightWall.getSprite(), rightWall.getSprite().getX(), rightWall.getSprite().getY(), rightWall.getSprite().getOriginX(), rightWall.getSprite().getOriginY(),rightWall.getSprite().getWidth(),rightWall.getSprite().getHeight(),rightWall.getSprite().getScaleX(),rightWall.getSprite().getScaleY(),rightWall.getSprite().getRotation());
+        for(Sprite sprite : spriteList) {
+            batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
+                    sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+        }
         batch.end();
 
         debugRenderer.render(world,debugMatrix);
