@@ -1,5 +1,7 @@
 package BallBuster.Model.Tile;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
 
 /**
@@ -10,33 +12,39 @@ public class WallTile extends Tile {
     private World world;
     private BodyDef wallDef;
     private Body body;
+    private Sprite sprite;
+    private final float SCALE = 100f;
 
-    public WallTile(float x, float y, World world) {
+    public WallTile(float x, float y, World world, Texture texture) {
         super(x, y);
-        this.world = world;
 
+        sprite = new Sprite(texture);
 
-    }
-    //Set position of wall and create definition
+        sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
 
-    public void renderWall(float width, float height) {
-        //wallDef.position.set(super.getX(), super.getY());
-        wallDef =new BodyDef();
-        //Making the body static
-        wallDef.type = BodyDef.BodyType.StaticBody;
-        wallDef.position.set(super.getX(), super.getY());
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.StaticBody;
 
-        FixtureDef def = new FixtureDef();
+        bodyDef.position.set((sprite.getX() +sprite.getWidth()/2)/SCALE, (sprite.getY() + sprite.getHeight()/2)/SCALE);
 
-        EdgeShape shape = new EdgeShape();
-        shape.set(-width/2,-height/2,width/2,-height/2);
-        def.shape = shape;
-        body = world.createBody(wallDef);
+        body = world.createBody(bodyDef);
 
-        body.createFixture(def);
-        //box no longer needed
+        //Create the body as a box
+        PolygonShape shape = new PolygonShape();
+
+        shape.setAsBox(sprite.getWidth()/2 /SCALE, sprite.getHeight()/2 /SCALE);
+
+        //Set physical attributes to the body
+        FixtureDef fixtureDef = new FixtureDef();
+        fixtureDef.shape = shape;
+        fixtureDef.density = 7f;
+        fixtureDef.friction = 1f;
+
+        body.createFixture(fixtureDef);
+
+        //Make the body still when no acceleration are applied
         shape.dispose();
-        }
     }
+}
 
 

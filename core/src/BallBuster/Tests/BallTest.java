@@ -21,7 +21,7 @@ public class BallTest {
 
     @Test
     public void testCreateBall() {
-        Ball  ball = new Ball(new Aura(),new Map(), null);
+        Ball  ball = new Ball(1f,1f, new Aura(),new Map(), null,null);
         assertNotNull(ball);
     }
 

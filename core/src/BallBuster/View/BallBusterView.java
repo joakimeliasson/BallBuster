@@ -33,7 +33,13 @@ public class BallBusterView extends ApplicationAdapter {
     private Ball ball;
     private Ball ball2;
 
-    private BlockTile magnet;
+    private BlockTile groundWall;
+    private BlockTile upperWall;
+    private BlockTile leftWall;
+    private BlockTile rightWall;
+    private BlockTile leftBox;
+    private BlockTile rightBox;
+    private BlockTile groundBox;
 
     @Override
     public void create() {
@@ -44,34 +50,46 @@ public class BallBusterView extends ApplicationAdapter {
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-
-        //Creating box2d world with no gravity
-
-
-
+        Gdx.gl.glClearColor(225f/255f, 227f/255f, 174f/255f, 1f);
 
         batch = new SpriteBatch();
 
-        ball = new Ball(null,null, world);
-        ball2 = new Ball(null,null,world);
+        FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
+        Texture ballTexture = new Texture(ballFileHandle);
+
+        FileHandle ball2FileHandle = Gdx.files.internal("core/images/rightBall.png");
+        Texture ball2Texture = new Texture(ball2FileHandle);
 
         FileHandle boxFileHandle = Gdx.files.internal("core/images/normal.png");
         Texture boxTexture = new Texture(boxFileHandle);
 
-        magnet = new BlockTile(camera.viewportWidth/2, camera.viewportHeight/2, world, boxTexture);
+        FileHandle horizontalFileHandle = Gdx.files.internal("core/images/wallHorizontal.png");
+        Texture horizontalTexture = new Texture(horizontalFileHandle);
 
-        WallTile groundWall = new WallTile(0, 0, world);
-        groundWall.renderWall(Gdx.graphics.getWidth()/SCALE, Gdx.graphics.getHeight()/SCALE);
+        FileHandle verticalFileHandle = Gdx.files.internal("core/images/wallVertical.png");
+        Texture verticalTexture = new Texture(verticalFileHandle);
 
-        //WallTile upperWall = new WallTile(0,Gdx.graphics.getHeight()/SCALE, world);
-        //upperWall.renderWall(Gdx.graphics.getWidth()/SCALE,0);
+        FileHandle rightFileHandle = Gdx.files.internal("core/images/rightBox.png");
+        Texture rightTexture = new Texture(rightFileHandle);
 
-        //WallTile leftWall = new WallTile(0,0,world);
-       // leftWall.renderWall(0, Gdx.graphics.getHeight()/SCALE);
+        FileHandle leftFileHandle = Gdx.files.internal("core/images/leftBox.png");
+        Texture leftTexture = new Texture(leftFileHandle);
 
-      //  WallTile rightWall = new WallTile(Gdx.graphics.getWidth(),0, world);
-      //  rightWall.renderWall(0, Gdx.graphics.getHeight()/SCALE);
+        FileHandle groundFileHandle = Gdx.files.internal("core/images/groundBox.png");
+        Texture groundTexture = new Texture(groundFileHandle);
+
+        ball = new Ball(-camera.viewportWidth/2+verticalTexture.getWidth(), -camera.viewportHeight/2+horizontalTexture.getHeight(), null,null, world, ballTexture);
+        ball2 = new Ball(600f, camera.viewportHeight/2-horizontalTexture.getHeight()*2, null,null,world, ball2Texture);
+
+        rightBox = new BlockTile(300f, 20f, world, rightTexture);
+        groundBox = new BlockTile(-100f, -300f, world, groundTexture);
+        leftBox = new BlockTile(-400, 20f, world, leftTexture);
+
+        groundWall = new BlockTile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, horizontalTexture);
+        upperWall = new BlockTile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight(), world, horizontalTexture);
+        leftWall = new BlockTile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, verticalTexture);
+        rightWall = new BlockTile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2, world, verticalTexture);
+
     }
 
     @Override
@@ -95,9 +113,9 @@ public class BallBusterView extends ApplicationAdapter {
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
             ball2.moveDown();
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            magnet.activateMagnet(ball2.getBody());
+            groundBox.activateMagnet(ball2.getBody());
         else
-            magnet.resetRestitution(ball2.getBody());
+            groundBox.resetRestitution(ball2.getBody());
 
         if(Gdx.input.isKeyPressed(Input.Keys.A))
             ball.moveLeft();
@@ -107,17 +125,28 @@ public class BallBusterView extends ApplicationAdapter {
             ball.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.S))
             ball.moveDown();
-        if(Gdx.input.isKeyPressed(Input.Keys.ALT_LEFT))
-            magnet.activateMagnet(ball.getBody());
-        else
-            magnet.resetRestitution(ball.getBody());
+        if(Gdx.input.isKeyPressed(Input.Keys.ALT_LEFT)) {
+            rightBox.activateMagnet(ball.getBody());
+            leftBox.activateMagnet(ball.getBody());
+        }
+        else {
+            rightBox.resetRestitution(ball.getBody());
+            leftBox.resetRestitution(ball.getBody());
+        }
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(ball.getBallSprite(), ball.getBallSprite().getX(), ball.getBallSprite().getY(), ball.getBallSprite().getOriginX(), ball.getBallSprite().getOriginY(), ball.getBallSprite().getWidth(), ball.getBallSprite().getHeight(), ball.getBallSprite().getScaleX(), ball.getBallSprite().getScaleY(), ball.getBallSprite().getRotation());
         batch.draw(ball2.getBallSprite(), ball2.getBallSprite().getX(), ball2.getBallSprite().getY(), ball2.getBallSprite().getOriginX(), ball2.getBallSprite().getOriginY(),ball2.getBallSprite().getWidth(),ball2.getBallSprite().getHeight(),ball2.getBallSprite().getScaleX(),ball2.getBallSprite().getScaleY(),ball2.getBallSprite().getRotation());
-        batch.draw(magnet.getSprite(), magnet.getSprite().getX(), magnet.getSprite().getY(), magnet.getSprite().getOriginX(), magnet.getSprite().getOriginY(),magnet.getSprite().getWidth(),magnet.getSprite().getHeight(),magnet.getSprite().getScaleX(),magnet.getSprite().getScaleY(),magnet.getSprite().getRotation());
-        //batch.draw(magnet.getSprite(), magnet.getX(),magnet.getY(),magnet.getWidth(),magnet.getHeight());
+
+        batch.draw(rightBox.getSprite(), rightBox.getSprite().getX(), rightBox.getSprite().getY(), rightBox.getSprite().getOriginX(), rightBox.getSprite().getOriginY(),rightBox.getSprite().getWidth(),rightBox.getSprite().getHeight(),rightBox.getSprite().getScaleX(),rightBox.getSprite().getScaleY(),rightBox.getSprite().getRotation());
+        batch.draw(groundBox.getSprite(), groundBox.getSprite().getX(), groundBox.getSprite().getY(), groundBox.getSprite().getOriginX(), groundBox.getSprite().getOriginY(),groundBox.getSprite().getWidth(),groundBox.getSprite().getHeight(),groundBox.getSprite().getScaleX(),groundBox.getSprite().getScaleY(),groundBox.getSprite().getRotation());
+        batch.draw(leftBox.getSprite(), leftBox.getSprite().getX(), leftBox.getSprite().getY(), leftBox.getSprite().getOriginX(), leftBox.getSprite().getOriginY(),leftBox.getSprite().getWidth(),leftBox.getSprite().getHeight(),leftBox.getSprite().getScaleX(),leftBox.getSprite().getScaleY(),leftBox.getSprite().getRotation());
+
+        batch.draw(groundWall.getSprite(), groundWall.getSprite().getX(), groundWall.getSprite().getY(), groundWall.getSprite().getOriginX(), groundWall.getSprite().getOriginY(),groundWall.getSprite().getWidth(),groundWall.getSprite().getHeight(),groundWall.getSprite().getScaleX(),groundWall.getSprite().getScaleY(),groundWall.getSprite().getRotation());
+        batch.draw(upperWall.getSprite(), upperWall.getSprite().getX(), upperWall.getSprite().getY(), upperWall.getSprite().getOriginX(), upperWall.getSprite().getOriginY(),upperWall.getSprite().getWidth(),upperWall.getSprite().getHeight(),upperWall.getSprite().getScaleX(),upperWall.getSprite().getScaleY(),upperWall.getSprite().getRotation());
+        batch.draw(leftWall.getSprite(), leftWall.getSprite().getX(), leftWall.getSprite().getY(), leftWall.getSprite().getOriginX(), leftWall.getSprite().getOriginY(),leftWall.getSprite().getWidth(),leftWall.getSprite().getHeight(),leftWall.getSprite().getScaleX(),leftWall.getSprite().getScaleY(),leftWall.getSprite().getRotation());
+        batch.draw(rightWall.getSprite(), rightWall.getSprite().getX(), rightWall.getSprite().getY(), rightWall.getSprite().getOriginX(), rightWall.getSprite().getOriginY(),rightWall.getSprite().getWidth(),rightWall.getSprite().getHeight(),rightWall.getSprite().getScaleX(),rightWall.getSprite().getScaleY(),rightWall.getSprite().getRotation());
         batch.end();
 
         debugRenderer.render(world,debugMatrix);

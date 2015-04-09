@@ -19,31 +19,31 @@ public class PlayerTest {
 
     @Test
     public void testAddPlayer() {
-        assertNotNull(new Player(1,"Player1", new Ball(new Aura(), new Map(),null)));
+        assertNotNull(new Player(1,"Player1", new Ball(1f,1f,new Aura(), new Map(),null, null)));
     }
 
     @Test
     public void testPlayerId(){
-        Player p = new Player(1, "Player1", new Ball(new Aura(), new Map(),null));
+        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
         assertEquals(1,(p.getPlayerId()));
     }
 
     @Test
     public void testGetPlayerName(){
-        Player p = new Player(1, "Player1", new Ball(new Aura(), new Map(),null));
+        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
         assertEquals("Player1", p.getPlayerName());
     }
 
     @Test
     public void testSetPlayerName(){
-        Player p = new Player(1, "Player1", new Ball(new Aura(), new Map(),null));
+        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
         p.setPlayerName("Player2");
         assertEquals("Player2", p.getPlayerName());
     }
 
     @Test
     public void testPlayerHasBall(){
-        Player p = new Player(1, "Player1", new Ball(new Aura(), new Map(),null));
+        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
         assertNotNull(p.getPlayerBall());
     }
 

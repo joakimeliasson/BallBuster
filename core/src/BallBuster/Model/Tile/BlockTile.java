@@ -24,16 +24,16 @@ public class BlockTile extends Tile {
 
         sprite = new Sprite(texture);
 
-        sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+        sprite.setPosition(x, y);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
         bodyDef.position.set((sprite.getX() +sprite.getWidth()/2)/SCALE, (sprite.getY() + sprite.getHeight()/2)/SCALE);
-
+        
         body = world.createBody(bodyDef);
 
-        //Create the body as a circle
+        //Create the body as a box
         PolygonShape shape = new PolygonShape();
 
         shape.setAsBox(sprite.getWidth()/2 /SCALE, sprite.getHeight()/2 /SCALE);
@@ -65,9 +65,12 @@ public class BlockTile extends Tile {
         float xDiff = this.body.getPosition().x - body.getPosition().x;
         float yDiff = this.body.getPosition().y - body.getPosition().y;
         float rad2 = xDiff*xDiff + yDiff*yDiff;
+        double tmp = (double)rad2;
 
-        body.getFixtureList().get(0).setRestitution(0f);
-        body.applyLinearImpulse(((2f * xDiff)/rad2), (2f * yDiff) / rad2, body.getPosition().x, body.getPosition().y,true);
+        if(Math.sqrt(tmp) < 2f) {
+            body.getFixtureList().get(0).setRestitution(0f);
+            body.applyLinearImpulse(((2f * xDiff) / rad2), (2f * yDiff) / rad2, body.getPosition().x, body.getPosition().y, true);
+        }
     }
     public void resetRestitution(Body body) {
         body.getFixtureList().get(0).setRestitution(1f);

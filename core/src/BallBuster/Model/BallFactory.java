@@ -23,6 +23,6 @@ public class BallFactory {
 
 
     public Ball createBall() {
-        return new Ball(aura, map, world);
+        return new Ball(1f, 1f,aura, map, world, null);
     }
 }

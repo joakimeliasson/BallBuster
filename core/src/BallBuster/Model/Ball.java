@@ -32,16 +32,14 @@ public class Ball {
 
     private final float SCALE = 100f;
 
-    public Ball(Aura aura, Map map, World world) {
+    public Ball(float x, float y, Aura aura, Map map, World world, Texture texture) {
         this.aura = aura;
         this.map = map;
 
         shield = 100;
 
-        FileHandle ballFileHandle = Gdx.files.internal("core/images/ball.png");
-        ballTexture = new Texture(ballFileHandle);
-        sprite = new Sprite(ballTexture);
-        sprite.setPosition(-sprite.getWidth()/2, -sprite.getHeight()/2);
+        sprite = new Sprite(texture);
+        sprite.setPosition(x, y);
 
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         shieldTexture = new Texture(shieldFileHandle);
