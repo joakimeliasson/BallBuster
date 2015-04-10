@@ -54,7 +54,7 @@ public class BallBusterView extends ApplicationAdapter {
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Gdx.gl.glClearColor(225f/255f, 227f/255f, 174f/255f, 1f);
+        Gdx.gl.glClearColor(106f/255f, 165f/255f, 255f/255f, 1f);
 
         batch = new SpriteBatch();
 
