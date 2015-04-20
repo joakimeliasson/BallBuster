@@ -9,13 +9,15 @@ public class Aura {
     private boolean auraStatus;
     Texture auraTexture;
     Sprite auraSprite;
+    Ball b;
 
     public Aura(){
         this.auraStatus = false;
 
-        FileHandle shieldFileHandle = Gdx.files.internal("core/images/aura.png");
+        FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         auraTexture = new Texture(shieldFileHandle);
         auraSprite = new Sprite(auraTexture);
+        auraSprite.setPosition(b.getBody().getPosition().x, b.getBody().getPosition().y);
     }
 
     public void setAuraStatus(boolean b){
