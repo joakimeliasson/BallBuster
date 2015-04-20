@@ -96,7 +96,7 @@ public class GameController {
         Texture auraTexture = new Texture(auraFileHandle);
 
 
-        ball = new Ball(-camera.viewportWidth/2+verticalTexture.getWidth(), -camera.viewportHeight/2+horizontalTexture.getHeight(), null,null, world, ballTexture);
+        ball = new Ball(-camera.viewportWidth/2+verticalTexture.getWidth()+100, -camera.viewportHeight/2+horizontalTexture.getHeight()+100, null,null, world, ballTexture);
         ball2 = new Ball(600f, camera.viewportHeight/2-horizontalTexture.getHeight()*2, null,null,world, ball2Texture);
 
         spriteList.add(ball.getBallSprite());
