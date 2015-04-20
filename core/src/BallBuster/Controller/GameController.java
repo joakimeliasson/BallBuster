@@ -1,5 +1,6 @@
 package BallBuster.Controller;
 
+import BallBuster.Model.Aura;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Tile.BlockTile;
 import BallBuster.Model.Tile.Tile;
@@ -50,6 +51,8 @@ public class GameController {
     private BlockTile rightBox;
     private BlockTile groundBox;
 
+    private Aura aura;
+
     public GameController() {
     }
     public void create() {
@@ -89,6 +92,10 @@ public class GameController {
         FileHandle groundFileHandle = Gdx.files.internal("core/images/groundBox.png");
         Texture groundTexture = new Texture(groundFileHandle);
 
+        FileHandle auraFileHandle = Gdx.files.internal("core/images/shield.png");
+        Texture auraTexture = new Texture(auraFileHandle);
+
+
         ball = new Ball(-camera.viewportWidth/2+verticalTexture.getWidth(), -camera.viewportHeight/2+horizontalTexture.getHeight(), null,null, world, ballTexture);
         ball2 = new Ball(600f, camera.viewportHeight/2-horizontalTexture.getHeight()*2, null,null,world, ball2Texture);
 
@@ -115,6 +122,10 @@ public class GameController {
         spriteList.add(upperWall.getSprite());
         spriteList.add(leftWall.getSprite());
         spriteList.add(rightWall.getSprite());
+
+        aura = new Aura(ball);
+
+        spriteList.add(aura.getAuraSprite());
     }
     public void render() {
         camera.update();
@@ -125,6 +136,7 @@ public class GameController {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(SCALE, SCALE, 0);
 
         move();
+        aura.setAuraPosition();
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();

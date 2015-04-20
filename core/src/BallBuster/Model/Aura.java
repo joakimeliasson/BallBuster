@@ -12,12 +12,20 @@ public class Aura {
     Ball b;
 
     public Aura(){
+
+    }
+    public Aura(Ball ball){
         this.auraStatus = false;
+        b = ball;
 
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
         auraTexture = new Texture(shieldFileHandle);
         auraSprite = new Sprite(auraTexture);
-        auraSprite.setPosition(b.getBody().getPosition().x, b.getBody().getPosition().y);
+        auraSprite.setPosition(b.getBallSprite().getX(), b.getBallSprite().getY());
+    }
+
+    public void setAuraPosition(){
+        auraSprite.setPosition(b.getBallSprite().getX(), b.getBallSprite().getY());
     }
 
     public void setAuraStatus(boolean b){
@@ -26,6 +34,10 @@ public class Aura {
 
     public boolean getAuraStatus(){
         return auraStatus;
+    }
+
+    public Sprite getAuraSprite(){
+        return this.auraSprite;
     }
 
 }
