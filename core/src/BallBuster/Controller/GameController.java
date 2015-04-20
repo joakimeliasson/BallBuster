@@ -158,10 +158,6 @@ public class GameController {
 
         tileSize = layer.getTileWidth();
 
-        System.out.println("layerheight " + layer.getHeight());
-        System.out.println("layerwidth " + layer.getWidth());
-        System.out.println("tilesize" + tileSize);
-
         for(int row = 0; row < layer.getHeight(); row++) {
             for(int col = 0; col < layer.getWidth(); col++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(col, row);
@@ -194,7 +190,7 @@ public class GameController {
             }
         }
 
-        //** set camera to map focus map here
+        /** set camera to map focus map here
         int mapHeight,mapWidth;
         mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
         mapWidth =  map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
@@ -205,7 +201,7 @@ public class GameController {
         //camera scale
         camera.viewportHeight = mapHeight;
         camera.viewportWidth = mapWidth;
-        camera.update();//*/
+        camera.update();*/
 
     }
     public void render() {
