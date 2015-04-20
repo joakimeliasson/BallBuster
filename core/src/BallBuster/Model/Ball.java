@@ -88,8 +88,11 @@ public class Ball {
         body.applyLinearImpulse(0, -0.10f, pos.x, pos.y, true);
     }
 
-    public int shieldDamage() {
-        return 0;
+    public void shieldDamage(int damage) {
+         shield = shield -damage;
+    }
+    public int getShield() {
+        return shield;
     }
 
     public Sprite getBallSprite() {

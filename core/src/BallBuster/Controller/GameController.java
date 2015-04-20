@@ -54,6 +54,9 @@ public class GameController {
     private Aura aura;
     private Aura aura2;
 
+    private ArrayList<Tile> wallList;
+    private ArrayList<Ball> ballList;
+
     public GameController() {
     }
     public void create() {
@@ -100,6 +103,10 @@ public class GameController {
         ball = new Ball(-camera.viewportWidth/2+verticalTexture.getWidth(), -camera.viewportHeight/2+horizontalTexture.getHeight(), null,null, world, ballTexture);
         ball2 = new Ball(600f, camera.viewportHeight/2-horizontalTexture.getHeight()*2, null,null,world, ball2Texture);
 
+        ballList = new ArrayList<Ball>();
+        ballList.add(ball);
+        ballList.add(ball2);
+
         spriteList.add(ball.getBallSprite());
         spriteList.add(ball2.getBallSprite());
 
@@ -118,6 +125,12 @@ public class GameController {
         upperWall = new Tile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight(), world, horizontalTexture);
         leftWall = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, verticalTexture);
         rightWall = new Tile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2, world, verticalTexture);
+
+        wallList = new ArrayList<Tile>();
+        wallList.add(groundWall);
+        wallList.add(upperWall);
+        wallList.add(leftWall);
+        wallList.add(rightWall);
 
         spriteList.add(groundWall.getSprite());
         spriteList.add(upperWall.getSprite());
@@ -138,6 +151,9 @@ public class GameController {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(SCALE, SCALE, 0);
 
         move();
+
+        world.setContactListener(new CollisionController(wallList, ballList));
+
         if (aura.getAuraStatus()) {
             if (!spriteList.contains(aura.getAuraSprite()))
                 spriteList.add(aura.getAuraSprite());
