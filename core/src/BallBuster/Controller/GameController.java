@@ -136,7 +136,15 @@ public class GameController {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(SCALE, SCALE, 0);
 
         move();
-        aura.setAuraPosition();
+        if (aura.getAuraStatus()) {
+            if (!spriteList.contains(aura.getAuraSprite()))
+                spriteList.add(aura.getAuraSprite());
+            aura.setAuraPosition();
+        } else {
+            if (spriteList.contains(aura.getAuraSprite())){
+                spriteList.remove(aura.getAuraSprite());
+            }
+        }
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
@@ -162,9 +170,14 @@ public class GameController {
             moveController2.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
             ball2.moveDown();
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE))
-            groundBox.activateMagnet(ball2.getBody());
-        else
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if (!aura.getAuraStatus()) {
+                groundBox.activateMagnet(ball2.getBody());
+                aura.setAuraStatus(true);
+            } else {
+                aura.setAuraStatus(false);
+            }
+        }else
             groundBox.resetRestitution(ball2.getBody());
 
         if(Gdx.input.isKeyPressed(Input.Keys.A))
@@ -175,11 +188,15 @@ public class GameController {
             moveController.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.S))
             moveController.moveDown();
-        if(Gdx.input.isKeyPressed(Input.Keys.ALT_LEFT)) {
-            rightBox.activateMagnet(ball.getBody());
-            leftBox.activateMagnet(ball.getBody());
-        }
-        else {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT)) {
+            if (!aura.getAuraStatus()) {
+                rightBox.activateMagnet(ball.getBody());
+                leftBox.activateMagnet(ball.getBody());
+                aura.setAuraStatus(true);
+            } else {
+                aura.setAuraStatus(false);
+            }
+        } else {
             rightBox.resetRestitution(ball.getBody());
             leftBox.resetRestitution(ball.getBody());
         }
