@@ -52,6 +52,7 @@ public class GameController {
     private BlockTile groundBox;
 
     private Aura aura;
+    private Aura aura2;
 
     public GameController() {
     }
@@ -124,6 +125,7 @@ public class GameController {
         spriteList.add(rightWall.getSprite());
 
         aura = new Aura(ball);
+        aura2 = new Aura(ball2);
 
         spriteList.add(aura.getAuraSprite());
     }
@@ -140,9 +142,21 @@ public class GameController {
             if (!spriteList.contains(aura.getAuraSprite()))
                 spriteList.add(aura.getAuraSprite());
             aura.setAuraPosition();
+            leftBox.activateMagnet(ball.getBody());
+            rightBox.activateMagnet(ball.getBody());
         } else {
             if (spriteList.contains(aura.getAuraSprite())){
                 spriteList.remove(aura.getAuraSprite());
+            }
+        }
+        if (aura2.getAuraStatus()) {
+            if (!spriteList.contains(aura2.getAuraSprite()))
+                spriteList.add(aura2.getAuraSprite());
+            aura2.setAuraPosition();
+            groundBox.activateMagnet(ball2.getBody());
+        } else {
+            if (spriteList.contains(aura2.getAuraSprite())){
+                spriteList.remove(aura2.getAuraSprite());
             }
         }
 
@@ -170,12 +184,11 @@ public class GameController {
             moveController2.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
             ball2.moveDown();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            if (!aura.getAuraStatus()) {
-                groundBox.activateMagnet(ball2.getBody());
-                aura.setAuraStatus(true);
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            if (!aura2.getAuraStatus()) {
+                aura2.setAuraStatus(true);
             } else {
-                aura.setAuraStatus(false);
+                aura2.setAuraStatus(false);
             }
         }else
             groundBox.resetRestitution(ball2.getBody());
@@ -188,10 +201,8 @@ public class GameController {
             moveController.moveUp();
         if(Gdx.input.isKeyPressed(Input.Keys.S))
             moveController.moveDown();
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT)) {
             if (!aura.getAuraStatus()) {
-                rightBox.activateMagnet(ball.getBody());
-                leftBox.activateMagnet(ball.getBody());
                 aura.setAuraStatus(true);
             } else {
                 aura.setAuraStatus(false);
