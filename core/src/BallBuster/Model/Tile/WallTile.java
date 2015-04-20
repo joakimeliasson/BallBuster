@@ -16,7 +16,7 @@ public class WallTile extends Tile {
     private final float SCALE = 100f;
 
     public WallTile(float x, float y, World world, Texture texture) {
-        super(x, y);
+        super(x, y, world, texture);
 
         sprite = new Sprite(texture);
 

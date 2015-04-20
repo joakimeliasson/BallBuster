@@ -2,6 +2,7 @@ package BallBuster.View;
 
 import BallBuster.Model.Ball;
 import BallBuster.Model.Tile.BlockTile;
+import BallBuster.Model.Tile.Tile;
 import BallBuster.Model.Tile.WallTile;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.ApplicationListener;
@@ -37,10 +38,10 @@ public class BallBusterView extends ApplicationAdapter {
     private Ball ball;
     private Ball ball2;
 
-    private BlockTile groundWall;
-    private BlockTile upperWall;
-    private BlockTile leftWall;
-    private BlockTile rightWall;
+    private Tile groundWall;
+    private Tile upperWall;
+    private Tile leftWall;
+    private Tile rightWall;
     private BlockTile leftBox;
     private BlockTile rightBox;
     private BlockTile groundBox;
@@ -98,10 +99,10 @@ public class BallBusterView extends ApplicationAdapter {
         spriteList.add(groundBox.getSprite());
         spriteList.add(leftBox.getSprite());
 
-        groundWall = new BlockTile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, horizontalTexture);
-        upperWall = new BlockTile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight(), world, horizontalTexture);
-        leftWall = new BlockTile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, verticalTexture);
-        rightWall = new BlockTile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2, world, verticalTexture);
+        groundWall = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, horizontalTexture);
+        upperWall = new Tile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight(), world, horizontalTexture);
+        leftWall = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2, world, verticalTexture);
+        rightWall = new Tile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2, world, verticalTexture);
 
         spriteList.add(groundWall.getSprite());
         spriteList.add(upperWall.getSprite());

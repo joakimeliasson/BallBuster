@@ -1,5 +1,8 @@
 package BallBuster.Model.Tile;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.physics.box2d.World;
+
 /**
  * Created by Matthias on 2015-03-30.
  */
@@ -8,8 +11,9 @@ public class PowerupTile extends Tile {
     private String powerup;
 
 
-    public PowerupTile(int x, int y) {
-        super(x, y);
+    public PowerupTile(float x, float y, World world, Texture texture) {
+
+        super(x, y, world, texture);
     }
 
     //@ensure String is valid
