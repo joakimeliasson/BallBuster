@@ -13,8 +13,8 @@ public class Tile {
     private float x;
     private float y;
 
-    private Sprite sprite;
-    private Body body;
+    public Sprite sprite;
+    public Body body;
 
     private final float SCALE = 100f;
 

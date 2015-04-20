@@ -14,9 +14,6 @@ import java.awt.geom.RectangularShape;
 
 public class BlockTile extends Tile {
 
-    private Sprite sprite;
-    private Body body;
-
     private final float SCALE = 100f;
 
     public BlockTile(float x, float y, World world, Texture texture) {
@@ -24,8 +21,8 @@ public class BlockTile extends Tile {
     }
 
     public void activateMagnet(Body body) {
-        float xDiff = this.body.getPosition().x - body.getPosition().x;
-        float yDiff = this.body.getPosition().y - body.getPosition().y;
+        float xDiff = super.body.getPosition().x - body.getPosition().x;
+        float yDiff = super.body.getPosition().y - body.getPosition().y;
         float rad2 = xDiff*xDiff + yDiff*yDiff;
         double tmp = (double)rad2;
 
