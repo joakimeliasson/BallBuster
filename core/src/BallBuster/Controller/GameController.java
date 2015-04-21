@@ -2,6 +2,7 @@ package BallBuster.Controller;
 
 import BallBuster.Model.Aura;
 import BallBuster.Model.Ball;
+import BallBuster.Model.Map;
 import BallBuster.Model.Tile.BlockTile;
 import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.Gdx;
@@ -40,6 +41,7 @@ public class GameController {
     private OrthographicCamera camera;
     private World world;
     private TiledMap map;
+    private Map mapModel;
 
     //SCALE due to speed issues
     private final float SCALE = 100f;
@@ -165,60 +167,13 @@ public class GameController {
 
         //spriteList.add(aura.getAuraSprite());
 
-
         //Load TileMap
-        //https://www.youtube.com/watch?v=IwM-LSwZCfw
-        map = new TmxMapLoader().load("core/res/TiledMaps/dummyMap.tmx");
-        mapRenderer = new OrthogonalTiledMapRenderer(map);
+        this.mapModel = new Map("core/res/TiledMaps/dummyMap.tmx", world, SCALE);
+        //map = new TmxMapLoader().load("core/res/TiledMaps/dummyMap.tmx");
 
-        TiledMapTileLayer layer = (TiledMapTileLayer) map.getLayers().get("BlackBlock");
-
-        tileSize = layer.getTileWidth();
-
-        for(int row = 0; row < layer.getHeight(); row++) {
-            for(int col = 0; col < layer.getWidth(); col++) {
-                TiledMapTileLayer.Cell cell = layer.getCell(col, row);
-
-                if(cell == null) {
-                    continue;
-                }
-                if(cell.getTile() == null) {
-                    continue;
-                }
-
-                BodyDef bodyDef = new BodyDef();
-                bodyDef.type = BodyDef.BodyType.StaticBody;
-
-                bodyDef.position.set(((col*tileSize) + tileSize/2)/SCALE, (tileSize/2 + row*( tileSize ))/SCALE);
-
-                Body body = world.createBody(bodyDef);
-
-                //Create the body as a box
-                PolygonShape shape = new PolygonShape();
-
-                shape.setAsBox(tileSize/2/SCALE, tileSize/2 /SCALE);
-
-                //Set physical attributes to the body
-                FixtureDef fixtureDef = new FixtureDef();
-                fixtureDef.shape = shape;
-                fixtureDef.density = 7f;
-                fixtureDef.friction = 1f;
-                body.createFixture(fixtureDef);
-            }
-        }
-
-        /** set camera to map focus map here
-        int mapHeight,mapWidth;
-        mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
-        mapWidth =  map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
-
-        //camera position
-        camera.position.set(mapWidth/2, mapHeight/2, 0);
-
-        //camera scale
-        camera.viewportHeight = mapHeight;
-        camera.viewportWidth = mapWidth;
-        camera.update();*/
+        mapRenderer = new OrthogonalTiledMapRenderer(mapModel.getTileMap());
+        //mapRenderer = new OrthogonalTiledMapRenderer(map);
+        mapRenderer.setView(camera);
 
     }
     public void render() {
@@ -236,8 +191,8 @@ public class GameController {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //Draw TileMap
-        mapRenderer.setView(camera);
-        mapRenderer.render();
+        //mapRenderer.setView(camera); //Not sure if this needs to be here
+        mapRenderer.render(); //TODO Move this to view
 
         batch.begin();
         auraController.renderAura(batch);

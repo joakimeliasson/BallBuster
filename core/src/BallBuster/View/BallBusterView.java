@@ -39,6 +39,5 @@ public class BallBusterView extends Game {
     public void render() {
         super.render();
         gameController.render();
-
     }
 }

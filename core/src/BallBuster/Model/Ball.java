@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class Ball {
 
-    private int shield;
+    private double shield;
 
     private Texture ballTexture;
     private Texture shieldTexture;
@@ -88,10 +88,10 @@ public class Ball {
         body.applyLinearImpulse(0, -0.10f, pos.x, pos.y, true);
     }
 
-    public void shieldDamage(int damage) {
+    public void shieldDamage(double damage) {
          shield = shield -damage;
     }
-    public int getShield() {
+    public double getShield() {
         return shield;
     }
 

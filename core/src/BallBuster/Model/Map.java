@@ -1,54 +1,81 @@
 package BallBuster.Model;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 
 /**
  * Created by Johan Segerlund on 2015-03-30.
+ * //https://www.youtube.com/watch?v=IwM-LSwZCfw
  */
 public class Map {
 
-    private int HEIGHT;
-    private int WIDTH;
-    private ArrayList entities = new ArrayList<Player>();
+    private World world;
+    private TiledMap tiledMap;
 
-    public Map() {
-        new Map(100, 100, 2); //just for now
-    }
+    private float blackTileSize;
 
-    public Map(int height, int width, int amountOfPlayers) {
-        this.HEIGHT = height;
-        this.WIDTH = width;
+    public Map() {}
 
-        //Put all entities that needs to be updated here, players, power up timer etc...
-        for(int i = 0; i < amountOfPlayers; i++) {
-            //entities.add(new Player(i, startlocatoin)); i = which player => player 0 uses wasd as keybinds?
+    public Map(String mapLocation, World world, float SCALE) {
+
+        //tiledMap = new TmxMapLoader().load("core/res/TiledMaps/dummyMap.tmx");
+        tiledMap = new TmxMapLoader().load(mapLocation);
+
+        this.world = world;
+
+        /*
+         *  Create Box2d physics from blackboxs here
+         */
+        TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("BlackBlock");
+        this.blackTileSize = layer.getTileWidth();
+        for(int row = 0; row < layer.getHeight(); row++) {
+            for(int col = 0; col < layer.getWidth(); col++) {
+                TiledMapTileLayer.Cell cell = layer.getCell(col, row);
+
+                if(cell == null) {continue; }
+                if(cell.getTile() == null) {continue; }
+
+                BodyDef bodyDef = new BodyDef();
+                bodyDef.type = BodyDef.BodyType.StaticBody;
+
+                bodyDef.position.set(((col* blackTileSize) + blackTileSize /2)/SCALE, (blackTileSize /2 + row*(blackTileSize))/SCALE);
+
+                Body body = world.createBody(bodyDef);
+
+                //Create the body as a box
+                PolygonShape shape = new PolygonShape();
+
+                shape.setAsBox(blackTileSize /2/SCALE, blackTileSize /2 /SCALE);
+
+                //Set physical attributes to the body
+                FixtureDef fixtureDef = new FixtureDef();
+                fixtureDef.shape = shape;
+                fixtureDef.density = 7f;
+                fixtureDef.friction = 1f;
+                body.createFixture(fixtureDef);
+            }
         }
-        //TiledMap map = new TmxMapLoader().load("core/TiledMaps/dummyMap.tmx");
-        //TiledMap map = new TmxMapLoader().load("level1.tmx");
+
+        /** set camera to map focus map here
+        int mapHeight,mapWidth;
+        mapHeight = map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
+        mapWidth =  map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+
+        //camera position
+        camera.position.set(mapWidth/2, mapHeight/2, 0);
+
+        //camera scale
+        camera.viewportHeight = mapHeight;
+        camera.viewportWidth = mapWidth;
+        camera.update();*/
+
     }
 
-    /**
-     * Return the tile object at given position
-     * @param x coordinate (pixels?)
-     * @param y coordinate (pixels?)
-     * @return the tile
-     */
-    public Object getTile(int x, int y) {
-        return null;
+    public TiledMap getTileMap() {
+        return tiledMap;
     }
-
-    /**
-     * Updates all content on the map.
-     */
-    public void update() {
-        for(int i = 0; i < entities.size();i++) {
-            //players.get(i).update();
-            //update power up timer?
-        }
-    }
-
-
 }
