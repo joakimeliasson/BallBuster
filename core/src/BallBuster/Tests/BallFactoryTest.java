@@ -17,7 +17,7 @@ public class BallFactoryTest {
 
     @Test
     public void testCreateBall() {
-        BallFactory ballFactory = new BallFactory(new Aura(), new Map(),null);
+        BallFactory ballFactory = new BallFactory(new Aura(), new Map(),null); //TODO Does it really need map? /Johan
         Ball ball = ballFactory.createBall();
         assertNotNull(ball);
     }
