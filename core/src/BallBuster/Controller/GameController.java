@@ -30,6 +30,9 @@ public class GameController {
     private MoveController moveController;
     private MoveController moveController2;
 
+    private AuraController auraController;
+    private AuraController auraController2;
+
     private SpriteBatch batch;
 
     private ArrayList<Sprite> spriteList;
@@ -146,7 +149,21 @@ public class GameController {
         aura = new Aura(ball);
         aura2 = new Aura(ball2);
 
-        spriteList.add(aura.getAuraSprite());
+        aura.createAnimation();
+        aura2.createAnimation();
+
+        ArrayList<BlockTile> blockTiles = new ArrayList<BlockTile>();
+        blockTiles.add(rightBox);
+        blockTiles.add(leftBox);
+
+        auraController = new AuraController(aura, blockTiles, ball);
+
+        ArrayList<BlockTile> blockTiles2 = new ArrayList<BlockTile>();
+        blockTiles2.add(groundBox);
+
+        auraController2 = new AuraController(aura2, blockTiles2, ball2);
+
+        //spriteList.add(aura.getAuraSprite());
 
 
         //Load TileMap
@@ -216,36 +233,15 @@ public class GameController {
 
         world.setContactListener(new CollisionController(wallList, ballList));
 
-        if (aura.getAuraStatus()) {
-            if (!spriteList.contains(aura.getAuraSprite()))
-                spriteList.add(aura.getAuraSprite());
-            aura.setAuraPosition();
-            leftBox.activateMagnet(ball.getBody());
-            rightBox.activateMagnet(ball.getBody());
-        } else {
-            if (spriteList.contains(aura.getAuraSprite())){
-                spriteList.remove(aura.getAuraSprite());
-            }
-        }
-        if (aura2.getAuraStatus()) {
-            if (!spriteList.contains(aura2.getAuraSprite()))
-                spriteList.add(aura2.getAuraSprite());
-            aura2.setAuraPosition();
-            groundBox.activateMagnet(ball2.getBody());
-        } else {
-            if (spriteList.contains(aura2.getAuraSprite())){
-                spriteList.remove(aura2.getAuraSprite());
-            }
-        }
-
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //Draw TileMap
         mapRenderer.setView(camera);
         mapRenderer.render();
 
-
         batch.begin();
+        auraController.renderAura(batch);
+        auraController2.renderAura(batch);
         for(Sprite sprite : spriteList) {
             batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                     sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
