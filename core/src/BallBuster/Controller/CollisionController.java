@@ -28,17 +28,23 @@ public class CollisionController implements ContactListener{
 
         for (int k = 0; k < ballList.size(); k++) {
             for (int i = 0; i < tileList.size(); i++) {
-                if (a == ballList.get(k).getBody() && b == tileList.get(i).body) {
-                    ballList.get(k).shieldDamage(10);
-                    System.out.println(ballList.get(k).getShield());
-                } else if (a == tileList.get(i).body && b == ballList.get(k).getBody()) {
-                    ballList.get(k).shieldDamage(10);
-                    System.out.println(ballList.get(k).getShield());
+                 if (a == tileList.get(i).body && b == ballList.get(k).getBody()) {
+                    ballList.get(k).shieldDamage(damage(ballList.get(k)));
+                    System.out.println("Shield: "+ballList.get(k).getShield());
                 }
             }
         }
 
     }
+
+    public double damage(Ball ball){
+        double x = Math.pow(2, Math.abs(ball.getBody().getLinearVelocity().x));
+        double y = Math.pow(2, Math.abs(ball.getBody().getLinearVelocity().y));
+        double dmg = Math.sqrt(x+y);
+        System.out.println("Damage: "+dmg+"\n");
+        return dmg;
+    }
+
 
     @Override
     public void endContact(Contact contact) {

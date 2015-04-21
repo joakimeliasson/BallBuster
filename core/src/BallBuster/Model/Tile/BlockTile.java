@@ -27,8 +27,9 @@ public class BlockTile extends Tile {
         double tmp = (double)rad2;
 
         if(Math.sqrt(tmp) < 2f) {
+
             body.getFixtureList().get(0).setRestitution(0f);
-            body.applyLinearImpulse(((2f * xDiff) / rad2), (2f * yDiff) / rad2, body.getPosition().x, body.getPosition().y, true);
+            body.applyLinearImpulse(((1f * xDiff) / rad2), (1f * yDiff) / rad2, body.getPosition().x, body.getPosition().y, true);
         }
     }
     public void resetRestitution(Body body) {
