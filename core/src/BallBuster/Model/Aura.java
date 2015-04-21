@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Aura {
     private boolean auraStatus = true;
     Texture auraTexture;
-    Sprite auraSprite;
     Ball b;
 
     private Sprite sprite;
@@ -32,15 +31,6 @@ public class Aura {
     public Aura(Ball ball){
         this.auraStatus = false;
         b = ball;
-
-        FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
-        auraTexture = new Texture(shieldFileHandle);
-        auraSprite = new Sprite(auraTexture);
-        auraSprite.setPosition((b.getBody().getPosition().x*100)-auraSprite.getWidth()/2, (b.getBody().getPosition().y*100)-auraSprite.getHeight()/2);
-    }
-
-    public void setAuraPosition(){
-        auraSprite.setPosition((b.getBody().getPosition().x*100)-auraSprite.getWidth()/2, (b.getBody().getPosition().y*100)-auraSprite.getHeight()/2);
     }
 
     public void setAuraStatus(boolean b){
@@ -51,9 +41,6 @@ public class Aura {
         return auraStatus;
     }
 
-    public Sprite getAuraSprite(){
-        return this.auraSprite;
-    }
 
     public void createAnimation() {
         walkSheet = new Texture(Gdx.files.internal("core/images/animation.png"));
