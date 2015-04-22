@@ -1,0 +1,33 @@
+Meeting Agenda
+
+  Date: 2015-04-20
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+
+Get Aura class animations working
+Make ball take damage when it collides with a wall
+Get maps from TiledMapEditor
+Create a initial menu or a launcher
+
+2. Reports (15 min) from previous meeting
+Jacob fixed the physics so the balls and tiles are now bodies that can handle collisions.
+Joakim wrote the aura class and started implementing it in our GUI. Still no animations.
+
+
+3. Discussion items (35 min)
+Aura discussions.
+Map & menu discussions.
+
+4. Outcomes and assignments (5 min)
+Aura is now fully up and running (except for the final animation).
+Map from TiledMapEditor is now consisting of tile bodies.
+
+
+
+5. Wrap up
+Until next meeting we will work on getting code coverage working, PMD and FindBugs.
+Next meeting will take place 22/04-2015 at 15:00 in 3508E (Group room in Idéläran)
