@@ -3,9 +3,9 @@ package BallBuster.Model;
 @author Joakim
 */
 public class Player {
-    private int playerId;
+    private final int playerId;
     private String playerName;
-    private Ball ball;
+    private final Ball ball;
 
     public Player(int playerId, String playerName, Ball ball){
         this.playerName = playerName;

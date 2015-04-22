@@ -101,6 +101,7 @@ project(":html") {
 
 project(":core") {
     apply plugin: "java"
+    apply plugin: 'pmd'
 
 
     dependencies {
