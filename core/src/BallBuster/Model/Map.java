@@ -1,5 +1,8 @@
 package BallBuster.Model;
 
+import BallBuster.Model.Tile.BlackTile;
+import BallBuster.Model.Tile.Tile;
+import BallBuster.Model.Tile.WhiteTile;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -15,23 +18,18 @@ public class Map {
 
     private World world;
     private TiledMap tiledMap;
-
-    private float blackTileSize;
+    private ArrayList<Tile> tiles = new ArrayList<>();
 
     public Map() {}
 
-    public Map(String mapLocation, World world, float SCALE) {
-
-        //tiledMap = new TmxMapLoader().load("core/res/TiledMaps/dummyMap.tmx");
-        tiledMap = new TmxMapLoader().load(mapLocation);
-
+    public Map(String mapLocation, World world) {
+        this.tiledMap = new TmxMapLoader().load(mapLocation); // "core/res/TiledMaps/dummyMap.tmx"
         this.world = world;
 
         /*
          *  Create Box2d physics from blackboxs here
          */
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("BlackBlock");
-        this.blackTileSize = layer.getTileWidth();
         for(int row = 0; row < layer.getHeight(); row++) {
             for(int col = 0; col < layer.getWidth(); col++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(col, row);
@@ -39,26 +37,27 @@ public class Map {
                 if(cell == null) {continue; }
                 if(cell.getTile() == null) {continue; }
 
-                BodyDef bodyDef = new BodyDef();
-                bodyDef.type = BodyDef.BodyType.StaticBody;
-
-                bodyDef.position.set(((col* blackTileSize) + blackTileSize /2)/SCALE, (blackTileSize /2 + row*(blackTileSize))/SCALE);
-
-                Body body = world.createBody(bodyDef);
-
-                //Create the body as a box
-                PolygonShape shape = new PolygonShape();
-
-                shape.setAsBox(blackTileSize /2/SCALE, blackTileSize /2 /SCALE);
-
-                //Set physical attributes to the body
-                FixtureDef fixtureDef = new FixtureDef();
-                fixtureDef.shape = shape;
-                fixtureDef.density = 7f;
-                fixtureDef.friction = 1f;
-                body.createFixture(fixtureDef);
+                BlackTile tile = new BlackTile(col * layer.getTileWidth(),row * layer.getTileHeight(),world ,layer.getTileWidth(),layer.getTileHeight());
+                tiles.add(tile);
             }
         }
+
+        /*
+         *  Create Box2d physics from whiteboxs here
+         */
+        layer = (TiledMapTileLayer) tiledMap.getLayers().get("WhiteBlock");
+        for(int row = 0; row < layer.getHeight(); row++) {
+            for(int col = 0; col < layer.getWidth(); col++) {
+                TiledMapTileLayer.Cell cell = layer.getCell(col, row);
+
+                if(cell == null) {continue; }
+                if(cell.getTile() == null) {continue; }
+
+                WhiteTile tile = new WhiteTile(col * layer.getTileWidth(),row * layer.getTileHeight(),world ,layer.getTileWidth(),layer.getTileHeight());
+                tiles.add(tile);
+            }
+        }
+
 
         /** set camera to map focus map here
         int mapHeight,mapWidth;

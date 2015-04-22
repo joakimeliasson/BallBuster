@@ -166,7 +166,7 @@ public class GameController {
         auraController2 = new AuraController(aura2, blockTiles2, ball2);
 
         //Load TileMap
-        this.mapModel = new Map("core/res/TiledMaps/dummyMap.tmx", world, SCALE);
+        this.mapModel = new Map("core/res/TiledMaps/dummyMap.tmx", world);
         //map = new TmxMapLoader().load("core/res/TiledMaps/dummyMap.tmx");
 
         mapRenderer = new OrthogonalTiledMapRenderer(mapModel.getTileMap());
