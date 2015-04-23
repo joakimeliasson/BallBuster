@@ -18,7 +18,7 @@ public class Map {
 
     private World world;
     private TiledMap tiledMap;
-    private ArrayList<Tile> tiles = new ArrayList<>();
+    private ArrayList<Tile> tiles = new ArrayList<Tile>();
 
     public Map() {}
 

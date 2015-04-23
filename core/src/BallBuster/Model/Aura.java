@@ -63,4 +63,7 @@ public class Aura {
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
     }
+    public Ball getBall() {
+        return b;
+    }
 }

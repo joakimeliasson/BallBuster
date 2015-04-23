@@ -29,14 +29,14 @@ import java.util.ArrayList;
 public class GameController {
 
     private MoveController moveController;
-    private MoveController moveController2;
 
     private AuraController auraController;
-    private AuraController auraController2;
 
     private SpriteBatch batch;
 
     private ArrayList<Sprite> spriteList;
+    private ArrayList<BlockTile> blockTiles;
+    private ArrayList<BlockTile> blockTiles2;
 
     private OrthographicCamera camera;
     private World world;
@@ -121,8 +121,7 @@ public class GameController {
         spriteList.add(ball.getBallSprite());
         spriteList.add(ball2.getBallSprite());
 
-        moveController = new MoveController(ball);
-        moveController2 = new MoveController(ball2);
+        moveController = new MoveController();
 
         rightBox = new BlockTile(300f, 20f, world, rightTexture);
         groundBox = new BlockTile(-100f, -300f, world, groundTexture);
@@ -154,16 +153,14 @@ public class GameController {
         aura.createAnimation();
         aura2.createAnimation();
 
-        ArrayList<BlockTile> blockTiles = new ArrayList<BlockTile>();
+        blockTiles = new ArrayList<BlockTile>();
         blockTiles.add(rightBox);
         blockTiles.add(leftBox);
 
-        auraController = new AuraController(aura, blockTiles, ball);
+        auraController = new AuraController();
 
-        ArrayList<BlockTile> blockTiles2 = new ArrayList<BlockTile>();
+        blockTiles2 = new ArrayList<BlockTile>();
         blockTiles2.add(groundBox);
-
-        auraController2 = new AuraController(aura2, blockTiles2, ball2);
 
         //Load TileMap
         this.mapModel = new Map("core/res/TiledMaps/dummyMap.tmx", world);
@@ -193,8 +190,8 @@ public class GameController {
         mapRenderer.render(); //TODO Move this to view
 
         batch.begin();
-        auraController.renderAura(batch);
-        auraController2.renderAura(batch);
+        auraController.renderAura(aura,blockTiles,batch);
+        auraController.renderAura(aura2,blockTiles2,batch);
         for(Sprite sprite : spriteList) {
             batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                     sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
@@ -210,13 +207,13 @@ public class GameController {
         ball2.setPosition();
 
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_LEFT))
-            moveController2.moveLeft();
+            moveController.moveLeft(ball2);
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_RIGHT))
-            moveController2.moveRight();
+            moveController.moveRight(ball2);
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_UP))
-            moveController2.moveUp();
+            moveController.moveUp(ball2);
         if(Gdx.input.isKeyPressed(Input.Keys.DPAD_DOWN))
-            ball2.moveDown();
+            moveController.moveDown(ball2);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             if (!aura2.getAuraStatus()) {
                 aura2.setAuraStatus(true);
@@ -227,13 +224,13 @@ public class GameController {
             groundBox.resetRestitution(ball2.getBody());
 
         if(Gdx.input.isKeyPressed(Input.Keys.A))
-            moveController.moveLeft();
+            moveController.moveLeft(ball);
         if(Gdx.input.isKeyPressed(Input.Keys.D))
-            moveController.moveRight();
+            moveController.moveRight(ball);
         if(Gdx.input.isKeyPressed(Input.Keys.W))
-            moveController.moveUp();
+            moveController.moveUp(ball);
         if(Gdx.input.isKeyPressed(Input.Keys.S))
-            moveController.moveDown();
+            moveController.moveDown(ball);
         if (Gdx.input.isKeyJustPressed(Input.Keys.ALT_LEFT)) {
             if (!aura.getAuraStatus()) {
                 aura.setAuraStatus(true);

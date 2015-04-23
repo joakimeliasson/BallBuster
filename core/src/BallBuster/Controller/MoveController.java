@@ -7,21 +7,18 @@ import BallBuster.Model.Ball;
  */
 public class MoveController {
 
-    private Ball ball;
-
-    public MoveController(Ball ball) {
-        this.ball = ball;
+    public MoveController() {
     }
-    public void moveLeft() {
+    public void moveLeft(Ball ball) {
         ball.moveLeft();
     }
-    public void moveRight() {
+    public void moveRight(Ball ball) {
         ball.moveRight();
     }
-    public void moveUp() {
+    public void moveUp(Ball ball) {
         ball.moveUp();
     }
-    public void moveDown() {
+    public void moveDown(Ball ball) {
         ball.moveDown();
     }
 }
