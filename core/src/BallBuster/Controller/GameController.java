@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Created by Joakim on 2015-03-30.
  */
 public class GameController {
-
+/*
     private MoveController moveController;
 
     private AuraController auraController;
@@ -241,5 +241,5 @@ public class GameController {
             rightBox.resetRestitution(ball.getBody());
             leftBox.resetRestitution(ball.getBody());
         }
-    }
+    }*/
 }

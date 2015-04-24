@@ -18,7 +18,7 @@ public class AuraController {
     public void renderAura(Aura aura ,ArrayList<BlockTile> list, SpriteBatch batch) {
         if (aura.getAuraStatus()) {
             for (int i = 0; i < list.size(); i++) {
-                list.get(i).activateMagnet(aura.getBall().getBody());
+              //  list.get(i).activateMagnet(aura.getBall().getBody());
             }
             aura.renderAnimation(batch);
         }

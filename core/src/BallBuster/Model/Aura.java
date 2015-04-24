@@ -59,7 +59,7 @@ public class Aura {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         sprite = new Sprite(currentFrame);
-        sprite.setPosition((b.getBody().getPosition().x*100)-sprite.getWidth()/2, (b.getBody().getPosition().y*100)-sprite.getHeight()/2);
+        //sprite.setPosition((b.getBody().getPosition().x*100)-sprite.getWidth()/2, (b.getBody().getPosition().y*100)-sprite.getHeight()/2);
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
     }

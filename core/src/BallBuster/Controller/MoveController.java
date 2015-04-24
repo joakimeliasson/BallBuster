@@ -9,7 +9,7 @@ public class MoveController {
 
     public MoveController() {
     }
-    public void moveLeft(Ball ball) {
+   /* public void moveLeft(Ball ball) {
         ball.moveLeft();
     }
     public void moveRight(Ball ball) {
@@ -20,5 +20,5 @@ public class MoveController {
     }
     public void moveDown(Ball ball) {
         ball.moveDown();
-    }
+    }*/
 }

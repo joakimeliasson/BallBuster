@@ -16,76 +16,20 @@ public class Ball {
 
     private double shield;
 
-    private Texture ballTexture;
-    private Texture shieldTexture;
-
     private Aura aura;
     private Map map;
-    private Point position;
 
-    private Sprite sprite;
-    private Sprite shieldSprite;
+    private float y;
+    private float x;
 
-    private Body body;
-
-    private Vector2 pos;
-
-    private final float SCALE = 100f;
-
-    public Ball(float x, float y, Aura aura, Map map, World world, Texture texture) {
+    public Ball(float x, float y, Aura aura, Map map) {
         this.aura = aura;
         this.map = map;
+        this.x = x;
+        this.y = y;
 
         shield = 100;
 
-        sprite = new Sprite(texture);
-        sprite.setPosition(x, y);
-
-        FileHandle shieldFileHandle = Gdx.files.internal("core/images/shield.png");
-        shieldTexture = new Texture(shieldFileHandle);
-        shieldSprite = new Sprite(shieldTexture);
-
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-
-        bodyDef.position.set((sprite.getX() +sprite.getWidth()/2)/SCALE, (sprite.getY() + sprite.getHeight()/2)/SCALE);
-
-        body = world.createBody(bodyDef);
-
-        //Create the body as a circle
-        CircleShape shape = new CircleShape();
-
-        shape.setRadius(sprite.getWidth()/(2*SCALE));
-
-        //Set physical attributes to the body
-        FixtureDef fixtureDef = new FixtureDef();
-        fixtureDef.shape = shape;
-        fixtureDef.density = 7f;
-        fixtureDef.friction = 1f;
-        //Make the ball bounce on other bodies
-        fixtureDef.restitution = 1f;
-
-        body.createFixture(fixtureDef);
-
-        //Make the body still when no acceleration are applied
-        body.setLinearDamping(1f);
-        shape.dispose();
-
-        pos = body.getPosition();
-
-    }
-
-    public void moveRight() {
-        body.applyLinearImpulse(0.10f, 0, pos.x, pos.y, true);
-    }
-    public void moveLeft() {
-        body.applyLinearImpulse(-0.10f, 0, pos.x, pos.y, true);
-    }
-    public void moveUp() {
-        body.applyLinearImpulse(0, 0.10f, pos.x, pos.y, true);
-    }
-    public void moveDown() {
-        body.applyLinearImpulse(0, -0.10f, pos.x, pos.y, true);
     }
 
     public void shieldDamage(double damage) {
@@ -95,18 +39,16 @@ public class Ball {
         return shield;
     }
 
-    public Sprite getBallSprite() {
-        return sprite;
-    }
-    public Sprite getShieldSprite() {
-        return shieldSprite;
-    }
-    public Body getBody() {
-        return body;
-    }
-    public void setPosition() {
-        sprite.setPosition((body.getPosition().x*SCALE)-sprite.getWidth()/2, (body.getPosition().y*SCALE)-sprite.getHeight()/2);
-        //sprite.setRotation((float)Math.toDegrees(body.getAngle()));
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
     }
 
+    public float getY() {
+        return y;
+    }
+
+    public float getX() {
+        return x;
+    }
 }
