@@ -16,8 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 
@@ -59,7 +58,11 @@ public class BallBusterView extends Game {
     private Aura aura;
     private Aura aura2;
 
+    private CollisionController collisionController;
+
     private ArrayList<ApplicationListener> viewList;
+    private ArrayList<TileView> wallList;
+    private ArrayList<BallView> ballList;
 
     @Override
     public void create() {
@@ -81,10 +84,10 @@ public class BallBusterView extends Game {
         createBalls();
         createBlocks();
         createAuraView();
+        collision();
 
         for(ApplicationListener listener : viewList)
             listener.create();
-
 
 
     }
@@ -121,8 +124,6 @@ public class BallBusterView extends Game {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
-
         for(ApplicationListener listener : viewList)
             listener.render();
 
@@ -137,6 +138,7 @@ public class BallBusterView extends Game {
         } else {
             auraController.resetRestitution(ballView2.getBody());
         }
+        world.setContactListener(new CollisionController(wallList, ballList));
 
         debugRenderer.render(world, debugMatrix);
     }
@@ -219,5 +221,21 @@ public class BallBusterView extends Game {
         viewList.add(auraView);
         viewList.add(auraView2);
     }
+    private void collision() {
+        wallList = new ArrayList<TileView>();
+        ballList = new ArrayList<BallView>();
 
-}
+        wallList.add(leftWall);
+        wallList.add(rightWall);
+        wallList.add(downWall);
+        wallList.add(upWall);
+
+        ballList.add(ballView);
+        ballList.add(ballView2);
+
+
+    }
+    }
+
+
+

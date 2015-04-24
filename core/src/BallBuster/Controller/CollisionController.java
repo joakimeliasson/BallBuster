@@ -3,6 +3,9 @@ package BallBuster.Controller;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Tile.BlockTile;
 import BallBuster.Model.Tile.Tile;
+import BallBuster.View.BallView;
+import BallBuster.View.BlockTileView;
+import BallBuster.View.TileView;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
@@ -12,10 +15,10 @@ import java.util.ArrayList;
  */
 public class CollisionController implements ContactListener{
 
-    private ArrayList<Tile> tileList;
-    private ArrayList<Ball> ballList;
+    private ArrayList<TileView> tileList;
+    private ArrayList<BallView> ballList;
 
-    public CollisionController(ArrayList<Tile> tileList, ArrayList<Ball> ballList){
+    public CollisionController(ArrayList<TileView> tileList, ArrayList<BallView> ballList){
         this.tileList = tileList;
         this.ballList = ballList;
 
@@ -28,21 +31,21 @@ public class CollisionController implements ContactListener{
 
         for (int k = 0; k < ballList.size(); k++) {
             for (int i = 0; i < tileList.size(); i++) {
-             //    if (a == tileList.get(i).body && b == ballList.get(k).getBody()) {
-                    ballList.get(k).shieldDamage(damage(ballList.get(k)));
-                    System.out.println("Shield: "+ballList.get(k).getShield());
-                //}
+                 if (a == tileList.get(i).getBody() && b == ballList.get(k).getBody()) {
+                    ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
+                    System.out.println("Shield: "+ballList.get(k).getBall().getShield());
+                }
             }
         }
 
     }
 
-    public double damage(Ball ball){
-        //double x = Math.pow(2, Math.abs(ball.getBody().getLinearVelocity().x));
-        //double y = Math.pow(2, Math.abs(ball.getBody().getLinearVelocity().y));
-        //double dmg = Math.sqrt(x+y);
-        //System.out.println("Damage: "+dmg+"\n");
-        return 0;
+    public double damage(BallView ballView){
+        double x = Math.pow(2, Math.abs(ballView.getBody().getLinearVelocity().x));
+        double y = Math.pow(2, Math.abs(ballView.getBody().getLinearVelocity().y));
+        double dmg = Math.sqrt(x+y);
+        System.out.println("Damage: "+dmg+"\n");
+        return dmg;
     }
 
 
