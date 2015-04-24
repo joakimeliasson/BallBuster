@@ -12,8 +12,8 @@ import java.awt.geom.RectangularShape;
  * Created by Matthias on 2015-03-30.
  */
 
-public class BlockTile extends Tile {
-
+public class BlockTile {
+/*
     private final float SCALE = 100f;
 
     public BlockTile(float x, float y, World world, Texture texture) {
@@ -36,5 +36,5 @@ public class BlockTile extends Tile {
         body.getFixtureList().get(0).setRestitution(1f);
     }
 
-
+*/
 }

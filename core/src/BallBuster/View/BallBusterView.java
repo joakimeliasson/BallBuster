@@ -5,6 +5,7 @@ import BallBuster.Controller.CollisionController;
 import BallBuster.Controller.GameController;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Player;
+import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
@@ -62,27 +63,10 @@ public class BallBusterView extends Game {
 
         batch = new SpriteBatch();
 
-        FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
-        texture = new Texture(ballFileHandle);
-
-        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, null,null);
-        player = new Player(0, "", ball);
-
-        ballView = new BallView(world, player,texture, batch);
-        ballView.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S);
-
-        FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
-        texture2 = new Texture(ballFileHandle2);
-
-        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, null,null);
-        player2 = new Player(0, "", ball2);
-
-        ballView2 = new BallView(world, player2,texture2, batch);
-        ballView2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN);
-
         viewList = new ArrayList<ApplicationListener>();
-        viewList.add(ballView);
-        viewList.add(ballView2);
+
+        createWalls();
+        createBalls();
 
         for(ApplicationListener listener : viewList)
             listener.create();
@@ -124,5 +108,50 @@ public class BallBusterView extends Game {
             listener.render();
 
         debugRenderer.render(world,debugMatrix);
+    }
+
+    private void createWalls() {
+        FileHandle horizontalFileHandle = Gdx.files.internal("core/images/wallHorizontal.png");
+        Texture horizontalTexture = new Texture(horizontalFileHandle);
+
+        FileHandle verticalFileHandle = Gdx.files.internal("core/images/wallVertical.png");
+        Texture verticalTexture = new Texture(verticalFileHandle);
+
+        Tile downTile = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2);
+        Tile upTile = new Tile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight());
+        Tile leftTile = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2);
+        Tile rightTile = new Tile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2);
+
+        downWall = new TileView(world, downTile, horizontalTexture, batch);
+        upWall = new TileView(world, upTile, horizontalTexture, batch);
+        leftWall = new TileView(world, leftTile, verticalTexture, batch);
+        rightWall = new TileView(world, rightTile, verticalTexture, batch);
+
+        viewList.add(downWall);
+        viewList.add(upWall);
+        viewList.add(leftWall);
+        viewList.add(rightWall);
+    }
+    private void createBalls() {
+        FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
+        texture = new Texture(ballFileHandle);
+
+        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, null,null);
+        player = new Player(0, "", ball);
+
+        ballView = new BallView(world, player,texture, batch);
+        ballView.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S);
+
+        FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
+        texture2 = new Texture(ballFileHandle2);
+
+        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, null,null);
+        player2 = new Player(0, "", ball2);
+
+        ballView2 = new BallView(world, player2,texture2, batch);
+        ballView2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN);
+
+        viewList.add(ballView);
+        viewList.add(ballView2);
     }
 }

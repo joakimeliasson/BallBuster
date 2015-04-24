@@ -11,9 +11,9 @@ public class PowerupTile extends Tile {
     private String powerup;
 
 
-    public PowerupTile(float x, float y, World world, Texture texture) {
+    public PowerupTile(float x, float y) {
 
-        super(x, y, world, texture);
+        super(x, y);
     }
 
     //@ensure String is valid

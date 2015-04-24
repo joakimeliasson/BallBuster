@@ -37,8 +37,8 @@ public class Map {
                 if(cell == null) {continue; }
                 if(cell.getTile() == null) {continue; }
 
-                BlackTile tile = new BlackTile(col * layer.getTileWidth(),row * layer.getTileHeight(),world ,layer.getTileWidth(),layer.getTileHeight());
-                tiles.add(tile);
+                //BlackTile tile = new BlackTile(col * layer.getTileWidth(),row * layer.getTileHeight(),world ,layer.getTileWidth(),layer.getTileHeight());
+                //tiles.add(tile);
             }
         }
 
@@ -53,8 +53,8 @@ public class Map {
                 if(cell == null) {continue; }
                 if(cell.getTile() == null) {continue; }
 
-                WhiteTile tile = new WhiteTile(col * layer.getTileWidth(),row * layer.getTileHeight(),world ,layer.getTileWidth(),layer.getTileHeight());
-                tiles.add(tile);
+                //WhiteTile tile = new WhiteTile(col * layer.getTileWidth(),row * layer.getTileHeight(),world ,layer.getTileWidth(),layer.getTileHeight());
+                //tiles.add(tile);
             }
         }
 
