@@ -1,10 +1,12 @@
 package BallBuster.View;
 
 import BallBuster.Controller.BallController;
+import BallBuster.Controller.BlockTileController;
 import BallBuster.Controller.CollisionController;
 import BallBuster.Controller.GameController;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Player;
+import BallBuster.Model.Tile.BlockTile;
 import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
@@ -49,6 +51,12 @@ public class BallBusterView extends Game {
     private Texture texture2;
     private Player player2;
 
+    private BlockTileView leftBlock;
+    private BlockTileView rightBlock;
+    private BlockTileView downBlock;
+
+    private BlockTileController blockTileController;
+
     private ArrayList<ApplicationListener> viewList;
 
     @Override
@@ -63,10 +71,13 @@ public class BallBusterView extends Game {
 
         batch = new SpriteBatch();
 
+        blockTileController = new BlockTileController();
+
         viewList = new ArrayList<ApplicationListener>();
 
         createWalls();
         createBalls();
+        createBlocks();
 
         for(ApplicationListener listener : viewList)
             listener.create();
@@ -103,6 +114,8 @@ public class BallBusterView extends Game {
         debugMatrix = batch.getProjectionMatrix().cpy().scale(SCALE, SCALE, 0);
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        blockTileController.activateMagnet(leftBlock.getBody(), ballView.getBody());
 
         for(ApplicationListener listener : viewList)
             listener.render();
@@ -153,5 +166,27 @@ public class BallBusterView extends Game {
 
         viewList.add(ballView);
         viewList.add(ballView2);
+    }
+    private void createBlocks() {
+        BlockTile rightBlockTile = new BlockTile(300f, 20f);
+        BlockTile leftBlockTile = new BlockTile(-100f, -300f);
+        BlockTile downBlockTile = new BlockTile(-400f, 20f);
+
+        FileHandle rightFileHandle = Gdx.files.internal("core/images/rightBox.png");
+        Texture rightTexture = new Texture(rightFileHandle);
+
+        FileHandle leftFileHandle = Gdx.files.internal("core/images/leftBox.png");
+        Texture leftTexture = new Texture(leftFileHandle);
+
+        FileHandle groundFileHandle = Gdx.files.internal("core/images/groundBox.png");
+        Texture downTexture = new Texture(groundFileHandle);
+
+        rightBlock = new BlockTileView(world, rightBlockTile, rightTexture, batch);
+        downBlock = new BlockTileView(world, downBlockTile, downTexture, batch);
+        leftBlock = new BlockTileView(world, leftBlockTile, leftTexture, batch);
+
+        viewList.add(rightBlock);
+        viewList.add(downBlock);
+        viewList.add(leftBlock);
     }
 }

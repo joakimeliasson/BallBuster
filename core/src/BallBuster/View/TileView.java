@@ -82,4 +82,7 @@ public class TileView implements ApplicationListener{
     public void dispose() {
 
     }
+    public Body getBody() {
+        return body;
+    }
 }

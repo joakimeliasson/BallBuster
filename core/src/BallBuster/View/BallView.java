@@ -1,6 +1,7 @@
 package BallBuster.View;
 
 import BallBuster.Controller.BallController;
+import BallBuster.Controller.BlockTileController;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Player;
 import com.badlogic.gdx.ApplicationListener;
@@ -30,6 +31,7 @@ public class BallView implements ApplicationListener, InputProcessor{
     private World world;
 
     private BallController ballController;
+    private BlockTileController blockTileController;
 
     private SpriteBatch batch;
 
@@ -81,6 +83,7 @@ public class BallView implements ApplicationListener, InputProcessor{
         pos = body.getPosition();
 
         ballController = new BallController();
+        blockTileController = new BlockTileController();
 
     }
 
@@ -148,6 +151,9 @@ public class BallView implements ApplicationListener, InputProcessor{
         if(Gdx.input.isKeyPressed(player.getDownKey()))
             ballController.moveDown(body, pos.x, pos.y);
         return false;
+    }
+    public void activeMovement(Body body) {
+        keyDown(0);
     }
 
     @Override
