@@ -43,7 +43,6 @@ public class AuraView implements ApplicationListener, InputProcessor {
     public AuraView(SpriteBatch batch, Player player) {
         this.batch = batch;
         this.player = player;
-        this.ballSprite = ballSprite;
         this.aura = player.getBall().getAura();
         this.auraController = new AuraController();
     }

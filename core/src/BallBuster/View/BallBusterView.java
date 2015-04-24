@@ -55,7 +55,9 @@ public class BallBusterView extends Game {
 
     private AuraController auraController;
     private AuraView auraView;
+    private AuraView auraView2;
     private Aura aura;
+    private Aura aura2;
 
     private ArrayList<ApplicationListener> viewList;
 
@@ -67,7 +69,7 @@ public class BallBusterView extends Game {
 
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        Gdx.gl.glClearColor(106f/255f, 165f/255f, 255f/255f, 1f);
+        Gdx.gl.glClearColor(106f / 255f, 165f / 255f, 255f / 255f, 1f);
 
         batch = new SpriteBatch();
 
@@ -126,8 +128,14 @@ public class BallBusterView extends Game {
 
         if (aura.getAuraStatus()) {
             auraController.activateMagnet(leftBlock.getBody(), ballView.getBody(), auraView.getAura());
+            auraController.activateMagnet(rightBlock.getBody(), ballView.getBody(), auraView.getAura());
         } else {
             auraController.resetRestitution(ballView.getBody());
+        }
+        if (aura2.getAuraStatus()) {
+            auraController.activateMagnet(downBlock.getBody(), ballView2.getBody(), auraView2.getAura());
+        } else {
+            auraController.resetRestitution(ballView2.getBody());
         }
 
         debugRenderer.render(world, debugMatrix);
@@ -169,7 +177,7 @@ public class BallBusterView extends Game {
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
         texture2 = new Texture(ballFileHandle2);
 
-        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, null,null);
+        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, new Aura(),null);
         player2 = new Player(0, "", ball2);
 
         ballView2 = new BallView(world, player2,texture2, batch);
@@ -204,8 +212,12 @@ public class BallBusterView extends Game {
     private void createAuraView(){
         this.auraView = new AuraView(batch, player);
         aura = auraView.getAura();
+
+        this.auraView2 = new AuraView(batch, player2);
+        aura2 = auraView2.getAura();
         //aura.setPosition(ball.getX2()*100-auraView.getSprite().getWidth()/2, ball2.getY2()*100 -auraView.getSprite().getHeight());
         viewList.add(auraView);
+        viewList.add(auraView2);
     }
 
 }
