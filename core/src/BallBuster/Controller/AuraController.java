@@ -13,14 +13,23 @@ import java.util.ArrayList;
  */
 public class AuraController {
 
-    public AuraController() {
+    private Aura aura;
+
+    public AuraController(Aura aura) {
+        this.aura = aura;
     }
     public void renderAura(Aura aura ,ArrayList<BlockTile> list, SpriteBatch batch) {
-        if (aura.getAuraStatus()) {
+        /*if (aura.getAuraStatus()) {
             for (int i = 0; i < list.size(); i++) {
               //  list.get(i).activateMagnet(aura.getBall().getBody());
             }
             aura.renderAnimation(batch);
+        */
         }
+
+    public void activateAura(boolean b){
+            aura.setAuraStatus(b);
+
     }
 }
+

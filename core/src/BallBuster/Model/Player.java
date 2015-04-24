@@ -11,6 +11,10 @@ public class Player {
     private int rightKey;
     private int upKey;
     private int downKey;
+    private int auraKey;
+
+    private String playerPowerUp;
+    private boolean hasPowerUp;
 
     public Player(int playerId, String playerName, Ball ball){
         this.playerName = playerName;
@@ -29,11 +33,12 @@ public class Player {
 
     public Ball getBall() { return this.ball; }
 
-    public void setKeys(int leftKey, int rightKey, int upKey, int downKey) {
+    public void setKeys(int leftKey, int rightKey, int upKey, int downKey, int auraKey) {
         this.leftKey = leftKey;
         this.rightKey = rightKey;
         this.upKey = upKey;
         this.downKey = downKey;
+        this.auraKey = auraKey;
     }
     public int getLeftKey() {
         return leftKey;
@@ -46,6 +51,19 @@ public class Player {
     }
     public int getDownKey() {
         return downKey;
+    }
+    public int getAuraKey(){ return auraKey; }
+
+    public String getPlayerPowerUp() {
+        return this.playerPowerUp;
+    }
+
+    public void setPlayerPowerUp(String powerUp){
+        this.playerPowerUp = powerUp;
+    }
+
+    public boolean playerHasPowerUp(){
+        return hasPowerUp;
     }
 
 
