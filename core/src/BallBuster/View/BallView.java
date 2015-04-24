@@ -45,8 +45,8 @@ public class BallView implements ApplicationListener, InputProcessor{
         this.ball = player.getBall();
 
     }
-    public void setKeys(int leftKey, int rightKey, int upKey, int downKey) {
-        player.setKeys(leftKey, rightKey, upKey, downKey);
+    public void setKeys(int leftKey, int rightKey, int upKey, int downKey, int auraKey) {
+        player.setKeys(leftKey, rightKey, upKey, downKey, auraKey);
     }
 
     @Override
@@ -126,6 +126,7 @@ public class BallView implements ApplicationListener, InputProcessor{
         return body;
     }
     public void setPosition() {
+        ball.setBodyPosition(body.getPosition().x, body.getPosition().y);
         ball.setPosition((body.getPosition().x*BallBusterView.SCALE)-sprite.getWidth()/2, (body.getPosition().y*BallBusterView.SCALE)-sprite.getHeight()/2);
         sprite.setPosition(ball.getX(),ball.getY());
     }

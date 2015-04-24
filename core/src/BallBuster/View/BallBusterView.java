@@ -1,9 +1,7 @@
 package BallBuster.View;
 
-import BallBuster.Controller.BallController;
-import BallBuster.Controller.BlockTileController;
-import BallBuster.Controller.CollisionController;
-import BallBuster.Controller.GameController;
+import BallBuster.Controller.*;
+import BallBuster.Model.Aura;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Player;
 import BallBuster.Model.Tile.BlockTile;
@@ -55,7 +53,9 @@ public class BallBusterView extends Game {
     private BlockTileView rightBlock;
     private BlockTileView downBlock;
 
-    private BlockTileController blockTileController;
+    private AuraController auraController;
+    private AuraView auraView;
+    private Aura aura;
 
     private ArrayList<ApplicationListener> viewList;
 
@@ -71,16 +71,20 @@ public class BallBusterView extends Game {
 
         batch = new SpriteBatch();
 
-        blockTileController = new BlockTileController();
+        auraController = new AuraController();
 
         viewList = new ArrayList<ApplicationListener>();
 
         createWalls();
         createBalls();
         createBlocks();
+        createAuraView();
 
         for(ApplicationListener listener : viewList)
             listener.create();
+
+
+
     }
 
     @Override
@@ -115,12 +119,18 @@ public class BallBusterView extends Game {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        blockTileController.activateMagnet(leftBlock.getBody(), ballView.getBody());
+
 
         for(ApplicationListener listener : viewList)
             listener.render();
 
-        debugRenderer.render(world,debugMatrix);
+        if (aura.getAuraStatus()) {
+            auraController.activateMagnet(leftBlock.getBody(), ballView.getBody(), auraView.getAura());
+        } else {
+            auraController.resetRestitution(ballView.getBody());
+        }
+
+        debugRenderer.render(world, debugMatrix);
     }
 
     private void createWalls() {
@@ -149,11 +159,12 @@ public class BallBusterView extends Game {
         FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
         texture = new Texture(ballFileHandle);
 
-        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, null,null);
+        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, new Aura(),null);
         player = new Player(0, "", ball);
+        player.getBall().getAura().setPosition(ball.getX(), ball.getY());
 
         ballView = new BallView(world, player,texture, batch);
-        ballView.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S);
+        ballView.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
 
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
         texture2 = new Texture(ballFileHandle2);
@@ -162,7 +173,7 @@ public class BallBusterView extends Game {
         player2 = new Player(0, "", ball2);
 
         ballView2 = new BallView(world, player2,texture2, batch);
-        ballView2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN);
+        ballView2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
 
         viewList.add(ballView);
         viewList.add(ballView2);
@@ -189,4 +200,12 @@ public class BallBusterView extends Game {
         viewList.add(downBlock);
         viewList.add(leftBlock);
     }
+
+    private void createAuraView(){
+        this.auraView = new AuraView(batch, player);
+        aura = auraView.getAura();
+        //aura.setPosition(ball.getX2()*100-auraView.getSprite().getWidth()/2, ball2.getY2()*100 -auraView.getSprite().getHeight());
+        viewList.add(auraView);
+    }
+
 }

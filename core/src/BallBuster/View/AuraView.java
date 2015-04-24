@@ -5,6 +5,7 @@ import BallBuster.Model.Aura;
 import BallBuster.Model.Player;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -31,17 +32,20 @@ public class AuraView implements ApplicationListener, InputProcessor {
 
     private Player player;
 
+    private Sprite ballSprite;
+
     private Aura aura;
 
     private AuraController auraController;
 
     float stateTime;
 
-    public AuraView(SpriteBatch batch, Player player, Aura aura) {
+    public AuraView(SpriteBatch batch, Player player) {
         this.batch = batch;
         this.player = player;
-        this.aura = aura;
-        this.auraController = new AuraController(aura);
+        this.ballSprite = ballSprite;
+        this.aura = player.getBall().getAura();
+        this.auraController = new AuraController();
     }
 
 
@@ -62,9 +66,16 @@ public class AuraView implements ApplicationListener, InputProcessor {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         sprite = new Sprite(currentFrame);
-        //sprite.setPosition((b.getBody().getPosition().x*100)-sprite.getWidth()/2, (b.getBody().getPosition().y*100)-sprite.getHeight()/2);
+        aura.setPosition(player.getBall().getX2()*BallBusterView.SCALE-sprite.getWidth()/2, player.getBall().getY2()*BallBusterView.SCALE-sprite.getHeight()/2);
+        sprite.setPosition(aura.getX(), aura.getY());
+        batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+        batch.end();
+    }
+
+    public Aura getAura(){
+        return this.aura;
     }
 
     @Override
@@ -79,7 +90,13 @@ public class AuraView implements ApplicationListener, InputProcessor {
 
     @Override
     public void render() {
-        renderAnimation(batch);
+        keyDown(0);
+        if(aura.getAuraStatus())
+            renderAnimation(batch);
+        //aura.setPosition(player.getBall().getX()-sprite.getWidth()/2, (player.getBall().getY()*BallBusterView.SCALE)-sprite.getHeight()/2);
+        //sprite.setPosition(aura.getX(),aura.getY());
+        //aura.setPosition(player.getBall().getX(), player.getBall().getY());
+
     }
 
     @Override
@@ -100,10 +117,13 @@ public class AuraView implements ApplicationListener, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if (Gdx.input.isKeyJustPressed(player.getAuraKey())){
-            if (aura.getAuraStatus())
-                auraController.activateAura(false);
-            else
-                auraController.activateAura(true);
+            if (aura.getAuraStatus()) {
+                auraController.activateAura(aura, false);
+            }
+            else {
+                auraController.activateAura(aura, true);
+            }
+
         }
         return false;
     }
@@ -141,5 +161,8 @@ public class AuraView implements ApplicationListener, InputProcessor {
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+    public Sprite getSprite() {
+        return sprite;
     }
 }

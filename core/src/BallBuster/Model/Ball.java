@@ -22,6 +22,9 @@ public class Ball {
     private float y;
     private float x;
 
+    private float x2;
+    private float y2;
+
     public Ball(float x, float y, Aura aura, Map map) {
         this.aura = aura;
         this.map = map;
@@ -50,5 +53,20 @@ public class Ball {
 
     public float getX() {
         return x;
+    }
+
+    public Aura getAura() {
+        return aura;
+    }
+
+    public void setBodyPosition(float x, float y) {
+        x2 = x;
+        y2 = y;
+    }
+    public float getX2() {
+        return x2;
+    }
+    public float getY2() {
+        return y2;
     }
 }
