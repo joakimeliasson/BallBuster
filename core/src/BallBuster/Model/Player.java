@@ -6,6 +6,7 @@ public class Player {
     private final int playerId;
     private String playerName;
     private final Ball ball;
+    private PowerUp powerUp;
 
     private int leftKey;
     private int rightKey;
@@ -55,15 +56,15 @@ public class Player {
     public int getAuraKey(){ return auraKey; }
 
     public String getPlayerPowerUp() {
-        return this.playerPowerUp;
+        return powerUp.getPowerUp();
     }
 
-    public void setPlayerPowerUp(String powerUp){
-        this.playerPowerUp = powerUp;
+    public void setPlayerPowerUp(String newPowerUp){
+        powerUp.setPowerUp("newPowerUp");
     }
 
     public boolean playerHasPowerUp(){
-        return hasPowerUp;
+        return (getPlayerPowerUp() != null);
     }
 
 
