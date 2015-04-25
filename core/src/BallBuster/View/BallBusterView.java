@@ -88,8 +88,6 @@ public class BallBusterView extends Game {
 
         for(ApplicationListener listener : viewList)
             listener.create();
-
-
     }
 
     @Override
@@ -232,10 +230,5 @@ public class BallBusterView extends Game {
 
         ballList.add(ballView);
         ballList.add(ballView2);
-
-
     }
-    }
-
-
-
+}

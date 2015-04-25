@@ -11,18 +11,56 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 public class BallTest {
 
+    private Ball ball;
+
     @Before
     public void setUp() throws Exception {
+        ball = new Ball(4f, 5f, new Aura(), new Map());
     }
 
     @Test
     public void testCreateBall() {
-       // Ball  ball = new Ball(1f,1f, new Aura(),new Map(), null,null);
-       // assertNotNull(ball);
+        assertNotNull(ball);
+    }
+    @Test
+    public void testGetX() {
+        assertTrue(ball.getX() == 4f);
+    }
+    @Test
+    public void testGetY() {
+        assertTrue(ball.getY() == 5f);
+    }
+    @Test
+    public void testSetPosition() {
+        ball.setPosition(1f,2f);
+        assertTrue(ball.getX() == 1f);
+        assertTrue(ball.getY() == 2f);
+    }
+    @Test
+    public void testGetShield() {
+        int tmp = (int)ball.getShield();
+        assertEquals(100, tmp);
+    }
+    @Test
+    public void testDamage() {
+        ball.shieldDamage(10);
+        int tmp = (int)ball.getShield();
+        assertEquals(90, tmp);
+    }
+    @Test
+    public void testGetX2() {
+        ball.setBodyPosition(3f,4f);
+        assertTrue(ball.getX2() == 3f);
+    }
+    @Test
+    public void testGetY2() {
+        ball.setBodyPosition(3f,4f);
+        assertTrue(ball.getY2() == 4f);
     }
 
 
