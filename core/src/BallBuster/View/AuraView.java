@@ -12,11 +12,14 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.Body;
+
+import java.util.ArrayList;
 
 /**
  * Created by Joakim on 2015-04-24.
  */
-public class AuraView implements ApplicationListener, InputProcessor {
+public class AuraView implements ApplicationListener{
 
     private Sprite sprite;
 
@@ -36,17 +39,22 @@ public class AuraView implements ApplicationListener, InputProcessor {
 
     private Aura aura;
 
+    private Body body;
+    private Body blockBody;
+    private ArrayList<Body> bodyList;
+
     private AuraController auraController;
 
     float stateTime;
 
-    public AuraView(SpriteBatch batch, Player player) {
+    public AuraView(SpriteBatch batch, Player player, Body body, ArrayList<Body> bodyList) {
         this.batch = batch;
         this.player = player;
         this.aura = player.getBall().getAura();
-        this.auraController = new AuraController();
+        this.body = body;
+        this.bodyList = bodyList;
+        this.auraController = new AuraController(player, aura);
     }
-
 
     private void createAnimation() {
         walkSheet = new Texture(Gdx.files.internal("core/images/animation.png"));
@@ -89,13 +97,13 @@ public class AuraView implements ApplicationListener, InputProcessor {
 
     @Override
     public void render() {
-        keyDown(0);
-        if(aura.getAuraStatus())
+        auraController.keyDown(0);
+        if(aura.getAuraStatus()) {
             renderAnimation(batch);
-        //aura.setPosition(player.getBall().getX()-sprite.getWidth()/2, (player.getBall().getY()*BallBusterView.SCALE)-sprite.getHeight()/2);
-        //sprite.setPosition(aura.getX(),aura.getY());
-        //aura.setPosition(player.getBall().getX(), player.getBall().getY());
-
+            auraController.activateMagnet(bodyList, body);
+        }
+        else
+            auraController.resetRestitution(body);
     }
 
     @Override
@@ -111,57 +119,5 @@ public class AuraView implements ApplicationListener, InputProcessor {
     @Override
     public void dispose() {
 
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        if (Gdx.input.isKeyJustPressed(player.getAuraKey())){
-            if (aura.getAuraStatus()) {
-                auraController.activateAura(aura, false);
-            }
-            else {
-                auraController.activateAura(aura, true);
-            }
-
-        }
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }
-    public Sprite getSprite() {
-        return sprite;
     }
 }

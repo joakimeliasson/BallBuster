@@ -76,18 +76,21 @@ public class BallBusterView extends Game {
 
         batch = new SpriteBatch();
 
-        auraController = new AuraController();
+        //auraController = new AuraController();
 
         viewList = new ArrayList<ApplicationListener>();
 
         createWalls();
         createBalls();
         createBlocks();
-        createAuraView();
         collision();
 
         for(ApplicationListener listener : viewList)
             listener.create();
+
+        createAuraView();
+        auraView.create();
+        auraView2.create();
     }
 
     @Override
@@ -125,17 +128,6 @@ public class BallBusterView extends Game {
         for(ApplicationListener listener : viewList)
             listener.render();
 
-        if (aura.getAuraStatus()) {
-            auraController.activateMagnet(leftBlock.getBody(), ballView.getBody(), auraView.getAura());
-            auraController.activateMagnet(rightBlock.getBody(), ballView.getBody(), auraView.getAura());
-        } else {
-            auraController.resetRestitution(ballView.getBody());
-        }
-        if (aura2.getAuraStatus()) {
-            auraController.activateMagnet(downBlock.getBody(), ballView2.getBody(), auraView2.getAura());
-        } else {
-            auraController.resetRestitution(ballView2.getBody());
-        }
         world.setContactListener(new CollisionController(wallList, ballList));
 
         debugRenderer.render(world, debugMatrix);
@@ -210,10 +202,17 @@ public class BallBusterView extends Game {
     }
 
     private void createAuraView(){
-        this.auraView = new AuraView(batch, player);
+        ArrayList<Body> ballList = new ArrayList<Body>();
+        ballList.add(leftBlock.getBody());
+        ballList.add(rightBlock.getBody());
+
+        ArrayList<Body> ball2List = new ArrayList<Body>();
+        ball2List.add(downBlock.getBody());
+
+        this.auraView = new AuraView(batch, player, ballView.getBody(), ballList);
         aura = auraView.getAura();
 
-        this.auraView2 = new AuraView(batch, player2);
+        this.auraView2 = new AuraView(batch, player2, ballView2.getBody(), ball2List);
         aura2 = auraView2.getAura();
         //aura.setPosition(ball.getX2()*100-auraView.getSprite().getWidth()/2, ball2.getY2()*100 -auraView.getSprite().getHeight());
         viewList.add(auraView);
