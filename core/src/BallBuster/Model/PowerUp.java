@@ -7,7 +7,7 @@ public class PowerUp {
 
     private String powerUp;
 
-    public  PowerUp(String powerUp){
+    public PowerUp(String powerUp){
         this.powerUp = powerUp;
     }
 

@@ -17,7 +17,7 @@ import com.badlogic.gdx.physics.box2d.*;
 /**
  * Created by jacobth on 2015-04-23.
  */
-public class BallView implements ApplicationListener, InputProcessor{
+public class BallView implements ApplicationListener{
     private Sprite sprite;
 
     private Texture texture;
@@ -43,7 +43,6 @@ public class BallView implements ApplicationListener, InputProcessor{
         this.texture = texture;
         this.batch = batch;
         this.ball = player.getBall();
-
     }
     public void setKeys(int leftKey, int rightKey, int upKey, int downKey, int auraKey) {
         player.setKeys(leftKey, rightKey, upKey, downKey, auraKey);
@@ -82,9 +81,9 @@ public class BallView implements ApplicationListener, InputProcessor{
 
         pos = body.getPosition();
 
-        ballController = new BallController();
+        ballController = new BallController(player, body);
         blockTileController = new BlockTileController();
-
+        Gdx.input.setInputProcessor(ballController);
     }
 
     @Override
@@ -95,7 +94,7 @@ public class BallView implements ApplicationListener, InputProcessor{
     @Override
     public void render() {
         setPosition();
-        keyDown(0);
+        ballController.keyDown(0);
 
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
@@ -139,7 +138,7 @@ public class BallView implements ApplicationListener, InputProcessor{
     public float getY() {
         return body.getPosition().y;
     }
-
+/*
     @Override
     public boolean keyDown(int keycode) {
 
@@ -191,5 +190,5 @@ public class BallView implements ApplicationListener, InputProcessor{
     @Override
     public boolean scrolled(int amount) {
         return false;
-    }
+    }*/
 }
