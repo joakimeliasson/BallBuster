@@ -25,14 +25,17 @@ public class Ball {
     private float x2;
     private float y2;
 
+    private float speed;
+    private boolean hasPowerUp = false;
+
     public Ball(float x, float y, Aura aura, Map map) {
         this.aura = aura;
         this.map = map;
         this.x = x;
         this.y = y;
 
+        speed = 0.10f;
         shield = 100;
-
     }
 
     public void shieldDamage(double damage) {
@@ -68,5 +71,17 @@ public class Ball {
     }
     public float getY2() {
         return y2;
+    }
+    public float getSpeed() {
+        return speed;
+    }
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+    public boolean hasPowerUp() {
+        return hasPowerUp;
+    }
+    public void setHasPowerUp(boolean b) {
+        hasPowerUp = b;
     }
 }

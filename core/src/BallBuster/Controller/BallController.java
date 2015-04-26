@@ -22,16 +22,16 @@ public class BallController implements InputProcessor{
     }
 
     private void moveRight(Body body, float x, float y) {
-        body.applyLinearImpulse(0.10f, 0, x, y, true);
+        body.applyLinearImpulse(player.getBall().getSpeed(), 0, x, y, true);
     }
     private void moveLeft(Body body, float x, float y) {
-        body.applyLinearImpulse(-0.10f, 0, x, y, true);
+        body.applyLinearImpulse(-player.getBall().getSpeed(), 0, x, y, true);
     }
     private void moveUp(Body body, float x, float y) {
-        body.applyLinearImpulse(0, 0.10f, x, y, true);
+        body.applyLinearImpulse(0, player.getBall().getSpeed(), x, y, true);
     }
     private void moveDown(Body body, float x, float y) {
-        body.applyLinearImpulse(0, -0.10f, x, y, true);
+        body.applyLinearImpulse(0, -player.getBall().getSpeed(), x, y, true);
     }
 
     @Override

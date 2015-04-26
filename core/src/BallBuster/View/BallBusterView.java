@@ -4,6 +4,7 @@ import BallBuster.Controller.*;
 import BallBuster.Model.Aura;
 import BallBuster.Model.Ball;
 import BallBuster.Model.Player;
+import BallBuster.Model.PowerUp;
 import BallBuster.Model.Tile.BlockTile;
 import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.*;
@@ -175,8 +176,15 @@ public class BallBusterView extends Game {
         ballView2 = new BallView(world, player2,texture2, batch);
         ballView2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
 
+        ArrayList<Ball> tmp = new ArrayList<>();
+        tmp.add(ball);
+        tmp.add(ball2);
+
+        PowerUpView powerUpView = new PowerUpView(new PowerUp("speedUp"), tmp,new Sprite(texture), batch);
+
         viewList.add(ballView);
         viewList.add(ballView2);
+        viewList.add(powerUpView);
     }
     private void createBlocks() {
         BlockTile rightBlockTile = new BlockTile(300f, 20f);
