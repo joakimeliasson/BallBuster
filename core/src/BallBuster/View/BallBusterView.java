@@ -180,7 +180,10 @@ public class BallBusterView extends Game {
         tmp.add(ball);
         tmp.add(ball2);
 
-        PowerUpView powerUpView = new PowerUpView(new PowerUp("speedUp"), tmp,new Sprite(texture), batch);
+        FileHandle powerFileHandle = Gdx.files.internal("core/images/powerUp.png");
+        Texture powerTexture = new Texture(powerFileHandle);
+
+        PowerUpView powerUpView = new PowerUpView(new PowerUp("speedUp"), tmp,new Sprite(powerTexture), batch);
 
         viewList.add(ballView);
         viewList.add(ballView2);

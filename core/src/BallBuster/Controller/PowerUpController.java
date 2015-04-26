@@ -55,9 +55,7 @@ public class PowerUpController{
                     ball.setHasPowerUp(false);
                 }
             }
-
         }
-
     }
 
     private Ball getHitBall(ArrayList<Ball> ballList, Sprite sprite) {
