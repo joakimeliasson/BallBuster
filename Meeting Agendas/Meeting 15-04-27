@@ -1,0 +1,43 @@
+Meeting Agenda
+
+  Date: 2015-04-27
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+
+Add use cases
+Add more properties and work on UML
+Write in RAD
+
+2. Reports (15 min) from previous meeting
+Matthias continued working on the menu.
+Jacob and Joakim fixed the refactoring that was needed after our last meeting with our supervisor since we had box2d logic in our model classes.
+Jacob has written test classes and powerup class
+Joakim has written test classes and initial powerup class.
+
+
+3. Discussion items (35 min)
+First, Use cases were discussed and modified.
+Then we focused on rewriting our UML with properties.
+We also discussed the use of a map editor or not.
+After that we put some effort to update our RAD
+
+
+4. Outcomes and assignments (5 min)
+Another Use case was added: Add skin to the ball
+UML was modified. Properties added to almost all classes, some classes were removed completely from UML.
+The attending members of the group decided that the map should be finished on friday, otherwise we will continue working with our current method.
+
+
+
+
+5. Wrap up
+Matthias will continue working on the menu.
+Jacob will add various functionalities.
+Joakim will write even more JUnit tests and add powerup functions.
+Johan will hopefully get the map finished until Friday.
+
+Next meeting will take place in 29/04-2015 in Idéläran.

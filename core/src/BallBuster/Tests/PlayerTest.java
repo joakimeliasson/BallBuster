@@ -9,42 +9,66 @@ import org.junit.Before;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 /**
  * Created by Joakim on 2015-03-30.
 */
 public class PlayerTest {
-/*
+    private Player p;
+    @Before
+    public void setUpPlayerTest(){
+        p = new Player(1,"Player1", new Ball(1f,1f,null, null));
+    }
     @Test
     public void testAddPlayer() {
-        assertNotNull(new Player(1,"Player1", new Ball(1f,1f,new Aura(), new Map(),null, null)));
+        assertNotNull(p);
     }
 
     @Test
     public void testPlayerId(){
-        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
-        assertEquals(1,(p.getPlayerId()));
+        assertEquals(1, (p.getPlayerId()));
     }
 
     @Test
     public void testGetPlayerName(){
-        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
         assertEquals("Player1", p.getPlayerName());
     }
 
     @Test
     public void testSetPlayerName(){
-        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
         p.setPlayerName("Player2");
         assertEquals("Player2", p.getPlayerName());
     }
 
     @Test
     public void testPlayerHasBall(){
-        Player p = new Player(1, "Player1", new Ball(1f,1f,new Aura(), new Map(),null, null));
-        assertNotNull(p.getPlayerBall());
+        assertNotNull(p.getBall());
     }
-*/
+
+    @Test
+    public void testPlayerKeys(){
+        p.setKeys(1,2,3,4,5);
+        assertEquals(1, p.getLeftKey());
+        assertEquals(2, p.getRightKey());
+        assertEquals(3, p.getUpKey());
+        assertEquals(4, p.getDownKey());
+        assertEquals(5, p.getAuraKey());
+    }
+
+    @Test
+    public void testGetAndSetPlayerPowerUp(){
+        p.setPlayerPowerUp("test");
+        assertEquals("test", p.getPlayerPowerUp());
+    }
+
+    @Test
+    public void testPlayerHasPowerUp(){
+        p.setPlayerPowerUp("test");
+        assertTrue(p.playerHasPowerUp());
+    }
+
+
 }
 
