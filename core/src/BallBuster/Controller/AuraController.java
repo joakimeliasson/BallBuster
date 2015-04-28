@@ -10,6 +10,7 @@ import BallBuster.View.BlockTileView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 
@@ -18,24 +19,35 @@ import java.util.ArrayList;
 /**
  * Created by jacobth on 2015-04-21.
  */
-public class AuraController implements InputProcessor{
+public class AuraController implements InputProcessor, IController{
 
-    private Aura aura;
+    private AuraView auraView;
+
     private Player player;
+    private Aura aura;
 
-    public AuraController(Player player, Aura aura) {
+    private Body body;
+    private ArrayList<Body> bodyList;
+
+    private SpriteBatch batch;
+
+    public AuraController(Player player, Aura aura, Body body, ArrayList<Body> bodyList, SpriteBatch batch) {
         this.player = player;
         this.aura = aura;
+        this.body = body;
+        this.bodyList = bodyList;
+        this.batch = batch;
+        auraView = new AuraView();
     }
 
     public void activateAura(Aura aura, boolean b){
             aura.setAuraStatus(b);
     }
-    public void activateMagnet(ArrayList<Body> list, Body body) {
+    public void activateMagnet() {
 
-        for(int i = 0; i < list.size(); i++) {
-            float xDiff = list.get(i).getPosition().x - body.getPosition().x;
-            float yDiff = list.get(i).getPosition().y - body.getPosition().y;
+        for(int i = 0; i < bodyList.size(); i++) {
+            float xDiff = bodyList.get(i).getPosition().x - body.getPosition().x;
+            float yDiff = bodyList.get(i).getPosition().y - body.getPosition().y;
             float rad2 = xDiff * xDiff + yDiff * yDiff;
             double tmp = (double) rad2;
 
@@ -56,7 +68,6 @@ public class AuraController implements InputProcessor{
                 activateAura(aura, false);
             else
                 activateAura(aura, true);
-
         }
         return false;
     }
@@ -94,6 +105,24 @@ public class AuraController implements InputProcessor{
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    @Override
+    public void onCreate() {
+        auraView.createAnimation();
+    }
+
+    @Override
+    public void onRender() {
+        keyDown(0);
+        if(aura.getAuraStatus()) {
+            auraView.renderAnimation(batch, player);
+            activateMagnet();
+        }
+    }
+
+    public Aura getAura() {
+        return aura;
     }
 }
 

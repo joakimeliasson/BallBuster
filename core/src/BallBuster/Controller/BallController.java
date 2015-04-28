@@ -1,24 +1,41 @@
 package BallBuster.Controller;
 
+import BallBuster.Model.Ball;
 import BallBuster.Model.Player;
-import BallBuster.View.BallBusterView;
 import BallBuster.View.BallView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Created by Jacob Lundberg on 2015-04-23.
  */
-public class BallController implements InputProcessor{
+public class BallController implements InputProcessor, IController{
 
     private Player player;
-    private Body body;
+    private Ball ball;
 
-    public BallController(Player player, Body body) {
+    private Body body;
+    private BallView ballView;
+
+    private SpriteBatch batch;
+
+    private Texture texture;
+    private World world;
+
+    public BallController(Player player ,SpriteBatch batch, Texture texture, World world) {
         this.player = player;
-        this.body = body;
+        this.batch = batch;
+        this.ball = player.getBall();
+        ballView = new BallView();
+        this.texture = texture;
+        this.world = world;
+        ballView.createBody(texture, ball,world);
+        this.body = ballView.getBody();
     }
 
     private void moveRight(Body body, float x, float y) {
@@ -80,5 +97,22 @@ public class BallController implements InputProcessor{
     @Override
     public boolean scrolled(int amount) {
         return false;
+    }
+
+    @Override
+    public void onCreate() {
+    }
+
+    @Override
+    public void onRender() {
+        ballView.setPosition(ball);
+        keyDown(0);
+        ballView.renderBall(batch);
+    }
+    public Body getBody() {
+        return body;
+    }
+    public Ball getBall() {
+        return ball;
     }
 }

@@ -15,10 +15,10 @@ import java.util.ArrayList;
  */
 public class CollisionController implements ContactListener{
 
-    private ArrayList<TileView> tileList;
-    private ArrayList<BallView> ballList;
+    private ArrayList<TileController> tileList;
+    private ArrayList<BallController> ballList;
 
-    public CollisionController(ArrayList<TileView> tileList, ArrayList<BallView> ballList){
+    public CollisionController(ArrayList<TileController> tileList, ArrayList<BallController> ballList){
         this.tileList = tileList;
         this.ballList = ballList;
 
@@ -40,9 +40,9 @@ public class CollisionController implements ContactListener{
 
     }
 
-    public double damage(BallView ballView){
-        double x = Math.pow(2, Math.abs(ballView.getBody().getLinearVelocity().x));
-        double y = Math.pow(2, Math.abs(ballView.getBody().getLinearVelocity().y));
+    public double damage(BallController ballController){
+        double x = Math.pow(2, Math.abs(ballController.getBody().getLinearVelocity().x));
+        double y = Math.pow(2, Math.abs(ballController.getBody().getLinearVelocity().y));
         double dmg = Math.sqrt(x+y);
         System.out.println("Damage: "+dmg+"\n");
         return dmg;

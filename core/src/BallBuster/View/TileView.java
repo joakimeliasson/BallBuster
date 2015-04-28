@@ -1,5 +1,6 @@
 package BallBuster.View;
 
+import BallBuster.Controller.BallBuster;
 import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.*;
 /**
  * Created by Jacob Lundberg on 2015-04-24.
  */
-public class TileView implements ApplicationListener{
+public class TileView{
 
     private Sprite sprite;
     private World world;
@@ -37,23 +38,18 @@ public class TileView implements ApplicationListener{
         this.width = width;
         this.height = height;
     }
-
-    @Override
-    public void create() {
-     //   sprite = new Sprite(texture);
-
-
+    public void createBody() {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
-        bodyDef.position.set((tile.getX() +width/2)/BallBusterView.SCALE, (tile.getY() + height/2)/BallBusterView.SCALE);
+        bodyDef.position.set((tile.getX() +width/2)/BallBuster.SCALE, (tile.getY() + height/2)/BallBuster.SCALE);
 
         body = world.createBody(bodyDef);
 
         //Create the body as a box
         PolygonShape shape = new PolygonShape();
 
-        shape.setAsBox(width/2 / BallBusterView.SCALE, height/2 / BallBusterView.SCALE);
+        shape.setAsBox(width/2 / BallBuster.SCALE, height/2 / BallBuster.SCALE);
 
         //Set physical attributes to the body
         FixtureDef fixtureDef = new FixtureDef();
@@ -66,34 +62,13 @@ public class TileView implements ApplicationListener{
         //Make the body still when no acceleration are applied
         shape.dispose();
     }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void render() {
+    public void renderBody() {
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         batch.end();
     }
 
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
     public Body getBody() {
         return body;
     }

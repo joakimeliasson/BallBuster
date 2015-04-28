@@ -58,7 +58,7 @@ public class MapView {
                 mapModel.addTile(tile);
 
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
-                tileView.create();
+                tileView.createBody();
                 tiles.add(tileView);
 
                 bodyListPlayer1.add(tileView.getBody());
@@ -81,7 +81,7 @@ public class MapView {
                 mapModel.addTile(tile);
 
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
-                tileView.create();
+                tileView.createBody();
                 tiles.add(tileView);
 
                 bodyListPlayer2.add(tileView.getBody());
@@ -89,7 +89,6 @@ public class MapView {
         }
 
     }
-
     //Used to focus map but doesn't work now since we moved it
     public void cameraFocusMap() {
         int mapHeight,mapWidth;
@@ -123,5 +122,11 @@ public class MapView {
     public void render() {
         mapRenderer.setView(renderCamera);
         mapRenderer.render();
+    }
+    public OrthographicCamera getRenderCamera() {
+        return renderCamera;
+    }
+    public OrthogonalTiledMapRenderer getMapRenderer() {
+        return  mapRenderer;
     }
 }

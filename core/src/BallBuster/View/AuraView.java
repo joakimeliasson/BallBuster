@@ -1,6 +1,7 @@
 package BallBuster.View;
 
 import BallBuster.Controller.AuraController;
+import BallBuster.Controller.BallBuster;
 import BallBuster.Model.Aura;
 import BallBuster.Model.Player;
 import com.badlogic.gdx.ApplicationListener;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 /**
  * Created by Joakim on 2015-04-24.
  */
-public class AuraView implements ApplicationListener{
+public class AuraView{
 
     private Sprite sprite;
 
@@ -31,32 +32,9 @@ public class AuraView implements ApplicationListener{
     private TextureRegion[] walkFrames;
     private TextureRegion currentFrame;
 
-    private SpriteBatch batch;
-
-    private Player player;
-
-    private Sprite ballSprite;
-
-    private Aura aura;
-
-    private Body body;
-    private Body blockBody;
-    private ArrayList<Body> bodyList;
-
-    private AuraController auraController;
-
     float stateTime;
 
-    public AuraView(SpriteBatch batch, Player player, Body body, ArrayList<Body> bodyList) {
-        this.batch = batch;
-        this.player = player;
-        this.aura = player.getBall().getAura();
-        this.body = body;
-        this.bodyList = bodyList;
-        this.auraController = new AuraController(player, aura);
-    }
-
-    private void createAnimation() {
+    public void createAnimation() {
         walkSheet = new Texture(Gdx.files.internal("core/images/animation.png"));
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
@@ -69,55 +47,16 @@ public class AuraView implements ApplicationListener{
         walkAnimation = new Animation(0.025f, walkFrames);
         stateTime = 0f;
     }
-    private void renderAnimation(SpriteBatch batch) {
+    public void renderAnimation(SpriteBatch batch, Player player) {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         sprite = new Sprite(currentFrame);
-        aura.setPosition(player.getBall().getX2()*BallBusterView.SCALE-sprite.getWidth()/2, player.getBall().getY2()*BallBusterView.SCALE-sprite.getHeight()/2);
+        Aura aura = player.getBall().getAura();
+        aura.setPosition(player.getBall().getX2()*BallBuster.SCALE-sprite.getWidth()/2, player.getBall().getY2()*BallBuster.SCALE-sprite.getHeight()/2);
         sprite.setPosition(aura.getX(), aura.getY());
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         batch.end();
-    }
-
-    public Aura getAura(){
-        return this.aura;
-    }
-
-    @Override
-    public void create() {
-        createAnimation();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void render() {
-        auraController.keyDown(0);
-        if(aura.getAuraStatus()) {
-            renderAnimation(batch);
-            auraController.activateMagnet(bodyList, body);
-        }
-        else
-            auraController.resetRestitution(body);
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void dispose() {
-
     }
 }

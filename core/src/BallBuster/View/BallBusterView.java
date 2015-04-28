@@ -23,8 +23,8 @@ import com.badlogic.gdx.physics.box2d.*;
 import java.util.ArrayList;
 
 
-public class BallBusterView extends Game {
-    private OrthographicCamera camera;
+//public class BallBusterView extends Game {
+/*    private OrthographicCamera camera;
     private World world;
 
     public static final float SCALE = 100f;
@@ -68,6 +68,8 @@ public class BallBusterView extends Game {
     private ArrayList<ApplicationListener> viewList;
     private ArrayList<TileView> wallList;
     private ArrayList<BallView> ballList;
+
+    private BallController ballController;
 
     @Override
     public void create() {
@@ -256,5 +258,5 @@ public class BallBusterView extends Game {
 
         ballList.add(ballView);
         ballList.add(ballView2);
-    }
-}
+    }*/
+//}
