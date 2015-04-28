@@ -15,12 +15,9 @@ allprojects {
     apply plugin: "eclipse"
     apply plugin: "idea"
 
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
-
     version = '1.0'
     ext {
-        appName = 'ballBuster'
+        appName = 'BallBuster'
         gdxVersion = '1.5.5'
         roboVMVersion = '1.0.0'
         box2DLightsVersion = '1.3'

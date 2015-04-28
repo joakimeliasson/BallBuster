@@ -1,7 +1,7 @@
-package ballBuster.controller;
+package BallBuster.Controller;
 
-import ballBuster.model.Ball;
-import ballBuster.model.PowerUp;
+import BallBuster.Model.Ball;
+import BallBuster.Model.PowerUp;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

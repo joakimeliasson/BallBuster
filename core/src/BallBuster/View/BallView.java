@@ -1,11 +1,13 @@
-package ballBuster.view;
+package BallBuster.View;
 
-import ballBuster.controller.BallController;
-import ballBuster.controller.BlockTileController;
-import ballBuster.model.Ball;
-import ballBuster.model.Player;
+import BallBuster.Controller.BallController;
+import BallBuster.Controller.BlockTileController;
+import BallBuster.Model.Ball;
+import BallBuster.Model.Player;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

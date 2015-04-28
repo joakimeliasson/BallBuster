@@ -1,6 +1,8 @@
-package ballBuster.model;
+package BallBuster.Model;
 
-import ballBuster.model.Tile.Tile;
+import BallBuster.Model.Tile.BlackTile;
+import BallBuster.Model.Tile.Tile;
+import BallBuster.Model.Tile.WhiteTile;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;

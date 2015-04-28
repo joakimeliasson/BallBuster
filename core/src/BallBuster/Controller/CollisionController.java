@@ -1,7 +1,11 @@
-package ballBuster.controller;
+package BallBuster.Controller;
 
-import ballBuster.view.BallView;
-import ballBuster.view.TileView;
+import BallBuster.Model.Ball;
+import BallBuster.Model.Tile.BlockTile;
+import BallBuster.Model.Tile.Tile;
+import BallBuster.View.BallView;
+import BallBuster.View.BlockTileView;
+import BallBuster.View.TileView;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;

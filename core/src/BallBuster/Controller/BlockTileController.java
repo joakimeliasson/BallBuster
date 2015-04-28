@@ -1,4 +1,4 @@
-package ballBuster.controller;
+package BallBuster.Controller;
 
 import com.badlogic.gdx.physics.box2d.Body;
 
