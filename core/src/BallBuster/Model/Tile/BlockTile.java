@@ -1,12 +1,4 @@
-package BallBuster.Model.Tile;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.physics.box2d.*;
-
-import java.awt.geom.RectangularShape;
+package ballBuster.model.Tile;
 
 /**
  * Created by Matthias on 2015-03-30.

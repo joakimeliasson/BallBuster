@@ -1,13 +1,4 @@
-package BallBuster.Model;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-
-import java.awt.*;
+package ballBuster.model;
 
 /**
  * Created by Jacob Lundberg on 2015-03-30.

@@ -1,9 +1,9 @@
-package BallBuster.client;
+package ballBuster.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import BallBuster.View.BallBusterView;
+import ballBuster.view.BallBusterView;
 
 public class HtmlLauncher extends GwtApplication {
 

@@ -86,7 +86,7 @@ Press a key or use mouse to exit program
 2.2 Non-functional requirements
 
 2.2.1 Usability
- BallBuster should be easy to use for everyone. For more experienced users a number of extra features, such as harder maps, should be available.
+ ballBuster should be easy to use for everyone. For more experienced users a number of extra features, such as harder maps, should be available.
 
 
 2.2.2 Reliability

@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'BallBuster.GdxDefinition'
-    devModules 'BallBuster.GdxDefinitionSuperdev'
+    modules 'ballBuster.GdxDefinition'
+    devModules 'ballBuster.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {

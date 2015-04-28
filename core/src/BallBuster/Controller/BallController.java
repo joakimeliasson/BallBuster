@@ -1,10 +1,7 @@
-package BallBuster.Controller;
+package ballBuster.controller;
 
-import BallBuster.Model.Player;
-import BallBuster.View.BallBusterView;
-import BallBuster.View.BallView;
+import ballBuster.model.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.physics.box2d.Body;
 
