@@ -18,30 +18,42 @@ public class TileView implements ApplicationListener{
     private Texture texture;
     private SpriteBatch batch;
     private Body body;
+    private float width,height;
 
     public TileView(World world, Tile tile, Texture texture, SpriteBatch batch) {
         this.world = world;
         this.tile = tile;
         this.texture = texture;
         this.batch = batch;
+        this.sprite = new Sprite(texture);
+        this.sprite.setPosition(tile.getX(), tile.getY());
+        this.width = sprite.getWidth();
+        this.height = sprite.getHeight();
+    }
+
+    public TileView(World world, Tile tile,float width, float height) {
+        this.world = world;
+        this.tile = tile;
+        this.width = width;
+        this.height = height;
     }
 
     @Override
     public void create() {
-        sprite = new Sprite(texture);
-        sprite.setPosition(tile.getX(), tile.getY());
+     //   sprite = new Sprite(texture);
+
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.StaticBody;
 
-        bodyDef.position.set((sprite.getX() +sprite.getWidth()/2)/BallBusterView.SCALE, (sprite.getY() + sprite.getHeight()/2)/BallBusterView.SCALE);
+        bodyDef.position.set((tile.getX() +width/2)/BallBusterView.SCALE, (tile.getY() + height/2)/BallBusterView.SCALE);
 
         body = world.createBody(bodyDef);
 
         //Create the body as a box
         PolygonShape shape = new PolygonShape();
 
-        shape.setAsBox(sprite.getWidth()/2 / BallBusterView.SCALE, sprite.getHeight()/2 / BallBusterView.SCALE);
+        shape.setAsBox(width/2 / BallBusterView.SCALE, height/2 / BallBusterView.SCALE);
 
         //Set physical attributes to the body
         FixtureDef fixtureDef = new FixtureDef();

@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
@@ -40,6 +41,9 @@ public class BallBusterView extends Game {
     private TileView rightWall;
     private TileView upWall;
     private TileView downWall;
+
+    private MapView mapView;
+
 
     private Ball ball;
     private Texture texture;
@@ -81,17 +85,26 @@ public class BallBusterView extends Game {
 
         viewList = new ArrayList<ApplicationListener>();
 
+        //Load TileMap
+        this.mapView = new MapView("core/res/TiledMaps/dummy64BigMap.tmx", world, camera);
+        //map = new TmxMapLoader().load("core/res/TiledMaps/dummyMap.tmx");
+        //mapView.cameraFocusMap();
+
         createWalls();
         createBalls();
-        createBlocks();
+    //    createBlocks();
         collision();
 
         for(ApplicationListener listener : viewList)
             listener.create();
 
+
+
         createAuraView();
         auraView.create();
         auraView2.create();
+
+
     }
 
     @Override
@@ -126,12 +139,15 @@ public class BallBusterView extends Game {
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        mapView.render();
+
         for(ApplicationListener listener : viewList)
             listener.render();
 
         world.setContactListener(new CollisionController(wallList, ballList));
 
         debugRenderer.render(world, debugMatrix);
+
     }
 
     private void createWalls() {
@@ -213,17 +229,17 @@ public class BallBusterView extends Game {
     }
 
     private void createAuraView(){
-        ArrayList<Body> ballList = new ArrayList<Body>();
-        ballList.add(leftBlock.getBody());
-        ballList.add(rightBlock.getBody());
+//        ArrayList<Body> ballList = new ArrayList<Body>();
+//        ballList.add(leftBlock.getBody());
+//        ballList.add(rightBlock.getBody());
 
-        ArrayList<Body> ball2List = new ArrayList<Body>();
-        ball2List.add(downBlock.getBody());
+  //      ArrayList<Body> ball2List = new ArrayList<Body>();
+//        ball2List.add(downBlock.getBody());
 
-        this.auraView = new AuraView(batch, player, ballView.getBody(), ballList);
+        this.auraView = new AuraView(batch, player, ballView.getBody(), mapView.getBodyListPlayer1());
         aura = auraView.getAura();
 
-        this.auraView2 = new AuraView(batch, player2, ballView2.getBody(), ball2List);
+        this.auraView2 = new AuraView(batch, player2, ballView2.getBody(), mapView.getBodyListPlayer2());
         aura2 = auraView2.getAura();
         //aura.setPosition(ball.getX2()*100-auraView.getSprite().getWidth()/2, ball2.getY2()*100 -auraView.getSprite().getHeight());
         viewList.add(auraView);
