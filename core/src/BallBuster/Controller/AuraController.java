@@ -26,48 +26,22 @@ public class AuraController implements InputProcessor, IController{
     private Player player;
     private Aura aura;
 
-    private Body body;
-    private ArrayList<Body> bodyList;
-
     private SpriteBatch batch;
 
-    public AuraController(Player player, Aura aura, Body body, ArrayList<Body> bodyList, SpriteBatch batch) {
+    public AuraController(Player player, Body body, ArrayList<Body> bodyList, SpriteBatch batch) {
         this.player = player;
-        this.aura = aura;
-        this.body = body;
-        this.bodyList = bodyList;
+        this.aura = player.getBall().getAura();
         this.batch = batch;
-        auraView = new AuraView();
-    }
-
-    public void activateAura(Aura aura, boolean b){
-            aura.setAuraStatus(b);
-    }
-    public void activateMagnet() {
-
-        for(int i = 0; i < bodyList.size(); i++) {
-            float xDiff = bodyList.get(i).getPosition().x - body.getPosition().x;
-            float yDiff = bodyList.get(i).getPosition().y - body.getPosition().y;
-            float rad2 = xDiff * xDiff + yDiff * yDiff;
-            double tmp = (double) rad2;
-
-            if (Math.sqrt(tmp) < 2f) {
-                body.getFixtureList().get(0).setRestitution(0f);
-                body.applyLinearImpulse(((0.1f * xDiff) / rad2), (0.1f * yDiff) / rad2, body.getPosition().x, body.getPosition().y, true);
-            }
-        }
-    }
-    public void resetRestitution(Body body) {
-        body.getFixtureList().get(0).setRestitution(1f);
+        auraView = new AuraView(player,body, bodyList, batch);
     }
 
     @Override
     public boolean keyDown(int keycode) {
         if (Gdx.input.isKeyJustPressed(player.getAuraKey())){
             if (aura.getAuraStatus())
-                activateAura(aura, false);
+                auraView.activateAura(aura, false);
             else
-                activateAura(aura, true);
+                auraView.activateAura(aura, true);
         }
         return false;
     }
@@ -117,7 +91,7 @@ public class AuraController implements InputProcessor, IController{
         keyDown(0);
         if(aura.getAuraStatus()) {
             auraView.renderAnimation(batch, player);
-            activateMagnet();
+            auraView.activateMagnet();
         }
     }
 

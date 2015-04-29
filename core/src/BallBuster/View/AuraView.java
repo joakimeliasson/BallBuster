@@ -34,6 +34,24 @@ public class AuraView{
 
     float stateTime;
 
+    private AuraView auraView;
+
+    private Player player;
+    private Aura aura;
+
+    private Body body;
+    private ArrayList<Body> bodyList;
+
+    private SpriteBatch batch;
+
+    public AuraView(Player player, Body body, ArrayList<Body> bodyList, SpriteBatch batch) {
+        this.player = player;
+        this.aura = player.getBall().getAura();
+        this.body = body;
+        this.bodyList = bodyList;
+        this.batch = batch;
+    }
+
     public void createAnimation() {
         walkSheet = new Texture(Gdx.files.internal("core/images/animation.png"));
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);
@@ -58,5 +76,25 @@ public class AuraView{
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         batch.end();
+    }
+    public void activateAura(Aura aura, boolean b){
+        aura.setAuraStatus(b);
+    }
+    public void activateMagnet() {
+
+        for(int i = 0; i < bodyList.size(); i++) {
+            float xDiff = bodyList.get(i).getPosition().x - body.getPosition().x;
+            float yDiff = bodyList.get(i).getPosition().y - body.getPosition().y;
+            float rad2 = xDiff * xDiff + yDiff * yDiff;
+            double tmp = (double) rad2;
+
+            if (Math.sqrt(tmp) < 2f) {
+                //body.getFixtureList().get(0).setRestitution(0f);
+                body.applyLinearImpulse(((0.1f * xDiff) / rad2), (0.1f * yDiff) / rad2, body.getPosition().x, body.getPosition().y, true);
+            }
+        }
+    }
+    public void resetRestitution(Body body) {
+        body.getFixtureList().get(0).setRestitution(1f);
     }
 }

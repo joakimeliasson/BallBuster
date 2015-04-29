@@ -2,6 +2,7 @@ package BallBuster.View;
 
 import BallBuster.Controller.BallBuster;
 import BallBuster.Model.Ball;
+import BallBuster.Model.Player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,11 +13,13 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class BallView{
     private Sprite sprite;
-
+    private Player player;
     private Body body;
 
-    public void createBody(Texture texture, Ball ball, World world) {
+    public void createBody(Texture texture, Player player, World world) {
         sprite = new Sprite(texture);
+        this.player = player;
+        Ball ball = player.getBall();
         sprite.setPosition(ball.getX(), ball.getY());
 
         BodyDef bodyDef = new BodyDef();
@@ -57,9 +60,6 @@ public class BallView{
         batch.end();
     }
 
-    public Sprite getBallSprite() {
-        return sprite;
-    }
     public void setPosition(Ball ball) {
         ball.setBodyPosition(body.getPosition().x, body.getPosition().y);
         ball.setPosition((body.getPosition().x*BallBuster.SCALE)-sprite.getWidth()/2, (body.getPosition().y*BallBuster.SCALE)-sprite.getHeight()/2);
@@ -70,5 +70,18 @@ public class BallView{
     }
     public float getY() {
         return body.getPosition().y;
+    }
+
+    public void moveRight(float x, float y) {
+        body.applyLinearImpulse(player.getBall().getSpeed(), 0, x, y, true);
+    }
+    public void moveLeft(float x, float y) {
+        body.applyLinearImpulse(-player.getBall().getSpeed(), 0, x, y, true);
+    }
+    public void moveUp(float x, float y) {
+        body.applyLinearImpulse(0, player.getBall().getSpeed(), x, y, true);
+    }
+    public void moveDown(float x, float y) {
+        body.applyLinearImpulse(0, -player.getBall().getSpeed(), x, y, true);
     }
 }

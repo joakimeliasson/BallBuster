@@ -18,19 +18,8 @@ import java.util.ArrayList;
 public class MapController implements IController{
 
     private MapView mapView;
-    private World world;
-    private TiledMap tiledMap;
-    private OrthogonalTiledMapRenderer mapRenderer;
-    private ArrayList<BlockTileView> tiles = new ArrayList<>();
-    private OrthographicCamera camera;
-    private OrthographicCamera renderCamera;
-    private Map mapModel;
-    private ArrayList<Body> bodyListPlayer1;
-    private ArrayList<Body> bodyListPlayer2;
 
     public MapController(World world, OrthographicCamera camera) {
-        this.world = world;
-        this.camera = camera;
         mapView = new MapView("core/res/TiledMaps/dummy64BigMap.tmx",world, camera);
     }
     @Override

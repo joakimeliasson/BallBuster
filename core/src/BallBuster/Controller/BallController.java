@@ -24,43 +24,26 @@ public class BallController implements InputProcessor, IController{
 
     private SpriteBatch batch;
 
-    private Texture texture;
-    private World world;
-
     public BallController(Player player ,SpriteBatch batch, Texture texture, World world) {
         this.player = player;
         this.batch = batch;
         this.ball = player.getBall();
         ballView = new BallView();
-        this.texture = texture;
-        this.world = world;
-        ballView.createBody(texture, ball,world);
+        ballView.createBody(texture, player,world);
         this.body = ballView.getBody();
     }
 
-    private void moveRight(Body body, float x, float y) {
-        body.applyLinearImpulse(player.getBall().getSpeed(), 0, x, y, true);
-    }
-    private void moveLeft(Body body, float x, float y) {
-        body.applyLinearImpulse(-player.getBall().getSpeed(), 0, x, y, true);
-    }
-    private void moveUp(Body body, float x, float y) {
-        body.applyLinearImpulse(0, player.getBall().getSpeed(), x, y, true);
-    }
-    private void moveDown(Body body, float x, float y) {
-        body.applyLinearImpulse(0, -player.getBall().getSpeed(), x, y, true);
-    }
 
     @Override
     public boolean keyDown(int keycode) {
         if(Gdx.input.isKeyPressed(player.getLeftKey()))
-            moveLeft(body, body.getPosition().x, body.getPosition().y);
+            ballView.moveLeft(body.getPosition().x, body.getPosition().y);
         if(Gdx.input.isKeyPressed(player.getRightKey()))
-            moveRight(body, body.getPosition().x, body.getPosition().y);
+            ballView.moveRight(body.getPosition().x, body.getPosition().y);
         if(Gdx.input.isKeyPressed(player.getUpKey()))
-            moveUp(body,body.getPosition().x, body.getPosition().y);
+            ballView.moveUp(body.getPosition().x, body.getPosition().y);
         if(Gdx.input.isKeyPressed(player.getDownKey()))
-            moveDown(body, body.getPosition().x, body.getPosition().y);
+            ballView.moveDown(body.getPosition().x, body.getPosition().y);
         return false;
     }
 

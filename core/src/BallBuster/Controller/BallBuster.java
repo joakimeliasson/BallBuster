@@ -132,8 +132,8 @@ public class BallBuster extends Game{
         controllerList.add(mapController);
     }
     public void createAura() {
-        auraController = new AuraController(player, aura, ballController.getBody(),mapController.getBodyListPlayer1(), batch);
-        auraController2 = new AuraController(player2, aura2, ballController2.getBody(), mapController.getBodyListPlayer2(), batch);
+        auraController = new AuraController(player, ballController.getBody(),mapController.getBodyListPlayer1(), batch);
+        auraController2 = new AuraController(player2, ballController2.getBody(), mapController.getBodyListPlayer2(), batch);
         controllerList.add(auraController);
         controllerList.add(auraController2);
     }
