@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -52,14 +53,10 @@ public class BallBuster extends Game{
     private BallController ballController;
     private BallController ballController2;
     private MapController mapController;
-    private TileController leftWallController;
-    private TileController rightWallController;
-    private TileController upWallController;
-    private TileController downWallController;
+    private TileController tileWallController;
 
     private ArrayList<IController> controllerList;
     private ArrayList<BallController> ballList;
-    private ArrayList<TileController> wallList;
 
     @Override
     public void create() {
@@ -99,7 +96,7 @@ public class BallBuster extends Game{
         for(IController controller : controllerList)
             controller.onRender();
 
-        world.setContactListener(new CollisionController(wallList, ballList));
+        world.setContactListener(new CollisionController(tileWallController.getWallList(), ballList));
 
         debugRenderer.render(world, debugMatrix);
     }
@@ -138,35 +135,12 @@ public class BallBuster extends Game{
         controllerList.add(auraController2);
     }
     private void createWalls() {
-        FileHandle horizontalFileHandle = Gdx.files.internal("core/images/wallHorizontal.png");
-        Texture horizontalTexture = new Texture(horizontalFileHandle);
+        tileWallController = new TileController(world, batch, camera);
 
-        FileHandle verticalFileHandle = Gdx.files.internal("core/images/wallVertical.png");
-        Texture verticalTexture = new Texture(verticalFileHandle);
-
-        Tile downTile = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2);
-        Tile upTile = new Tile(-camera.viewportWidth/2, camera.viewportHeight/2-horizontalTexture.getHeight());
-        Tile leftTile = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2);
-        Tile rightTile = new Tile(camera.viewportWidth/2-verticalTexture.getWidth(), -camera.viewportHeight/2);
-
-        downWallController = new TileController(world, downTile, horizontalTexture, batch);
-        upWallController = new TileController(world, upTile, horizontalTexture, batch);
-        leftWallController = new TileController(world, leftTile, verticalTexture, batch);
-        rightWallController = new TileController(world, rightTile, verticalTexture, batch);
-
-        controllerList.add(downWallController);
-        controllerList.add(upWallController);
-        controllerList.add(leftWallController);
-        controllerList.add(rightWallController);
+        controllerList.add(tileWallController);
     }
     private void collision() {
-        wallList = new ArrayList<TileController>();
         ballList = new ArrayList<BallController>();
-
-        wallList.add(leftWallController);
-        wallList.add(rightWallController);
-        wallList.add(downWallController);
-        wallList.add(upWallController);
 
         ballList.add(ballController);
         ballList.add(ballController2);
