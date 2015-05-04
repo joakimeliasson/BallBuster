@@ -24,8 +24,8 @@ public class AuraView{
 
     private Sprite sprite;
 
-    private static final int FRAME_COLS = 6;
-    private static final int FRAME_ROWS = 5;
+    private static final int FRAME_COLS = 5;
+    private static final int FRAME_ROWS = 2;
 
     private Animation walkAnimation;
     private Texture walkSheet;
@@ -53,7 +53,7 @@ public class AuraView{
     }
 
     public void createAnimation() {
-        walkSheet = new Texture(Gdx.files.internal("core/images/animation.png"));
+        walkSheet = new Texture(Gdx.files.internal("core/images/shieldsprite.png"));
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
