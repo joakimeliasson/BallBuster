@@ -17,10 +17,13 @@ public class Player {
     private String playerPowerUp;
     private boolean hasPowerUp;
 
+    private boolean invertedKeys;
+
     public Player(int playerId, String playerName, Ball ball){
         this.playerName = playerName;
         this.playerId = playerId;
         this.ball = ball;
+        this.invertedKeys = false;
     }
     public int getPlayerId(){
         return this.playerId;
@@ -65,6 +68,14 @@ public class Player {
 
     public boolean playerHasPowerUp(){
         return (getPlayerPowerUp() != null);
+    }
+
+    public boolean hasInvertedKeys(){
+        return invertedKeys;
+    }
+
+    public void invertKeys(boolean b){
+        this.invertedKeys = b;
     }
 
 

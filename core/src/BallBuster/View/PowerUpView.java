@@ -66,6 +66,7 @@ public class PowerUpView{
                         System.out.println("slowDown");
                         break;
                     case "invertKeys":
+                        player.invertKeys(true);
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
                         System.out.println("invertKeys");
                         break;
@@ -79,8 +80,10 @@ public class PowerUpView{
         for(Player player : playerList){
             if(player.getBall().hasPowerUp()) {
                 if(powerUpTimer.hasTimeElapsed()) {
-//                    if (player.getPlayerPowerUp() == "invertKeys")
-//                        player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
+                    if (player.hasInvertedKeys()) {
+                        player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
+                        player.invertKeys(false);
+                    }
                     player.getBall().setSpeed(0.1f);
                     player.getBall().setHasPowerUp(false);
                 }
