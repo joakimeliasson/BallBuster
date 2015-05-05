@@ -60,7 +60,7 @@ public class Player {
     }
 
     public void setPlayerPowerUp(String newPowerUp){
-        powerUp.setPowerUp("newPowerUp");
+        powerUp.setPowerUp(newPowerUp);
     }
 
     public boolean playerHasPowerUp(){

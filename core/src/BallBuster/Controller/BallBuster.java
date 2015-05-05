@@ -51,6 +51,7 @@ public class BallBuster extends Game{
     private Aura aura;
     private Aura aura2;
 
+    private int powerUpIndex;
 
     private AuraController auraController;
     private AuraController auraController2;
@@ -146,6 +147,7 @@ public class BallBuster extends Game{
         controllerList.add(auraController2);
     }
     public void createPowerUp(){
+        Random random = new Random();
         powerUpList = new ArrayList<PowerUp>();
         PowerUp speedUp = new PowerUp("speedUp");
         PowerUp slowDown = new PowerUp("slowDown");
@@ -153,10 +155,14 @@ public class BallBuster extends Game{
         powerUpList.add(speedUp);
         powerUpList.add(slowDown);
         powerUpList.add(invertKeys);
-        Random random = new Random();
-        int powerUpIndex = random.nextInt(powerUpList.size());
-        powerUpController = new PowerUpController(powerUpList.get(powerUpIndex),playerList, new Sprite(texture), batch);
+
+        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(texture), batch);
         controllerList.add(powerUpController);
+    }
+
+    public PowerUp powerUpGenerator(){
+        Random random = new Random();
+        return powerUpList.get(random.nextInt(powerUpList.size()));
     }
     private void createWalls() {
         tileWallController = new TileController(world, batch, camera);

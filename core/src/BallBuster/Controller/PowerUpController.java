@@ -16,17 +16,20 @@ import java.util.Random;
  */
 public class PowerUpController implements IController{
 
+    private BallBuster ballBuster;
     private PowerUpView powerUpView;
     private PowerUp powerUp;
     private ArrayList<Player> playerList;
+    private ArrayList<PowerUp> powerUpList;
     private Sprite sprite;
     private SpriteBatch batch;
 
-    public PowerUpController(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, SpriteBatch batch){
-        this.powerUp = powerUp;
+    public PowerUpController(ArrayList<PowerUp> powerUpList, ArrayList<Player> playerList, Sprite sprite, SpriteBatch batch){
+        this.powerUpList = powerUpList;
         this.playerList = playerList;
         this.sprite = sprite;
         this.batch = batch;
+        ballBuster = new BallBuster();
     }
 
     @Override
@@ -37,6 +40,8 @@ public class PowerUpController implements IController{
 
     @Override
     public void onRender() {
-         powerUpView.powerUpSet(powerUp, playerList, sprite, Gdx.graphics.getDeltaTime(), batch);
+        Random random = new Random();
+        int randomInt = random.nextInt(powerUpList.size());
+         powerUpView.powerUpSet(powerUpList.get(randomInt), playerList, sprite, Gdx.graphics.getDeltaTime(), batch);
     }
 }

@@ -18,15 +18,10 @@ import java.util.Random;
 public class PowerUpView{
 
     private PowerUp powerUp;
-    private Ball ball;
     private Sprite sprite;
     private SpriteBatch batch;
     private ArrayList<Player> playerList;
 
-    private ArrayList<String> powerUpList;
-    private String speedUp;
-    private String slowDown;
-    private String invertKeys;
 
     private Timer timer;
     private Timer powerUpTimer;
@@ -56,33 +51,36 @@ public class PowerUpView{
         Player player = getHitPlayer(playerList, sprite);
         if(timer.hasTimeElapsed()) {
             draw(sprite, batch);
-            if (ball != null) {
+            if (player != null) {
                 int random = (int )(Math.random() * 20 + 10);
                 timer.reset(random);
                 System.out.println(random);
                 hideSprite(sprite);
-                switch (player.getPlayerPowerUp().toString()) {
+                switch (powerUp.getPowerUp().toString()) {
                     case "speedUp":
                         player.getBall().setSpeed(0.4f);
+                        System.out.println("speedUp");
                         break;
                     case "slowDown":
                         player.getBall().setSpeed(0.02f);
+                        System.out.println("slowDown");
                         break;
                     case "invertKeys":
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
+                        System.out.println("invertKeys");
+                        break;
                 }
             }
         }
         resetBall(playerList, delta);
     }
-    public ArrayList<String> getPowerUpList(){
-        return this.powerUpList;
-    }
-    public void resetBall(ArrayList<Player> ballList, float delta) {
+    public void resetBall(ArrayList<Player> playerList, float delta) {
         powerUpTimer.update(delta);
-        for(Player player : ballList){
+        for(Player player : playerList){
             if(player.getBall().hasPowerUp()) {
                 if(powerUpTimer.hasTimeElapsed()) {
+//                    if (player.getPlayerPowerUp() == "invertKeys")
+//                        player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
                     player.getBall().setSpeed(0.1f);
                     player.getBall().setHasPowerUp(false);
                 }
