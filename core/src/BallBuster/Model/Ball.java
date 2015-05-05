@@ -34,7 +34,7 @@ public class Ball {
         this.x = x;
         this.y = y;
 
-        speed = 0.10f;
+        speed = 0.50f;
         shield = 100;
     }
 

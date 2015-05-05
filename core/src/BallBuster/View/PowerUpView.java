@@ -56,7 +56,7 @@ public class PowerUpView{
                 hideSprite(sprite);
                 switch (powerUp.getPowerUp().toString()) {
                     case "speedUp":
-                        player.getBall().setSpeed(0.4f);
+                        player.getBall().setSpeed(player.getBall().getSpeed()*2);
                         System.out.println("speedUp");
                         break;
                     case "slowDown":
@@ -89,7 +89,7 @@ public class PowerUpView{
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
                         player.invertKeys(false);
                     }
-                    player.getBall().setSpeed(0.1f);
+                    player.getBall().setSpeed(0.5f);
                     player.getBall().setHasPowerUp(false);
                 }
             }
