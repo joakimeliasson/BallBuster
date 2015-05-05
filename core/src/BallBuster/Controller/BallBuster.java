@@ -51,6 +51,7 @@ public class BallBuster extends Game{
     private Aura aura;
     private Aura aura2;
 
+    private Texture backgroundTexture;
 
     private AuraController auraController;
     private AuraController auraController2;
@@ -64,6 +65,8 @@ public class BallBuster extends Game{
     private ArrayList<BallController> ballList;
     private ArrayList<Player> playerList;
     private ArrayList<PowerUp> powerUpList;
+
+    private Sprite background;
 
     @Override
     public void create() {
@@ -88,6 +91,11 @@ public class BallBuster extends Game{
 
         for(IController controller : controllerList)
             controller.onCreate();
+
+        FileHandle backFileHandle = Gdx.files.internal("core/images/background.jpg");
+        backgroundTexture = new Texture(backFileHandle);
+
+        background = new Sprite(backgroundTexture);
     }
 
     @Override
@@ -101,12 +109,16 @@ public class BallBuster extends Game{
 
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        batch.begin();
+        batch.draw(background, -camera.viewportWidth/2, -camera.viewportHeight/2);
+        batch.end();
+
         for(IController controller : controllerList)
             controller.onRender();
 
         world.setContactListener(new CollisionController(tileWallController.getWallList(), ballList));
 
-        debugRenderer.render(world, debugMatrix);
+        //debugRenderer.render(world, debugMatrix);
     }
     public void createBalls() {
         playerList = new ArrayList<Player>();

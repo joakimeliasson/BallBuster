@@ -20,7 +20,7 @@ public class MapController implements IController{
     private MapView mapView;
 
     public MapController(World world, OrthographicCamera camera) {
-        mapView = new MapView("core/res/TiledMaps/dummy64BigMap.tmx",world, camera);
+        mapView = new MapView("core/res/TiledMaps/test2.tmx",world, camera);
     }
     @Override
     public void onCreate() {
