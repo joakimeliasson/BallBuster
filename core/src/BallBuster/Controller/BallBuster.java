@@ -156,7 +156,10 @@ public class BallBuster extends Game{
         powerUpList.add(invertKeys);
         powerUpList.add(damageOther);
 
-        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(texture), batch);
+        FileHandle ballFileHandle2 = Gdx.files.internal("core/images/powerUp.png");
+        Texture powerUpTexture = new Texture(ballFileHandle2);
+
+        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), batch);
         controllerList.add(powerUpController);
     }
 

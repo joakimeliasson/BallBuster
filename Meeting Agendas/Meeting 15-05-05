@@ -1,0 +1,45 @@
+Meeting Agenda
+  Date: 2015-04-27
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Matthias Andersson, Jacob Lundberg, Johan Segerlund
+
+1. Objectives (5 min).
+
+Discuss TODO
+Write SDD
+Fix project build problem
+
+2. Reports (15 min) from previous meeting
+Jacob did a substantial refactoring of the code. Also fixed the animation scheme for the aura.
+Johan added a MapView with collidable boxes from TiledMap
+Joakim refactored PowerUp view/controller and added more functionality for Powerups.
+Matthias continued working on the launcher.
+
+
+3. Discussion items (35 min)
+Agree on TODO list for the coming weeks
+Start writing in our SDD
+
+
+
+4. Outcomes and assignments (5 min)
+Ball skins -
+Launcher - Matthias
+Mapdesign -
+More maps and sound - Johan
+Healthpacks - Joakim
+Network (if there is time) - Johan & Jacob
+SDD - The whole group
+Fix various small thing regarding the game play (such as no damage when you have speedup powerup) - Joakim
+Add more powerups -
+
+The non-assigned assignments are assigned when tasks are finished.
+
+
+
+5. Wrap up
+Everyone should start working on their 
+
+Next meeting will take place in 29/04-2015 in Idéläran.
