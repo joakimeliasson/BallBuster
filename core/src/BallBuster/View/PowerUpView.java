@@ -38,8 +38,6 @@ public class PowerUpView{
         powerUpTimer = new Timer(5f);
         System.out.println(random);
 
-
-
     }
 
 
@@ -70,6 +68,13 @@ public class PowerUpView{
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
                         System.out.println("invertKeys");
                         break;
+                    case "damageOther":
+                        for (Player p : playerList){
+                            if (!p.equals(player)){
+                                p.getBall().shieldDamage(20);
+                                System.out.println("Du skadade motspelaren." + p.getBall().getShield());
+                            }
+                        }
                 }
             }
         }
