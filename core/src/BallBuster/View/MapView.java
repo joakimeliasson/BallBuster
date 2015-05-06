@@ -1,9 +1,9 @@
-package ballBuster.view;
+package BallBuster.View;
 
-import ballBuster.model.Map;
-import ballBuster.model.Tile.BlackTile;
-import ballBuster.model.Tile.Tile;
-import ballBuster.model.Tile.WhiteTile;
+import BallBuster.Model.Map;
+import BallBuster.Model.Tile.BlackTile;
+import BallBuster.Model.Tile.Tile;
+import BallBuster.Model.Tile.WhiteTile;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

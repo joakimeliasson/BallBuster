@@ -1,4 +1,4 @@
-package ballBuster.model;
+package BallBuster.Model;
 
 /**
  * Created by Joakim on 2015-04-24.

@@ -1,12 +1,12 @@
-package ballBuster.controller;
+package BallBuster.Controller;
 
-import ballBuster.model.Ball;
-import ballBuster.model.Player;
-import ballBuster.view.BallView;
+import BallBuster.Model.Ball;
+import BallBuster.Model.Player;
+import BallBuster.View.BallView;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
@@ -99,7 +99,4 @@ public class BallController implements InputProcessor, IController{
         return ball;
     }
     public Player getPlayer() { return player; }
-    public Sprite getBallSprite() {
-        return ballView.getSprite();
-    }
 }
