@@ -6,7 +6,6 @@ import BallBuster.Model.Player;
 import BallBuster.Model.PowerUp;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -23,16 +22,10 @@ public class PowerUpView{
     private SpriteBatch batch;
     private ArrayList<Player> playerList;
 
-    private boolean isHidden;
-
-    private BitmapFont font;
 
     private Timer timer;
     private Timer powerUpTimer;
-    private Timer fontTimer;
     private Random random;
-
-    private String message;
 
     public PowerUpView(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, SpriteBatch batch) {
         this.powerUp = powerUp;
@@ -40,14 +33,11 @@ public class PowerUpView{
         this.sprite = sprite;
         this.batch = batch;
 
-        int random = (int )(Math.random() * 20);
+        int random = (int )(Math.random() * 20 + 10);
         timer = new Timer(random);
-        powerUpTimer = new Timer(10f);
-        fontTimer = new Timer(5f);
+        powerUpTimer = new Timer(5f);
         System.out.println(random);
-        isHidden = true;
 
-        font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
     }
 
 
@@ -66,35 +56,42 @@ public class PowerUpView{
                 hideSprite(sprite);
                 switch (powerUp.getPowerUp().toString()) {
                     case "speedUp":
+                        player.setSpeedUp(true);
                         player.getBall().setSpeed(player.getBall().getSpeed()*2);
                         System.out.println("speedUp");
-                        message = "Obtained Faster Speed!";
                         break;
                     case "slowDown":
                         player.getBall().setSpeed(0.02f);
                         System.out.println("slowDown");
-                        message = "Obtained Slower Speed!";
                         break;
                     case "invertKeys":
                         player.invertKeys(true);
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
                         System.out.println("invertKeys");
-                        message = "Inverted Keys!";
                         break;
                     case "damageOther":
                         for (Player p : playerList){
                             if (!p.equals(player)){
                                 p.getBall().shieldDamage(20);
-                                System.out.println("Du skadade motspelaren." + p.getBall().getShield());
-                                message = (int)p.getBall().getShield() + " Damage to the Other Player!";
+                                System.out.println("Du skadade motspelaren med 20 damage. "+ p.getPlayerName() +" har nu "+ p.getBall().getShield()+" HP kvar.");
                             }
                         }
+                        break;
+                    case "invertOther":
+                        for (Player p : playerList){
+                            if (!p.equals(player)){
+                                p.invertKeys(true);
+                                p.getBall().setHasPowerUp(true);
+                                p.setKeys(p.getRightKey(), p.getLeftKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey());
+                                System.out.println("invertKeys for other player");
+                            }
+                        }
+                        break;
                 }
             }
         }
         resetBall(playerList, delta);
     }
-
     public void resetBall(ArrayList<Player> playerList, float delta) {
         powerUpTimer.update(delta);
         for(Player player : playerList){
@@ -106,13 +103,7 @@ public class PowerUpView{
                     }
                     player.getBall().setSpeed(0.5f);
                     player.getBall().setHasPowerUp(false);
-                    message = "";
-                }
-                else if(message!=null){
-                    font.setColor(1,1,1,powerUpTimer.remaining*2);
-                    batch.begin();
-                    font.draw(batch, message, 0-(font.getBounds(message).width/2), 0);
-                    batch.end();
+                    player.setSpeedUp(false);
                 }
             }
         }
@@ -123,18 +114,16 @@ public class PowerUpView{
             if (sprite.getBoundingRectangle().contains(player.getBall().getX(), player.getBall().getY())) {
                 player.getBall().setHasPowerUp(true);
                 powerUpTimer.reset();
-                fontTimer.reset();
                 return player;
             }
         }
         return null;
     }
     private void hideSprite(Sprite sprite) {
-        sprite.setSize(0, 0);
+        sprite.setSize(0,0);
     }
     private void showSprite(Sprite sprite) {
         sprite.setSize(sprite.getTexture().getWidth(), sprite.getTexture().getHeight());
-        isHidden = true;
     }
 
     private void draw(Sprite sprite, SpriteBatch batch) {

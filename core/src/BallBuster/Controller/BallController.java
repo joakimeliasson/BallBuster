@@ -98,4 +98,5 @@ public class BallController implements InputProcessor, IController{
     public Ball getBall() {
         return ball;
     }
+    public Player getPlayer() { return player; }
 }
