@@ -18,6 +18,7 @@ public class Player {
     private boolean hasPowerUp;
 
     private boolean invertedKeys;
+    private boolean speedUp;
 
     public Player(int playerId, String playerName, Ball ball){
         this.playerName = playerName;
@@ -76,6 +77,14 @@ public class Player {
 
     public void invertKeys(boolean b){
         this.invertedKeys = b;
+    }
+
+    public boolean hasSpeedUp(){
+        return speedUp;
+    }
+
+    public void setSpeedUp(boolean b){
+        this.speedUp = b;
     }
 
 

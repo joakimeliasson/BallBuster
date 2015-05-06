@@ -110,7 +110,7 @@ public class BallBuster extends Game{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.draw(background, -camera.viewportWidth/2, -camera.viewportHeight/2);
+        batch.draw(background, -camera.viewportWidth / 2, -camera.viewportHeight / 2);
         batch.end();
 
         for(IController controller : controllerList)
@@ -163,10 +163,12 @@ public class BallBuster extends Game{
         PowerUp slowDown = new PowerUp("slowDown");
         PowerUp invertKeys = new PowerUp("invertKeys");
         PowerUp damageOther = new PowerUp("damageOther");
+        PowerUp invertOther = new PowerUp("invertOther");
         powerUpList.add(speedUp);
         powerUpList.add(slowDown);
         powerUpList.add(invertKeys);
         powerUpList.add(damageOther);
+        powerUpList.add(invertOther);
 
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/powerUp.png");
         Texture powerUpTexture = new Texture(ballFileHandle2);

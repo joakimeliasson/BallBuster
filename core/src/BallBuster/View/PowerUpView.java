@@ -56,6 +56,7 @@ public class PowerUpView{
                 hideSprite(sprite);
                 switch (powerUp.getPowerUp().toString()) {
                     case "speedUp":
+                        player.setSpeedUp(true);
                         player.getBall().setSpeed(player.getBall().getSpeed()*2);
                         System.out.println("speedUp");
                         break;
@@ -72,9 +73,20 @@ public class PowerUpView{
                         for (Player p : playerList){
                             if (!p.equals(player)){
                                 p.getBall().shieldDamage(20);
-                                System.out.println("Du skadade motspelaren." + p.getBall().getShield());
+                                System.out.println("Du skadade motspelaren med 20 damage. "+ p.getPlayerName() +" har nu "+ p.getBall().getShield()+" HP kvar.");
                             }
                         }
+                        break;
+                    case "invertOther":
+                        for (Player p : playerList){
+                            if (!p.equals(player)){
+                                p.invertKeys(true);
+                                p.getBall().setHasPowerUp(true);
+                                p.setKeys(p.getRightKey(), p.getLeftKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey());
+                                System.out.println("invertKeys for other player");
+                            }
+                        }
+                        break;
                 }
             }
         }
@@ -91,6 +103,7 @@ public class PowerUpView{
                     }
                     player.getBall().setSpeed(0.5f);
                     player.getBall().setHasPowerUp(false);
+                    player.setSpeedUp(false);
                 }
             }
         }

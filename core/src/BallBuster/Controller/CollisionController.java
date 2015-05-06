@@ -1,6 +1,7 @@
 package BallBuster.Controller;
 
 import BallBuster.Model.Ball;
+import BallBuster.Model.Player;
 import BallBuster.Model.Tile.BlockTile;
 import BallBuster.Model.Tile.Tile;
 import BallBuster.View.BallView;
@@ -28,13 +29,14 @@ public class CollisionController implements ContactListener{
     public void beginContact(Contact contact) {
         Body a = contact.getFixtureA().getBody();
         Body b = contact.getFixtureB().getBody();
-
         for (int k = 0; k < ballList.size(); k++) {
             for (int i = 0; i < tileList.size(); i++) {
                  if (a == tileList.get(i) && b == ballList.get(k).getBody()) {
-                    ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
-                    System.out.println("Shield: "+ballList.get(k).getBall().getShield());
-                }
+                     if (!ballList.get(k).getPlayer().hasSpeedUp()) {
+                         ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
+                         System.out.println("Shield: " + ballList.get(k).getBall().getShield());
+                     }
+                 }
             }
         }
 
