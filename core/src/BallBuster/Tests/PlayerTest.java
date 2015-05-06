@@ -19,7 +19,7 @@ public class PlayerTest {
     private Player p;
     @Before
     public void setUpPlayerTest(){
-        p = new Player(1,"Player1", new Ball(1f,1f,null, null));
+        p = new Player(1,"Player1", new Ball(1f,1f,new Aura()));
     }
     @Test
     public void testAddPlayer() {
@@ -28,7 +28,7 @@ public class PlayerTest {
 
     @Test
     public void testPlayerId(){
-        assertEquals(1, (p.getPlayerId()));
+        assertEquals(1, p.getPlayerId());
     }
 
     @Test

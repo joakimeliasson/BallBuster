@@ -116,7 +116,7 @@ public class PowerUpView{
                 else if(message!=null){
                     font.setColor(1,1,1,powerUpTimer.remaining*2);
                     batch.begin();
-                    font.draw(batch, message, 0-(font.getBounds(message).width/2), 0);
+                    font.draw(batch, message, 0-font.getBounds(message).width/2, 0);
                     batch.end();
                 }
             }

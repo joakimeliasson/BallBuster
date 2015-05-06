@@ -126,7 +126,7 @@ public class BallBuster extends Game{
         texture = new Texture(ballFileHandle);
 
         aura = new Aura();
-        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, aura,null);
+        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, aura);
         player = new Player(1,"Player1",ball);
         player.getBall().getAura().setPosition(ball.getX(), ball.getY());
         player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
@@ -136,7 +136,7 @@ public class BallBuster extends Game{
         texture2 = new Texture(ballFileHandle2);
 
         aura2 = new Aura();
-        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, aura2,null);
+        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, aura2);
         player2 = new Player(0, "", ball2);
         player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
         this.playerList.add(player2);

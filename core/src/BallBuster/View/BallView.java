@@ -62,7 +62,7 @@ public class BallView{
 
     public void setPosition(Ball ball) {
         ball.setBodyPosition(body.getPosition().x, body.getPosition().y);
-        ball.setPosition((body.getPosition().x*BallBuster.SCALE)-sprite.getWidth()/2, (body.getPosition().y*BallBuster.SCALE)-sprite.getHeight()/2);
+        ball.setPosition(body.getPosition().x*BallBuster.SCALE-sprite.getWidth()/2, body.getPosition().y*BallBuster.SCALE-sprite.getHeight()/2);
         sprite.setPosition(ball.getX(),ball.getY());
     }
     public float getX() {

@@ -68,7 +68,7 @@ public class Player {
     }
 
     public boolean playerHasPowerUp(){
-        return (getPlayerPowerUp() != null);
+        return getPlayerPowerUp() != null;
     }
 
     public boolean hasInvertedKeys(){

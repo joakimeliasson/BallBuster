@@ -17,7 +17,6 @@ public class Ball {
     private double shield;
 
     private Aura aura;
-    private Map map;
 
     private float y;
     private float x;
@@ -28,9 +27,8 @@ public class Ball {
     private float speed;
     private boolean hasPowerUp = false;
 
-    public Ball(float x, float y, Aura aura, Map map) {
+    public Ball(float x, float y, Aura aura) {
         this.aura = aura;
-        this.map = map;
         this.x = x;
         this.y = y;
 

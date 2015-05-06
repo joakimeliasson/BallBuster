@@ -22,7 +22,6 @@ public class CollisionController implements ContactListener{
     public CollisionController(ArrayList<Body> tileList, ArrayList<BallController> ballList){
         this.tileList = tileList;
         this.ballList = ballList;
-
     }
 
     @Override
@@ -31,15 +30,12 @@ public class CollisionController implements ContactListener{
         Body b = contact.getFixtureB().getBody();
         for (int k = 0; k < ballList.size(); k++) {
             for (int i = 0; i < tileList.size(); i++) {
-                 if (a == tileList.get(i) && b == ballList.get(k).getBody()) {
-                     if (!ballList.get(k).getPlayer().hasSpeedUp()) {
+                 if (a == tileList.get(i) && b == ballList.get(k).getBody() && !ballList.get(k).getPlayer().hasSpeedUp()) {
                          ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
                          System.out.println("Shield: " + ballList.get(k).getBall().getShield());
-                     }
                  }
             }
         }
-
     }
 
     public double damage(BallController ballController){

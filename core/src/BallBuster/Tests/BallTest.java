@@ -20,7 +20,7 @@ public class BallTest {
 
     @Before
     public void setUp() throws Exception {
-        ball = new Ball(4f, 5f, new Aura(), new Map());
+        ball = new Ball(4f, 5f, new Aura());
     }
 
     @Test
