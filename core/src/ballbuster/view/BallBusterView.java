@@ -1,12 +1,5 @@
-package BallBuster.View;
+package ballbuster.view;
 
-import BallBuster.Controller.*;
-import BallBuster.Model.Aura;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
-import BallBuster.Model.PowerUp;
-import BallBuster.Model.Tile.BlockTile;
-import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;

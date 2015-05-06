@@ -1,0 +1,37 @@
+.root-grid{
+    -fx-background-color: #e43d3d;
+}
+
+.key-label{
+    -fx-font-size:  1.5em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000;
+}
+
+.key-desc-label{
+    -fx-font-size:  1.5em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000;
+}
+
+.key-button {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 1.2em;
+    -fx-background-color: #356fe3;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 0.33em, 0.0 , 0 , 1 );
+    -fx-background-radius: 0;
+}
+
+.key-button:pressed {
+    -fx-background-color: #214ca3;
+}
+
+.key-button:hover {
+    -fx-cursor: hand;
+}
+
+.content{
+    -fx-padding: 1em;
+}
+
