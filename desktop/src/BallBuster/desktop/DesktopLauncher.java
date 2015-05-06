@@ -1,7 +1,6 @@
 package BallBuster.desktop;
 
-import BallBuster.Controller.BallBuster;
-import com.badlogic.gdx.Gdx;
+import ballbuster.controller.BallBuster;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 

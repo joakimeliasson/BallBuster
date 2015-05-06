@@ -1,10 +1,7 @@
-package BallBuster.View;
+package ballbuster.view;
 
-import BallBuster.Controller.PowerUpController;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
-import BallBuster.Model.PowerUp;
-import com.badlogic.gdx.ApplicationListener;
+import ballbuster.model.Player;
+import ballbuster.model.PowerUp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;

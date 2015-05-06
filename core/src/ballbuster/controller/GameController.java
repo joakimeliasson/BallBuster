@@ -1,10 +1,5 @@
-package BallBuster.Controller;
+package ballbuster.controller;
 
-import BallBuster.Model.Aura;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Map;
-import BallBuster.Model.Tile.BlockTile;
-import BallBuster.Model.Tile.Tile;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;

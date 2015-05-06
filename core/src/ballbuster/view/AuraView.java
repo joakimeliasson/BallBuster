@@ -1,13 +1,9 @@
-package BallBuster.View;
+package ballbuster.view;
 
-import BallBuster.Controller.AuraController;
-import BallBuster.Controller.BallBuster;
-import BallBuster.Model.Aura;
-import BallBuster.Model.Player;
-import com.badlogic.gdx.ApplicationListener;
+import ballbuster.controller.BallBuster;
+import ballbuster.model.Aura;
+import ballbuster.model.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -70,7 +66,7 @@ public class AuraView{
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         sprite = new Sprite(currentFrame);
         Aura aura = player.getBall().getAura();
-        aura.setPosition(player.getBall().getX2()*BallBuster.SCALE-sprite.getWidth()/2, player.getBall().getY2()*BallBuster.SCALE-sprite.getHeight()/2);
+        aura.setPosition(player.getBall().getX2()* BallBuster.SCALE-sprite.getWidth()/2, player.getBall().getY2()*BallBuster.SCALE-sprite.getHeight()/2);
         sprite.setPosition(aura.getX(), aura.getY());
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),

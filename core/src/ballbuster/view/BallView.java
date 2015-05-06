@@ -1,8 +1,8 @@
-package BallBuster.View;
+package ballbuster.view;
 
-import BallBuster.Controller.BallBuster;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
+import ballbuster.controller.BallBuster;
+import ballbuster.model.Ball;
+import ballbuster.model.Player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,7 +32,7 @@ public class BallView{
         //Create the body as a circle
         CircleShape shape = new CircleShape();
 
-        shape.setRadius(sprite.getWidth()/(2*BallBuster.SCALE));
+        shape.setRadius(sprite.getWidth()/(2* BallBuster.SCALE));
 
         //Set physical attributes to the body
         FixtureDef fixtureDef = new FixtureDef();

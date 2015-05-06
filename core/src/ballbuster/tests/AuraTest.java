@@ -1,8 +1,6 @@
-package BallBuster.Tests;
+package ballbuster.tests;
 
-import BallBuster.Model.Aura;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Map;
+import ballbuster.model.Aura;
 import org.junit.Before;
 import org.junit.Test;
 

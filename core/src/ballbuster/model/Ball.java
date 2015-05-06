@@ -1,4 +1,4 @@
-package BallBuster.Model;
+package ballbuster.model;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

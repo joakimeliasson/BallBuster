@@ -1,6 +1,7 @@
-package BallBuster.Model;
+package ballbuster.model;
 
-import BallBuster.Model.Tile.Tile;
+
+import ballbuster.model.tile.Tile;
 
 import java.util.ArrayList;
 

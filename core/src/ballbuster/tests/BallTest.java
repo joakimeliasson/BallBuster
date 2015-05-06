@@ -1,11 +1,10 @@
-package BallBuster.Tests;
+package ballbuster.tests;
 
 /**
  * Created by jacobth on 2015-03-30.
  */
-import BallBuster.Model.*;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
+import ballbuster.model.Aura;
+import ballbuster.model.Ball;
 import org.junit.Before;
 import org.junit.Test;
 
