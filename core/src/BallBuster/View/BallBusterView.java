@@ -1,26 +1,4 @@
-package BallBuster.View;
-
-import BallBuster.Controller.*;
-import BallBuster.Model.Aura;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
-import BallBuster.Model.PowerUp;
-import BallBuster.Model.Tile.BlockTile;
-import BallBuster.Model.Tile.Tile;
-import com.badlogic.gdx.*;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-
-import java.util.ArrayList;
+package ballBuster.view;
 
 
 //public class BallBusterView extends Game {

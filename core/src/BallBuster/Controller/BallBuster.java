@@ -1,12 +1,9 @@
-package BallBuster.Controller;
+package ballBuster.controller;
 
-import BallBuster.Model.Aura;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
-import BallBuster.Model.PowerUp;
-import BallBuster.Model.Tile.Tile;
-import BallBuster.View.*;
-import com.badlogic.gdx.ApplicationListener;
+import ballBuster.model.Aura;
+import ballBuster.model.Ball;
+import ballBuster.model.Player;
+import ballBuster.model.PowerUp;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -18,12 +15,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by jacobth on 2015-04-28.

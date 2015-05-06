@@ -1,10 +1,10 @@
-package BallBuster.android;
+package ballBuster.android;
 
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import BallBuster.View.BallBusterView;
+import ballBuster.view.BallBusterView;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

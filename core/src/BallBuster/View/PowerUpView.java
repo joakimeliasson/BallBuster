@@ -1,10 +1,7 @@
-package BallBuster.View;
+package ballBuster.view;
 
-import BallBuster.Controller.PowerUpController;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
-import BallBuster.Model.PowerUp;
-import com.badlogic.gdx.ApplicationListener;
+import ballBuster.model.Player;
+import ballBuster.model.PowerUp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -91,6 +88,7 @@ public class PowerUpView{
                                 p.getBall().setHasPowerUp(true);
                                 p.setKeys(p.getRightKey(), p.getLeftKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey());
                                 System.out.println("invertKeys for other player");
+                                message = "Inverted the Other Players Keys!";
                             }
                         }
                         break;

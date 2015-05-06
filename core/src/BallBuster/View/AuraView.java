@@ -1,13 +1,9 @@
-package BallBuster.View;
+package ballBuster.view;
 
-import BallBuster.Controller.AuraController;
-import BallBuster.Controller.BallBuster;
-import BallBuster.Model.Aura;
-import BallBuster.Model.Player;
-import com.badlogic.gdx.ApplicationListener;
+import ballBuster.controller.BallBuster;
+import ballBuster.model.Aura;
+import ballBuster.model.Player;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;

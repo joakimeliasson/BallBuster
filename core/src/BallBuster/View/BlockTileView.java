@@ -1,7 +1,7 @@
-package BallBuster.View;
+package ballBuster.view;
 
-import BallBuster.Model.Tile.BlockTile;
-import BallBuster.Model.Tile.Tile;
+import ballBuster.model.Tile.BlockTile;
+import ballBuster.model.Tile.Tile;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;

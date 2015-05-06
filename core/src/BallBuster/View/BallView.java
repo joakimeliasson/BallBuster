@@ -1,8 +1,8 @@
-package BallBuster.View;
+package ballBuster.view;
 
-import BallBuster.Controller.BallBuster;
-import BallBuster.Model.Ball;
-import BallBuster.Model.Player;
+import ballBuster.controller.BallBuster;
+import ballBuster.model.Ball;
+import ballBuster.model.Player;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -58,6 +58,9 @@ public class BallView{
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         batch.end();
+    }
+    public Sprite getSprite() {
+        return sprite;
     }
 
     public void setPosition(Ball ball) {

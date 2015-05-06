@@ -1,4 +1,4 @@
-package BallBuster.Model;
+package ballBuster.model;
 /*
 @author Joakim
 */

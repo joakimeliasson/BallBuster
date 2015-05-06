@@ -1,7 +1,4 @@
-package BallBuster.Model.Tile;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.physics.box2d.World;
+package ballBuster.model.Tile;
 
 /**
  * Created by Matthias on 2015-03-30.

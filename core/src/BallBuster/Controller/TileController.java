@@ -1,7 +1,7 @@
-package BallBuster.Controller;
+package ballBuster.controller;
 
-import BallBuster.Model.Tile.Tile;
-import BallBuster.View.TileView;
+import ballBuster.model.Tile.Tile;
+import ballBuster.view.TileView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;

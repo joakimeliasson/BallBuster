@@ -1,7 +1,6 @@
-package BallBuster.Tests;
+package ballBuster.tests;
 
-import BallBuster.Model.Tile.BlockTile;
-import BallBuster.Model.Tile.Tile;
+import ballBuster.model.Tile.BlockTile;
 import org.junit.Before;
 import org.junit.Test;
 
