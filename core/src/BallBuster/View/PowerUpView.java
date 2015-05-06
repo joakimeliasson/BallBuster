@@ -6,6 +6,7 @@ import BallBuster.Model.Player;
 import BallBuster.Model.PowerUp;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -26,6 +27,8 @@ public class PowerUpView{
     private Timer timer;
     private Timer powerUpTimer;
     private Random random;
+    private String message;
+    private BitmapFont font;
 
     public PowerUpView(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, SpriteBatch batch) {
         this.powerUp = powerUp;
@@ -37,7 +40,7 @@ public class PowerUpView{
         timer = new Timer(random);
         powerUpTimer = new Timer(5f);
         System.out.println(random);
-
+        font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
     }
 
 
@@ -59,20 +62,24 @@ public class PowerUpView{
                         player.setSpeedUp(true);
                         player.getBall().setSpeed(player.getBall().getSpeed()*2);
                         System.out.println("speedUp");
+                        message = "Obtained Faster Speed!";
                         break;
                     case "slowDown":
                         player.getBall().setSpeed(0.02f);
                         System.out.println("slowDown");
+                        message = "Obtained Slower Speed!";
                         break;
                     case "invertKeys":
                         player.invertKeys(true);
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
                         System.out.println("invertKeys");
+                        message = "Inverted Keys!";
                         break;
                     case "damageOther":
                         for (Player p : playerList){
                             if (!p.equals(player)){
                                 p.getBall().shieldDamage(20);
+                                message = "20 Damage to the Other Player!";
                                 System.out.println("Du skadade motspelaren med 20 damage. "+ p.getPlayerName() +" har nu "+ p.getBall().getShield()+" HP kvar.");
                             }
                         }
@@ -104,6 +111,13 @@ public class PowerUpView{
                     player.getBall().setSpeed(0.5f);
                     player.getBall().setHasPowerUp(false);
                     player.setSpeedUp(false);
+                    message = "";
+                }
+                else if(message!=null){
+                    font.setColor(1,1,1,powerUpTimer.remaining*2);
+                    batch.begin();
+                    font.draw(batch, message, 0-(font.getBounds(message).width/2), 0);
+                    batch.end();
                 }
             }
         }
