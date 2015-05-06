@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="16" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="boxTwo" tilewidth="64" tileheight="64">
+  <image source="boxTwo.png" width="448" height="64"/>
+ </tileset>
+ <tileset firstgid="8" name="boxOne" tilewidth="64" tileheight="64">
+  <image source="boxOne.png" width="448" height="64"/>
+ </tileset>
+ <layer name="BlackBlock" width="30" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBi5gBGImYCYeQDsHQWjYBSMglEwsgEANIQACA==
+  </data>
+ </layer>
+ <layer name="WhiteBlock" width="30" height="16">
+  <data encoding="base64" compression="zlib">
+   eJztkEsKACAIBa0M+t//uD1vULkQwoFZiqNEjsAwW0ccEGC0jvicAits1iFK2GhvUsxqfi57X2/ucMAJl6LBcW7YjIsAcg==
+  </data>
+ </layer>
+</map>
