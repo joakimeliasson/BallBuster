@@ -41,7 +41,6 @@ public class PowerUpView{
     }
 
 
-
     public void powerUpSet(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, float delta, SpriteBatch batch) {
         timer.update(delta);
         powerUpTimer.update(delta);
@@ -69,7 +68,6 @@ public class PowerUpView{
                     case "invertKeys":
                         player.invertKeys(true);
                         player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey());
-                        System.out.println("invertKeys");
                         message = "Inverted Keys!";
                         break;
                     case "damageOther":
@@ -77,7 +75,6 @@ public class PowerUpView{
                             if (!p.equals(player)){
                                 p.getBall().shieldDamage(20);
                                 message = "20 Damage to the Other Player!";
-                                System.out.println("Du skadade motspelaren med 20 damage. "+ p.getPlayerName() +" har nu "+ p.getBall().getShield()+" HP kvar.");
                             }
                         }
                         break;
@@ -87,9 +84,13 @@ public class PowerUpView{
                                 p.invertKeys(true);
                                 p.getBall().setHasPowerUp(true);
                                 p.setKeys(p.getRightKey(), p.getLeftKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey());
-                                System.out.println("invertKeys for other player");
+                                message = "Inverted keys for "+p.getPlayerName();
                             }
                         }
+                        break;
+                    case "healthPack":
+                        player.getBall().addHealthToShield(10);
+                        message = player.getPlayerName()+ " found a healthPack. +10HP";
                         break;
                 }
             }

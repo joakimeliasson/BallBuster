@@ -21,12 +21,14 @@ public class PowerUpController implements IController{
     private ArrayList<Player> playerList;
     private ArrayList<PowerUp> powerUpList;
     private Sprite sprite;
+    private Sprite healthSprite;
     private SpriteBatch batch;
 
-    public PowerUpController(ArrayList<PowerUp> powerUpList, ArrayList<Player> playerList, Sprite sprite, SpriteBatch batch){
+    public PowerUpController(ArrayList<PowerUp> powerUpList, ArrayList<Player> playerList, Sprite sprite, Sprite healthSprite, SpriteBatch batch){
         this.powerUpList = powerUpList;
         this.playerList = playerList;
         this.sprite = sprite;
+        this.healthSprite = healthSprite;
         this.batch = batch;
         ballBuster = new BallBuster();
     }
@@ -41,6 +43,9 @@ public class PowerUpController implements IController{
     public void onRender() {
         Random random = new Random();
         int randomInt = random.nextInt(powerUpList.size());
-         powerUpView.powerUpSet(powerUpList.get(randomInt), playerList, sprite, Gdx.graphics.getDeltaTime(), batch);
+        //if (powerUpList.get(randomInt).getPowerUp().toString() == "healthPack")
+        //    powerUpView.powerUpSet(powerUpList.get(randomInt), playerList, healthSprite, Gdx.graphics.getDeltaTime(), batch);
+        //else
+            powerUpView.powerUpSet(powerUpList.get(randomInt), playerList, sprite, Gdx.graphics.getDeltaTime(), batch);
     }
 }

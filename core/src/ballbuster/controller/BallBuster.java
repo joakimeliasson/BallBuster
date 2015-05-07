@@ -134,7 +134,7 @@ public class BallBuster extends Game{
 
         aura2 = new Aura();
         ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, aura2);
-        player2 = new Player(0, "", ball2);
+        player2 = new Player(2, "Player2", ball2);
         player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
         this.playerList.add(player2);
 
@@ -161,16 +161,21 @@ public class BallBuster extends Game{
         PowerUp invertKeys = new PowerUp("invertKeys");
         PowerUp damageOther = new PowerUp("damageOther");
         PowerUp invertOther = new PowerUp("invertOther");
+        PowerUp healthPack = new PowerUp("healthPack");
         powerUpList.add(speedUp);
         powerUpList.add(slowDown);
         powerUpList.add(invertKeys);
         powerUpList.add(damageOther);
         powerUpList.add(invertOther);
+        powerUpList.add(healthPack);
 
-        FileHandle ballFileHandle2 = Gdx.files.internal("core/images/powerUp.png");
-        Texture powerUpTexture = new Texture(ballFileHandle2);
+        FileHandle powerUpFileHandle = Gdx.files.internal("core/images/powerUp.png");
+        Texture powerUpTexture = new Texture(powerUpFileHandle);
 
-        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), batch);
+        FileHandle healthPackFileHandle = Gdx.files.internal("core/images/leftBall.png");
+        Texture healthPackTexture = new Texture(healthPackFileHandle);
+
+        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch);
         controllerList.add(powerUpController);
     }
 

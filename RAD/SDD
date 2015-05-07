@@ -1,0 +1,96 @@
+System design document for Ballbuster
+Group 7
+
+Table of Contents
+
+
+
+1. Introduction
+1.2. Definitions, Acronyms and Abbreviations
+2. System Design
+2.1. Overview
+2.1.3. Event Handling
+2.1.4. Object Hierarchy
+2.1.5. User Defined Variables
+2.1.6. Saving and Loading
+2.2 Software decomposition
+2.2.1. General
+2.2.2. Subsystems
+2.2.3. Layering
+2.2.4. Dependency Analysis
+2.3. Concurrency Issues
+2.4. Persistent Data Management
+2.5. Access Control and Security
+2.6. Boundary Conditions
+3. References
+
+Version: 1.0
+
+Date: 2015-05-05
+
+Author: Jacob Lundberg, Johan Segerlund, Joakim Eliasson, Matthias Andersson
+1. Introduction
+1.1. Design Goals
+The design is supposed to be based on images and sprites and give a modern impression of a 2D game. Meanwhile the design should be somewhat adaptable for the user (various skins, maps and colors).
+The design might contain graphical content from other designers, but since we have no intention to release the game for the public this should not be a problem. The designs will be easy to replace for future modification.
+
+	1.2. Definitions, Acronyms and Abbreviations
+All terms and definitions used within the BallBuster application are found below.
+
+GUI - Graphical user interface
+Java - Platform independent programming language
+JRE - Java Runtime Environment. The additional software required to run Java applications.
+MVC - Model-View-Controller. A code technique to avoid mixing of model and view code, with a middle part referred to as the controller.
+
+Ball - A ball contains a position, aura and a map. Each player will have one ball. The ball have information about the speed, which can be assigned. The ball also contains a shield which is represented by a double.
+Aura -  Each aura contains one ball. You can set the aura status and also get the current aura state. Its also possible to set the position of the aura.
+Player -  Player contains playerID, playerName and  Ball. Player class is basically the player. It contains the assign keys for a player and the Ball.
+PowerUp - Power ups will spawn on the map and each player can take them by moving into them. The power up is activated as soon the player takes it. Each power up will have different abilities. PowerUp contains a string. The string will basically define what the powerUp will do. Each instance of powerUp will do different things to the players ball.
+Health Pack - Health Packs is like a power up but only have one ability which is to increase the life of the player who takes it. It will have a different sprite then the power up.
+
+
+
+2. System Design
+2.1. Overview
+The project is built using a MVC design. Most of the models have their own controllers and views. All controllers implement IController, which is an interface to replace the standard ApplicationListener.
+
+	2.1.3. Event Handling
+The event handling is handled by InputProcessors and the IController interface. The InputProcessor in BallController will listen to keyboard input to move the ball on the playing field. Depending on which key is pushed, a method in the BallView is triggered.
+
+For other events, such as collisions and gathering of powerups, controllers for the specific event will manage which methods are triggered. For example, if you hit a powerup tile with the ball, the powerupController will check what kind of powerup the tile represented and then add the functionality to the player.
+
+As mentioned before, all controllers will implement the IController interface that contains the method onCreate() and onRender(), so it basically works as a ApplicationListener.
+
+
+	2.1.4. Object Hierarchy
+
+	2.1.5. User Defined Variables
+	There are only a few user defined variables in the game. For example the user can decide which keys are used to control the ball. These have a default value, which means they can never be null and make the program crash. Another user defined variable is the option to choose a different skin for the ball. These are supposed to be loaded from a text file to save the preferred skin between usages.
+
+	2.1.6. Saving and Loading
+
+
+
+2.2 Software decomposition
+2.2.1. General
+The application is split between a core module, with an MVC structure, and launchers for android, ios, html and desktop
+The core module
+
+
+2.2.2. Subsystems
+
+2.2.3. Layering
+
+2.2.4. Dependency Analysis
+
+	2.3. Concurrency Issues
+
+	2.4. Persistent Data Management
+	2.5. Access Control and Security
+NA
+	2.6. Boundary Conditions
+NA
+3. References
+
+
+Appendix

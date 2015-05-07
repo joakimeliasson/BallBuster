@@ -42,6 +42,12 @@ public class Ball {
     public double getShield() {
         return shield;
     }
+    public void addHealthToShield(int health){
+        if (shield+health < 100)
+            this.shield = shield+health;
+        else
+            this.shield = 100;
+    }
 
     public void setPosition(float x, float y) {
         this.x = x;
