@@ -88,10 +88,6 @@ public class PowerUpView{
                             }
                         }
                         break;
-                    case "healthPack":
-                        player.getBall().addHealthToShield(10);
-                        message = player.getPlayerName()+ " found a healthPack. +10HP";
-                        break;
                 }
             }
         }
@@ -131,14 +127,14 @@ public class PowerUpView{
         }
         return null;
     }
-    private void hideSprite(Sprite sprite) {
+    public void hideSprite(Sprite sprite) {
         sprite.setSize(0,0);
     }
-    private void showSprite(Sprite sprite) {
+    public void showSprite(Sprite sprite) {
         sprite.setSize(sprite.getTexture().getWidth(), sprite.getTexture().getHeight());
     }
 
-    private void draw(Sprite sprite, SpriteBatch batch) {
+    public void draw(Sprite sprite, SpriteBatch batch) {
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
@@ -166,6 +162,10 @@ public class PowerUpView{
         public void update(float delta) {
             remaining = remaining - delta;
         }
+    }
+
+    public void setMessage(String message){
+        this.message = message;
     }
 
 }

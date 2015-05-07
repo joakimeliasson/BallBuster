@@ -161,18 +161,16 @@ public class BallBuster extends Game{
         PowerUp invertKeys = new PowerUp("invertKeys");
         PowerUp damageOther = new PowerUp("damageOther");
         PowerUp invertOther = new PowerUp("invertOther");
-        PowerUp healthPack = new PowerUp("healthPack");
         powerUpList.add(speedUp);
         powerUpList.add(slowDown);
         powerUpList.add(invertKeys);
         powerUpList.add(damageOther);
         powerUpList.add(invertOther);
-        powerUpList.add(healthPack);
 
         FileHandle powerUpFileHandle = Gdx.files.internal("core/images/powerUp.png");
         Texture powerUpTexture = new Texture(powerUpFileHandle);
 
-        FileHandle healthPackFileHandle = Gdx.files.internal("core/images/leftBall.png");
+        FileHandle healthPackFileHandle = Gdx.files.internal("core/images/heart.png");
         Texture healthPackTexture = new Texture(healthPackFileHandle);
 
         powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch);
