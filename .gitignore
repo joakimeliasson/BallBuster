@@ -29,6 +29,7 @@ android/gen/
 *.db
 out/
 com_crashlytics_export_strings.xml
+Thumbs.db
 
 ## Eclipse
 .classpath
@@ -63,3 +64,4 @@ build/
 
 ## OS Specific
 .DS_Store
+
