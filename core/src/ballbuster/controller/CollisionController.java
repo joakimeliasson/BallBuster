@@ -1,5 +1,12 @@
 package ballbuster.controller;
 
+import com.badlogic.gdx.Audio;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.AudioDevice;
+import com.badlogic.gdx.audio.AudioRecorder;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.*;
 import java.util.ArrayList;
 
@@ -10,10 +17,13 @@ public class CollisionController implements ContactListener{
 
     private ArrayList<Body> tileList;
     private ArrayList<BallController> ballList;
+    private Sound sound;
 
     public CollisionController(ArrayList<Body> tileList, ArrayList<BallController> ballList){
         this.tileList = tileList;
         this.ballList = ballList;
+        FileHandle collisionFileHandle = Gdx.files.internal("core/sounds/collision.mp3");
+        sound = Gdx.audio.newSound(collisionFileHandle);
     }
 
     @Override
@@ -24,8 +34,11 @@ public class CollisionController implements ContactListener{
             for (int i = 0; i < tileList.size(); i++) {
                  if (a == tileList.get(i) && b == ballList.get(k).getBody() && !ballList.get(k).getPlayer().hasSpeedUp()) {
                          ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
+                         sound.play();
                          System.out.println("Shield: " + ballList.get(k).getBall().getShield());
                  }
+                else
+                     sound.play();
             }
         }
     }
