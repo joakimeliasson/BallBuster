@@ -15,7 +15,7 @@ public class MapController implements IController{
     private MapView mapView;
 
     public MapController(World world, OrthographicCamera camera) {
-        mapView = new MapView("core/res/TiledMaps/test3.tmx",world, camera);
+        mapView = new MapView("core/res/TiledMaps/mainmap.tmx",world, camera);
     }
     @Override
     public void onCreate() {

@@ -102,7 +102,7 @@ public class BallBuster extends Game{
         for(IController controller : controllerList)
             controller.onCreate();
 
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background.jpg");
+        FileHandle backFileHandle = Gdx.files.internal("core/images/background2.png");
         backgroundTexture = new Texture(backFileHandle);
 
         background = new Sprite(backgroundTexture);

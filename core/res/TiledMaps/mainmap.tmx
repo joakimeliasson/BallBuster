@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="30" height="16" tilewidth="64" tileheight="64" nextobjectid="1">
+ <tileset firstgid="1" name="box2vertical" tilewidth="64" tileheight="64">
+  <image source="box2vertical.png" width="64" height="640"/>
+ </tileset>
+ <tileset firstgid="11" name="box1horizontal" tilewidth="64" tileheight="64">
+  <image source="box1horizontal.png" width="640" height="64"/>
+ </tileset>
+ <tileset firstgid="21" name="box1vertical" tilewidth="64" tileheight="64">
+  <image source="box1vertical.png" width="64" height="640"/>
+ </tileset>
+ <tileset firstgid="31" name="box2horizontal" tilewidth="64" tileheight="64">
+  <image source="box2horizontal.png" width="640" height="64"/>
+ </tileset>
+ <layer name="BlackBlock" width="30" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFwwWIDpC9YgNkr/gA2SsxQPZKDpC9UgNkr/QA2TsKMAE3EPMAMS8Q8wExPxALDKiLhgcAADXVAPo=
+  </data>
+ </layer>
+ <layer name="WhiteBlock" width="30" height="16">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFowAVyAOxAhArArESECsDsQoQq1JgJgvlziILsA6QvWwDZC/7ANnLMUD2joJRMJQBAH6bAQ0=
+  </data>
+ </layer>
+</map>

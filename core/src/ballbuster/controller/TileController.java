@@ -22,10 +22,10 @@ public class TileController implements IController{
     public TileController(World world, SpriteBatch batch, Camera camera) {
         //tileView = new TileView(world, tile, texture, batch);
 
-        FileHandle horizontalFileHandle = Gdx.files.internal("core/images/wallHorizontal.png");
+        FileHandle horizontalFileHandle = Gdx.files.internal("core/images/wallhorizontal.png");
         Texture horizontalTexture = new Texture(horizontalFileHandle);
 
-        FileHandle verticalFileHandle = Gdx.files.internal("core/images/wallVertical.png");
+        FileHandle verticalFileHandle = Gdx.files.internal("core/images/wallvertical.png");
         Texture verticalTexture = new Texture(verticalFileHandle);
 
         Tile downTile = new Tile(-camera.viewportWidth/2, -camera.viewportHeight/2);
