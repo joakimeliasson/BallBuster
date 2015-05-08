@@ -64,9 +64,19 @@ public class BallBuster extends Game{
     private ArrayList<Player> playerList;
     private ArrayList<PowerUp> powerUpList;
 
-
+    private int id;
 
     private Sprite background;
+
+    public BallBuster() {}
+
+    public BallBuster(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
+    }
+
 
     @Override
     public void create() {
