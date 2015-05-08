@@ -40,9 +40,9 @@ public class PowerUpController implements IController{
         sprite.setPosition(0, 0);
         float pos = Gdx.graphics.getWidth();
         Random random = new Random();
-        int x = random.nextInt(Math.round(pos)-Gdx.graphics.getWidth()/2);
+        int x = random.nextInt(Math.round(pos))-Gdx.graphics.getWidth()/2;
         float pos2 = Gdx.graphics.getHeight();
-        int y  = random.nextInt(Math.round(pos2)-Gdx.graphics.getHeight()/2);
+        int y  = random.nextInt(Math.round(pos2))-Gdx.graphics.getHeight()/2;
         healthSprite.setPosition(x, y);
 
         powerUpView = new PowerUpView(powerUp, playerList, sprite, batch);
