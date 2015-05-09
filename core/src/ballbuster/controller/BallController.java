@@ -4,6 +4,7 @@ import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.view.BallView;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -88,8 +89,12 @@ public class BallController implements InputProcessor, IController{
     @Override
     public void onRender() {
         ballView.setPosition(ball);
-        keyDown(0);
-        ballView.renderBall(batch);
+       // if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
+            keyDown(0);
+            ballView.renderBall(batch);
+        //}
+        //else
+        //batch.dispose();
     }
     public Body getBody() {
         return body;

@@ -3,6 +3,8 @@ package ballbuster.view;
 import ballbuster.controller.BallBuster;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,11 +15,18 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class BallView{
     private Sprite sprite;
+    private Sprite shieldSprite;
     private Player player;
     private Body body;
+    private Texture shieldTexture;
 
     public void createBody(Texture texture, Player player, World world) {
         sprite = new Sprite(texture);
+
+        FileHandle shieldFileHandle = Gdx.files.internal("core/images/playershield.png");
+        shieldTexture = new Texture(shieldFileHandle);
+
+        shieldSprite = new Sprite(shieldTexture);
         this.player = player;
         Ball ball = player.getBall();
         sprite.setPosition(ball.getX(), ball.getY());
@@ -48,22 +57,29 @@ public class BallView{
         body.setLinearDamping(1f);
         shape.dispose();
 
-
     }
     public Body getBody() {
         return body;
     }
     public void renderBall(SpriteBatch batch) {
+
+        float shield = (float)player.getBall().getShield()/100;
+        if(shieldSprite.getWidth()>= sprite.getWidth())
+        shieldSprite.setSize(shieldTexture.getWidth()*shield, shieldTexture.getHeight()*shield);
+
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
+        batch.draw(shieldSprite, shieldSprite.getX(), shieldSprite.getY(), shieldSprite.getOriginX(), shieldSprite.getOriginY(),
+                shieldSprite.getWidth(), shieldSprite.getHeight(), shieldSprite.getScaleX(), shieldSprite.getScaleY(), shieldSprite.getRotation());
         batch.end();
     }
 
     public void setPosition(Ball ball) {
         ball.setBodyPosition(body.getPosition().x, body.getPosition().y);
-        ball.setPosition(body.getPosition().x*BallBuster.SCALE-sprite.getWidth()/2, body.getPosition().y*BallBuster.SCALE-sprite.getHeight()/2);
+        ball.setPosition(body.getPosition().x * BallBuster.SCALE - sprite.getWidth() / 2, body.getPosition().y * BallBuster.SCALE - sprite.getHeight() / 2);
         sprite.setPosition(ball.getX(),ball.getY());
+        shieldSprite.setPosition(body.getPosition().x* BallBuster.SCALE-shieldSprite.getWidth()/2, body.getPosition().y*BallBuster.SCALE-shieldSprite.getHeight()/2);
     }
     public float getX() {
        return body.getPosition().x;

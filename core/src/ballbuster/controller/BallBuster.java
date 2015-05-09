@@ -68,6 +68,8 @@ public class BallBuster extends Game{
 
     private Sprite background;
 
+    private CollisionController collisionController;
+
     public BallBuster() {}
 
     public BallBuster(int id) {
@@ -106,6 +108,8 @@ public class BallBuster extends Game{
         backgroundTexture = new Texture(backFileHandle);
 
         background = new Sprite(backgroundTexture);
+
+        collisionController = new CollisionController(tileWallController.getWallList(), ballList);
     }
 
     @Override
@@ -123,10 +127,12 @@ public class BallBuster extends Game{
         batch.draw(background, -camera.viewportWidth / 2, -camera.viewportHeight / 2);
         batch.end();
 
+        //controllerList.add(collisionController);
+
         for(IController controller : controllerList)
             controller.onRender();
 
-        world.setContactListener(new CollisionController(tileWallController.getWallList(), ballList));
+        world.setContactListener(collisionController);
 
         //debugRenderer.render(world, debugMatrix);
     }
