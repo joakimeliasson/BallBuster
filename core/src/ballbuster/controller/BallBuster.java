@@ -103,7 +103,7 @@ public class BallBuster extends Game{
         for(IController controller : controllerList)
             controller.onCreate();
 
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background2.png");
+        FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
         backgroundTexture = new Texture(backFileHandle);
 
         background = new Sprite(backgroundTexture);
@@ -142,6 +142,9 @@ public class BallBuster extends Game{
         FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
         texture = new Texture(ballFileHandle);
 
+        FileHandle shieldFileHandle = Gdx.files.internal("core/images/playershield.png");
+        Texture shieldTexture = new Texture(shieldFileHandle);
+
         aura = new Aura();
         ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, aura);
         player = new Player(1,"Player1",ball);
@@ -152,14 +155,17 @@ public class BallBuster extends Game{
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
         texture2 = new Texture(ballFileHandle2);
 
+        FileHandle shield2FileHandle = Gdx.files.internal("core/images/playershield2.png");
+        Texture shieldTexture2 = new Texture(shield2FileHandle);
+
         aura2 = new Aura();
         ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, aura2);
         player2 = new Player(2, "Player2", ball2);
         player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
         this.playerList.add(player2);
 
-        ballController = new BallController(player, batch, texture, world);
-        ballController2 = new BallController(player2, batch, texture2, world);
+        ballController = new BallController(player, batch, texture, world, shieldTexture);
+        ballController2 = new BallController(player2, batch, texture2, world, shieldTexture2);
 
         controllerList.add(ballController);
         controllerList.add(ballController2);

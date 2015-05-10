@@ -20,11 +20,10 @@ public class BallView{
     private Body body;
     private Texture shieldTexture;
 
-    public void createBody(Texture texture, Player player, World world) {
+    public void createBody(Texture texture, Player player, World world, Texture shieldTexture) {
         sprite = new Sprite(texture);
 
-        FileHandle shieldFileHandle = Gdx.files.internal("core/images/playershield.png");
-        shieldTexture = new Texture(shieldFileHandle);
+        this.shieldTexture = shieldTexture;
 
         shieldSprite = new Sprite(shieldTexture);
         this.player = player;

@@ -24,12 +24,12 @@ public class BallController implements InputProcessor, IController{
 
     private SpriteBatch batch;
 
-    public BallController(Player player ,SpriteBatch batch, Texture texture, World world) {
+    public BallController(Player player ,SpriteBatch batch, Texture texture, World world, Texture shieldTexture) {
         this.player = player;
         this.batch = batch;
         this.ball = player.getBall();
         ballView = new BallView();
-        ballView.createBody(texture, player,world);
+        ballView.createBody(texture, player,world, shieldTexture);
         this.body = ballView.getBody();
     }
 
