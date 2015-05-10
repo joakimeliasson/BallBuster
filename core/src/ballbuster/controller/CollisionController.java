@@ -2,6 +2,7 @@ package ballbuster.controller;
 
 import ballbuster.model.Player;
 import ballbuster.model.Timer;
+import ballbuster.view.CollisionView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
@@ -13,30 +14,27 @@ import java.util.ArrayList;
 /**
  * Created by Joakim on 2015-04-20.
  */
-public class CollisionController implements ContactListener{
+public class CollisionController implements ContactListener, IController{
 
     private ArrayList<Body> tileList;
     private ArrayList<BallController> ballList;
     private Sound sound;
-    private BitmapFont font;
-  //  private SpriteBatch batch;
-    //private PrintFont printFont;
     private Player player;
     private String message;
+    private SpriteBatch batch;
+    private CollisionView collisionView;
     private Timer timer;
 
-    public CollisionController(ArrayList<Body> tileList, ArrayList<BallController> ballList){
+    public CollisionController(ArrayList<Body> tileList, ArrayList<BallController> ballList, SpriteBatch batch){
         this.tileList = tileList;
         this.ballList = ballList;
-//        this.batch = batch;
-        //timer = new Timer(5f);
+        this.batch = batch;
+        this.batch = batch;
+        timer = new Timer(4f);
+        collisionView = new CollisionView();
 
         FileHandle collisionFileHandle = Gdx.files.internal("core/sounds/collision.mp3");
         sound = Gdx.audio.newSound(collisionFileHandle);
-
-        //font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
-        //font.setColor(1,1,1,1);
-      //  printFont = new PrintFont(batch, font, player);
     }
 
     @Override
@@ -48,15 +46,10 @@ public class CollisionController implements ContactListener{
                  if (a == tileList.get(i) && b == ballList.get(k).getBody() && !ballList.get(k).getPlayer().hasSpeedUp()) {
                      ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
                      sound.play();
-                    // System.out.println("Shield: " + ballList.get(k).getBall().getShield());
-
-          //           player = ballList.get(k).getPlayer();
-                     //printFont.setPosition(player.getBall().getX(), player.getBall().getY());
-                  //   int damage = (int)damage(ballList.get(k));
-                //     String message = "-" + damage +" Damage!";
-            //         System.out.println("Damage " +message);
-              //       this.message = message;
-                     //printFont.resetTimer();
+                     player = ballList.get(k).getPlayer();
+                     int damage = (int)damage(ballList.get(k));
+                     String message = "-" + damage +" Damage!";
+                     this.message = message;
                  }
                 else {
                      sound.play();
@@ -87,7 +80,7 @@ public class CollisionController implements ContactListener{
     public void postSolve(Contact contact, ContactImpulse impulse) {
 
     }
-/*
+
     @Override
     public void onCreate() {
 
@@ -97,13 +90,11 @@ public class CollisionController implements ContactListener{
     public void onRender() {
         if(message != "" && message!=null)
             timer.update(Gdx.graphics.getDeltaTime());
-        if(timer.hasTimeElapsed())
-            message ="";
 
-        if(message!=null && player!=null) {
-            batch.begin();
-            font.draw(batch, message, player.getBall().getX(), player.getBall().getY());
-            batch.end();
+        if(timer.hasTimeElapsed()) {
+            message = "";
+            timer.reset();
         }
-    }*/
+        collisionView.renderFont(player, message, batch, timer);
+    }
 }

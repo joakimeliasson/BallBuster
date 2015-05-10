@@ -1,14 +1,14 @@
 package ballbuster.network;
-
+/*
 import java.io.IOException;
 
 import ballbuster.controller.BallBuster;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+*/
 
-
-public class Network extends Listener {
+public class Network {/*
 
     Client client;
     String ip = "localhost";
@@ -43,5 +43,5 @@ public class Network extends Listener {
             BallBuster packet = (BallBuster) o;
             //ClientProgram.players.get(packet.getId()).x = packet.x;
         }
-    }
+    }*/
 }

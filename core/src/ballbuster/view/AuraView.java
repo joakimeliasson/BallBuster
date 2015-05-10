@@ -86,7 +86,7 @@ public class AuraView{
 
             if (Math.sqrt(tmp) < 2f) {
                 //body.getFixtureList().get(0).setRestitution(0f);
-                body.applyLinearImpulse(0.1f * xDiff / rad2, 0.1f * yDiff / rad2, body.getPosition().x, body.getPosition().y, true);
+                body.applyLinearImpulse(0.3f * xDiff / rad2, 0.3f * yDiff / rad2, body.getPosition().x, body.getPosition().y, true);
             }
         }
     }

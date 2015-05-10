@@ -24,4 +24,7 @@ public class Timer {
     public void update(float delta) {
         remaining = remaining - delta;
     }
+    public float getRemaining() {
+        return remaining;
+    }
 }

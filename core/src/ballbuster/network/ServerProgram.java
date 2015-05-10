@@ -1,5 +1,5 @@
 package ballbuster.network;
-
+/*
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,9 +10,9 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
-
-public class ServerProgram extends Listener {
-
+*/
+public class ServerProgram {
+/*
     static Server server;
     static final int port = 27960;
     static Map<Integer, Player> players = new HashMap<>();
@@ -64,7 +64,7 @@ public class ServerProgram extends Listener {
             packet.id = c.getID();
             server.sendToAllExceptUDP(c.getID(), packet);
 
-        }*/
+        }
     }
 
     public void disconnected(Connection c){
@@ -73,5 +73,5 @@ public class ServerProgram extends Listener {
        // packet.id = c.getID();
        // server.sendToAllExceptTCP(c.getID(), packet);
         System.out.println("Connection dropped.");
-    }
+    }*/
 }

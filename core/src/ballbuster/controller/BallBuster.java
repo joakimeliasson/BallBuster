@@ -18,7 +18,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.esotericsoftware.kryo.Kryo;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -109,7 +108,9 @@ public class BallBuster extends Game{
 
         background = new Sprite(backgroundTexture);
 
-        collisionController = new CollisionController(tileWallController.getWallList(), ballList);
+        collisionController = new CollisionController(tileWallController.getWallList(), ballList, batch);
+
+        controllerList.add(collisionController);
     }
 
     @Override
