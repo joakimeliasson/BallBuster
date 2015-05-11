@@ -145,11 +145,11 @@ public class BallBuster extends Game{
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/playershield.png");
         Texture shieldTexture = new Texture(shieldFileHandle);
 
-        aura = new Aura();
-        ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2, aura);
-        player = new Player(1,"Player1",ball);
-        player.getBall().getAura().setPosition(ball.getX(), ball.getY());
-        player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
+        //aura = new Aura();
+        //ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2;
+        player = new Player(1,"Player1",-camera.viewportWidth/2,-camera.viewportHeight/2);
+        //player.getBall().getAura().setPosition(ball.getX(), ball.getY());
+        //player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
         playerList.add(player);
 
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
@@ -158,14 +158,19 @@ public class BallBuster extends Game{
         FileHandle shield2FileHandle = Gdx.files.internal("core/images/playershield2.png");
         Texture shieldTexture2 = new Texture(shield2FileHandle);
 
-        aura2 = new Aura();
-        ball2 = new Ball(camera.viewportWidth/2-100f, camera.viewportHeight/2-100f, aura2);
-        player2 = new Player(2, "Player2", ball2);
-        player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
+        //aura2 = new Aura();
+        //ball2 = new Ball();
+        player2 = new Player(2, "Player2",camera.viewportWidth/2-100f, camera.viewportHeight/2-100f);
+        //player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
         this.playerList.add(player2);
 
         ballController = new BallController(player, batch, texture, world, shieldTexture);
+        ballController.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
         ballController2 = new BallController(player2, batch, texture2, world, shieldTexture2);
+        ballController2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
+
+        //Uncomment to add AI =D
+        //ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
 
         controllerList.add(ballController);
         controllerList.add(ballController2);
