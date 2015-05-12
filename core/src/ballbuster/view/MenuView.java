@@ -5,6 +5,7 @@ import ballbuster.model.Player;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import javafx.scene.text.Text;
@@ -55,18 +57,24 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
     private BallBuster ballBuster;
     private List<Player> playerList;
     private List<Integer> keyList;
+    private List<Label> bindLabelList;
+    private List<String> bindPrefixList;
     private int bindState;
     private int mapState = 0;
     private float alpha;
     private Sprite mapSprite;
 
-    private BitmapFont font1;
+    private final int NUMBER_OF_PLAYERS = 2;
+
+
+    private BitmapFont bindFont;
 
     //TODO activate drawsprite and fix drawables with filepaths
 
     @Override
     public void create() {
-        font1 = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
+        bindFont = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
+        initBindLabels();
 
         alpha = 1;
 
@@ -243,4 +251,45 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
     private void setMapSprite(){
         mapSprite.setTexture(mapList.get(mapState));
     }
-}
+
+    private void initBindLabels(){
+
+        int labelNbr = 0;
+        bindPrefixList = new LinkedList<>();
+        bindPrefixList.add("UpKey:");
+        bindPrefixList.add("DownKey:");
+        bindPrefixList.add("LeftKey:");
+        bindPrefixList.add("RightKey:");
+        bindPrefixList.add("AuraKey:");
+        bindLabelList = new LinkedList<>();
+
+        for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
+            if(i < 5) {
+                bindLabelList.add(new Label(bindPrefixList.get(i) + keyList.get(labelNbr), new Label.LabelStyle(bindFont, Color.WHITE)));
+                //TODO calculations for positions
+                bindLabelList.get(labelNbr).setPosition(1,1);
+            }else if(i < 10) {
+                bindLabelList.add(new Label(bindPrefixList.get(i-5) + keyList.get(labelNbr), new Label.LabelStyle(bindFont, Color.WHITE)));
+                //TODO calculations for positions
+                bindLabelList.get(labelNbr).setPosition(1, 1);
+            }
+
+        }
+        //Player 1
+
+        bindLabelList.add(new Label("UpKey:" + keyList.get(labelNbr), new Label.LabelStyle(bindFont, Color.WHITE)));
+
+        bindLabelList.add(new Label("DownKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("LeftKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("RightKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("AuraKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        //Player 2
+        bindLabelList.add(new Label("UpKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("DownKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("LeftKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("RightKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        bindLabelList.add(new Label("AuraKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
+        }
+    }
+
+
