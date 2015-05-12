@@ -47,7 +47,7 @@ public class BallController implements InputProcessor, IController{
         this.auraKey = auraKey;
     }
 
- /*   @Override
+    @Override
     public boolean keyDown(int keycode) {
         if(Gdx.input.isKeyPressed(player.getLeftKey()))
             ballView.moveLeft(body.getPosition().x, body.getPosition().y);
@@ -58,8 +58,8 @@ public class BallController implements InputProcessor, IController{
         if(Gdx.input.isKeyPressed(player.getDownKey()))
             ballView.moveDown(body.getPosition().x, body.getPosition().y);
         return false;
-    }*/
-
+    }
+/*
     @Override
     public boolean keyDown(int keycode) {
         if(Gdx.input.isKeyPressed(leftKey))
@@ -72,7 +72,7 @@ public class BallController implements InputProcessor, IController{
             ballView.moveDown(body.getPosition().x, body.getPosition().y);
         return false;
     }
-
+*/
 
     @Override
     public boolean keyUp(int keycode) {
