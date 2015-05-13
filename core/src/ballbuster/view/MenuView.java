@@ -117,7 +117,7 @@ public class MenuView implements ApplicationListener{
                 new Texture(Gdx.files.internal("core/images/rebind.png"))));
         */
         final Drawable bindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/play.png"))));
+                new Texture(Gdx.files.internal("core/images/tempbind.png"))));
 
 
 
@@ -155,7 +155,8 @@ public class MenuView implements ApplicationListener{
         //playButton
         playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
-        playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
+        //Add proper bounds value
+        playButton.setBounds(playButton.getX(), playButton.getY(), 300, 400);
         thisStage.addActor(playButton);
         playButton.addListener(new ClickListener() {
 
@@ -225,22 +226,20 @@ public class MenuView implements ApplicationListener{
         //TODO REMOVE THIS?
         //Gdx.input.setInputProcessor(this);
 
+
+        //TODO NOT THIS
+
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
             final int indexNumber = i;
             BBMenuButton bindButton = new BBMenuButton(bindButtonDrawable);
-            bindButton.addListener(new InputListener() {
+            bindButton.addListener(new ClickListener() {
                 public final int buttonIndex = indexNumber;
 
                 @Override
-                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
-                    //TODO key rebind state switch
+                public void clicked(InputEvent event, float x, float y) {
                     bindState = indexNumber;
-                    return true;}
-
-                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-
                 }
+
             });
 
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
@@ -255,6 +254,7 @@ public class MenuView implements ApplicationListener{
                 bindLabel.setPosition(Gdx.graphics.getWidth() - bindButton.getWidth() + bindButton.getWidth(), Gdx.graphics.getHeight()-(i-5)*(bindButton.getHeight()));
             }
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
+            thisStage.addActor(bindButton);
             bindButtonList.add(bindButton);
             bindLabelList.add(bindLabel);
         }
@@ -275,13 +275,11 @@ public class MenuView implements ApplicationListener{
             //setMapSprite();
             batch.begin();
             batch.draw(background, 0, 0);
-            playButton.draw(batch, playButton.getAlpha());
-            exitButton.draw(batch, exitButton.getAlpha());
-            cycleLeftButton.draw(batch,cycleLeftButton.getAlpha());
-            cycleRightButton.draw(batch,cycleRightButton.getAlpha());
-            for(int i = 0; i < bindLabelList.size(); i++){
-                bindLabelList.get(i).draw(batch, DEFAULT_ALPHA);
-                bindButtonList.get(i).draw(batch, bindButtonList.get(i).getAlpha());
+            
+            for(Actor a: thisStage.getActors()){
+                if(a.getClass() == BBMenuButton.class){
+                    ((BBMenuButton)a).draw(batch, ((BBMenuButton)a).getAlpha());
+                }
             }
             batch.end();
         }
