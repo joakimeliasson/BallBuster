@@ -12,9 +12,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -51,6 +49,7 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
     private int mapState = 0;
     private float alpha;
     private Sprite mapSprite;
+    private boolean inFocus = true;
 
     private final int NUMBER_OF_PLAYERS = 2;
 
@@ -64,6 +63,7 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         //TODO uncomment methods when they have the resources they need
         bindFont = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
         bindFont.setScale(0.5f,0.5f);
+
 
         alpha = 1;
 
@@ -96,30 +96,30 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
 
         //Default keys for players
-        keyList = new LinkedList<Integer>();
+        keyList = new LinkedList<>();
 
         //Player 1 keys
+        keyList.add(Keys.D);
+        keyList.add(Keys.A);
         keyList.add(Keys.W);
         keyList.add(Keys.S);
-        keyList.add(Keys.A);
-        keyList.add(Keys.D);
         keyList.add(Keys.ALT_LEFT);
 
         //Player 2 keys
+        keyList.add(Keys.DPAD_RIGHT);
+        keyList.add(Keys.DPAD_LEFT);
         keyList.add(Keys.DPAD_UP);
         keyList.add(Keys.DPAD_DOWN);
-        keyList.add(Keys.DPAD_LEFT);
-        keyList.add(Keys.DPAD_RIGHT);
         keyList.add(Keys.SPACE);
 
 
 
         final int DIVIDE_SCREEN = 50;
         bindPrefixList = new LinkedList<>();
+        bindPrefixList.add("RightKey:");
+        bindPrefixList.add("LeftKey:");
         bindPrefixList.add("UpKey:");
         bindPrefixList.add("DownKey:");
-        bindPrefixList.add("LeftKey:");
-        bindPrefixList.add("RightKey:");
         bindPrefixList.add("AuraKey:");
         bindPrefixList.addAll(bindPrefixList);
         bindLabelList = new LinkedList<>();
@@ -130,23 +130,88 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         playButton = new ImageButton(playDrawable);
         playButton.addListener(this);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
+        playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
+        playButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return false;
+            }
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if (inFocus) {
+                    ballBuster = new BallBuster();
+                    ballBuster.create();
+                    int bindNbr = 0;
+                    playerList = ballBuster.getPlayers();
+                    //Should not loop more than once, as there are only 2 players
+                    for (int i = bindNbr; i < playerList.size(); i++) {
+                    playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2), keyList.get(bindNbr + 3), keyList.get(bindNbr + 4));
+                    bindNbr = bindNbr + 5;
+                }
+            }
+            }
+        });
+
         //cycleLeftButton
         cycleLeftButton = new ImageButton(playDrawable);
         cycleLeftButton.addListener(this);
-        cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3*playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        cycleLeftButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {return false;}
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                //TODO Cycle maps left
+                if(inFocus) {
+
+                }
+            }
+        });
         //cycleRightButton
         cycleRightButton = new ImageButton(playDrawable);
         cycleRightButton.addListener(this);
-        cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3*playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        cycleRightButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {return false;}
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                //TODO Cycle maps right
+                if(inFocus) {
+
+                }
+            }
+        });
         //exitButton
         exitButton = new ImageButton(playDrawable);
         exitButton.addListener(this);
-        exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight()/2);
+        exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
+        cycleRightButton.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {return false;}
+
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                if(inFocus) {
+                    System.exit(0);
+                }
+            }
+        });
 
         Gdx.input.setInputProcessor(this);
 
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
+            final int indexNumber = i;
             ImageButton bindButton = new ImageButton(bindButtonDrawable);
+            bindButton.addListener(new InputListener() {
+                public final int buttonIndex = indexNumber;
+
+
+                public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {return false;}
+
+                public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                    if(inFocus) {
+                        //TODO key rebind state switch
+                    }
+                }
+            });
+
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
             bindButton.addListener(this);
             if(i < 5) {
@@ -191,14 +256,7 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         }
 
         if(ballBuster!=null) {
-            int bindNbr = 0;
-            playerList = ballBuster.getPlayers();
 
-            //Should not loop more than once, as there are only 2 players
-            for (int i = bindNbr; i < playerList.size(); i++) {
-                playerList.get(i).setKeys(keyList.get(bindNbr),keyList.get(bindNbr+1),keyList.get(bindNbr+2),keyList.get(bindNbr+3),keyList.get(bindNbr+4));
-                bindNbr = bindNbr+5;
-            }
             ballBuster.render();
         }
     }
@@ -225,8 +283,8 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
     @Override
     public boolean keyUp(int keycode) {
-        keyList.remove(bindState);
-        keyList.add(bindState,keycode);
+        //keyList.remove(bindState);
+        //keyList.add(bindState,keycode);
 
         return false;
     }
@@ -246,6 +304,15 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         ballBuster = new BallBuster();
         ballBuster.create();
+        inFocus = false;
+        int bindNbr = 0;
+        playerList = ballBuster.getPlayers();
+
+        //Should not loop more than once, as there are only 2 players
+        for (int i = bindNbr; i < playerList.size(); i++) {
+            playerList.get(i).setKeys(keyList.get(bindNbr),keyList.get(bindNbr+1),keyList.get(bindNbr+2),keyList.get(bindNbr+3),keyList.get(bindNbr+4));
+            bindNbr = bindNbr+5;
+        }
         return false;
     }
 

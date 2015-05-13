@@ -38,9 +38,9 @@ public class Player {
 
     public Ball getBall() { return this.ball; }
 
-    public void setKeys(int upKey, int downKey, int leftKey, int rightKey, int auraKey) {
-        this.leftKey = leftKey;
+    public void setKeys(int rightKey, int leftKey, int upKey, int downKey, int auraKey) {
         this.rightKey = rightKey;
+        this.leftKey = leftKey;
         this.upKey = upKey;
         this.downKey = downKey;
         this.auraKey = auraKey;
