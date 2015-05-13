@@ -85,25 +85,14 @@ public class MenuView implements ApplicationListener{
         //TODO uncomment methods when they have the resources they need
         bindFont = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
         bindFont.setScale(0.5f,0.5f);
-
-        //Added Stage
         thisStage = new Stage();
         Gdx.input.setInputProcessor(thisStage);
-
-
-
-
         batch = new SpriteBatch();
-
         FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
         Texture backgroundTexture = new Texture(backFileHandle);
-
         background = new Sprite(backgroundTexture);
-
-
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/play.png"))));
-
         /*
         final Drawable cycleRightDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/cycleright.png"))));
@@ -118,12 +107,8 @@ public class MenuView implements ApplicationListener{
         */
         final Drawable bindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/tempbind.png"))));
-
-
-
         //Default keys for players
         keyList = new LinkedList<>();
-
         //Player 1 keys
         keyList.add(Keys.D);
         keyList.add(Keys.A);
@@ -138,9 +123,6 @@ public class MenuView implements ApplicationListener{
         keyList.add(Keys.DPAD_DOWN);
         keyList.add(Keys.SPACE);
 
-
-
-        final int DIVIDE_SCREEN = 50;
         bindPrefixList = new LinkedList<>();
         bindPrefixList.add("RightKey:");
         bindPrefixList.add("LeftKey:");
@@ -152,6 +134,7 @@ public class MenuView implements ApplicationListener{
         bindButtonList = new LinkedList<>();
 
         //TODO set correct resources when available
+        final int DIVIDE_SCREEN = 50;
         //playButton
         playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
@@ -255,6 +238,7 @@ public class MenuView implements ApplicationListener{
             }
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
             thisStage.addActor(bindButton);
+            thisStage.addActor(bindLabel);
             bindButtonList.add(bindButton);
             bindLabelList.add(bindLabel);
         }
@@ -275,10 +259,13 @@ public class MenuView implements ApplicationListener{
             //setMapSprite();
             batch.begin();
             batch.draw(background, 0, 0);
-            
+
             for(Actor a: thisStage.getActors()){
                 if(a.getClass() == BBMenuButton.class){
                     ((BBMenuButton)a).draw(batch, ((BBMenuButton)a).getAlpha());
+                }
+                if(a.getClass() == Label.class){
+                    ((Label)a).draw(batch, DEFAULT_ALPHA);
                 }
             }
             batch.end();
