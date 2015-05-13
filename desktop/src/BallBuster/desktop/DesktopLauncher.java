@@ -2,6 +2,7 @@ package BallBuster.desktop;
 
 import ballbuster.controller.BallBuster;
 import ballbuster.view.MenuView;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -10,7 +11,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new MenuView(), config);
 
-        config.height = 1080;
-        config.width = 1920;
+        config.height = 720;
+        config.width = 1280;
     }
 }

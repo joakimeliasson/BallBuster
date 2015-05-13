@@ -87,7 +87,7 @@ public class BallBuster extends Game{
 
         debugRenderer = new Box2DDebugRenderer();
 
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera(1920, 1080);
 
         Gdx.gl.glClearColor(106f / 255f, 165f / 255f, 255f / 255f, 1f);
 
@@ -172,7 +172,7 @@ public class BallBuster extends Game{
         //ballController2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
 
         //Uncomment to add AI =D
-        //ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
+        ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
 
         controllerList.add(ballController);
         controllerList.add(ballController2);

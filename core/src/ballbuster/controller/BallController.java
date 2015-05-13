@@ -24,12 +24,6 @@ public class BallController implements InputProcessor, IController{
 
     protected SpriteBatch batch;
 
-    private int leftKey;
-    private int rightKey;
-    private int upKey;
-    private int downKey;
-    private int auraKey;
-
     public BallController(Player player ,SpriteBatch batch, Texture texture, World world, Texture shieldTexture) {
         this.player = player;
         this.batch = batch;
@@ -37,14 +31,6 @@ public class BallController implements InputProcessor, IController{
         ballView = new BallView();
         ballView.createBody(texture, player,world, shieldTexture);
         this.body = ballView.getBody();
-    }
-
-    public void setKeys(int leftKey, int rightKey, int upKey, int downKey, int auraKey) {
-        this.leftKey = leftKey;
-        this.rightKey = rightKey;
-        this.upKey = upKey;
-        this.downKey = downKey;
-        this.auraKey = auraKey;
     }
 
     @Override
@@ -59,20 +45,7 @@ public class BallController implements InputProcessor, IController{
             ballView.moveDown(body.getPosition().x, body.getPosition().y);
         return false;
     }
-/*
-    @Override
-    public boolean keyDown(int keycode) {
-        if(Gdx.input.isKeyPressed(leftKey))
-            ballView.moveLeft(body.getPosition().x, body.getPosition().y);
-        if(Gdx.input.isKeyPressed(rightKey))
-            ballView.moveRight(body.getPosition().x, body.getPosition().y);
-        if(Gdx.input.isKeyPressed(upKey))
-            ballView.moveUp(body.getPosition().x, body.getPosition().y);
-        if(Gdx.input.isKeyPressed(downKey))
-            ballView.moveDown(body.getPosition().x, body.getPosition().y);
-        return false;
-    }
-*/
+
 
     @Override
     public boolean keyUp(int keycode) {
