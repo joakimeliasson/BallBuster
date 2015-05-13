@@ -40,19 +40,6 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
     private ImageButton cycleRightButton;
     private ImageButton cycleLeftButton;
     private ImageButton exitButton;
-    //Bindbuttons p1
-    private ImageButton p1UpButton;
-    private ImageButton p1DownButton;
-    private ImageButton p1LeftButton;
-    private ImageButton p1RightButton;
-    private ImageButton p1AuraButton;
-    //bindbuttons p2
-    private ImageButton p2UpButton;
-    private ImageButton p2DownButton;
-    private ImageButton p2LeftButton;
-    private ImageButton p2RightButton;
-    private ImageButton p2AuraButton;
-
     private ArrayList<Texture> mapList;
     private BallBuster ballBuster;
     private List<Player> playerList;
@@ -105,9 +92,6 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         final Drawable bindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/play.png"))));
 
-        /*final Drawable drawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/play.png"))));*/
-
 
         playButton = new ImageButton(playDrawable);
         playButton.addListener(this);
@@ -117,26 +101,6 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         cycleRightButton.addListener(this);
         exitButton = new ImageButton(exitDrawable);
         exitButton.addListener(this);
-        p1UpButton = new ImageButton(bindDrawable);
-        p1UpButton.addListener(this);
-        p1DownButton = new ImageButton(bindDrawable);
-        p1DownButton.addListener(this);
-        p1LeftButton = new ImageButton(bindDrawable);
-        p1LeftButton.addListener(this);
-        p1RightButton = new ImageButton(bindDrawable);
-        p1RightButton.addListener(this);
-        p1AuraButton = new ImageButton(bindDrawable);
-        p1AuraButton.addListener(this);
-        p2UpButton = new ImageButton(bindDrawable);
-        p2UpButton.addListener(this);
-        p2DownButton = new ImageButton(bindDrawable);
-        p2DownButton.addListener(this);
-        p2LeftButton = new ImageButton(bindDrawable);
-        p2LeftButton.addListener(this);
-        p2RightButton = new ImageButton(bindDrawable);
-        p2RightButton.addListener(this);
-        p2AuraButton = new ImageButton(bindDrawable);
-        p2AuraButton.addListener(this);
 */
 
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
@@ -177,7 +141,6 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
             bindButton.addListener(this);
             if(i < 5) {
-                System.out.println("hyhy");
                 //TODO calculations for positions
                 bindButton.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN, Gdx.graphics.getHeight() - i * (bindButton.getHeight()));
                 bindLabel.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN + bindButton.getWidth(), Gdx.graphics.getHeight() - i * (bindButton.getHeight()));
