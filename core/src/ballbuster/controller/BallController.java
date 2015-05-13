@@ -17,12 +17,18 @@ import com.badlogic.gdx.physics.box2d.World;
 public class BallController implements InputProcessor, IController{
 
     private Player player;
-    private Ball ball;
+    protected Ball ball;
 
-    private Body body;
-    private BallView ballView;
+    protected Body body;
+    protected BallView ballView;
 
-    private SpriteBatch batch;
+    protected SpriteBatch batch;
+
+    private int leftKey;
+    private int rightKey;
+    private int upKey;
+    private int downKey;
+    private int auraKey;
 
     public BallController(Player player ,SpriteBatch batch, Texture texture, World world, Texture shieldTexture) {
         this.player = player;
@@ -33,8 +39,15 @@ public class BallController implements InputProcessor, IController{
         this.body = ballView.getBody();
     }
 
+    public void setKeys(int leftKey, int rightKey, int upKey, int downKey, int auraKey) {
+        this.leftKey = leftKey;
+        this.rightKey = rightKey;
+        this.upKey = upKey;
+        this.downKey = downKey;
+        this.auraKey = auraKey;
+    }
 
-    @Override
+ /*   @Override
     public boolean keyDown(int keycode) {
         if(Gdx.input.isKeyPressed(player.getLeftKey()))
             ballView.moveLeft(body.getPosition().x, body.getPosition().y);
@@ -45,7 +58,21 @@ public class BallController implements InputProcessor, IController{
         if(Gdx.input.isKeyPressed(player.getDownKey()))
             ballView.moveDown(body.getPosition().x, body.getPosition().y);
         return false;
+    }*/
+
+    @Override
+    public boolean keyDown(int keycode) {
+        if(Gdx.input.isKeyPressed(leftKey))
+            ballView.moveLeft(body.getPosition().x, body.getPosition().y);
+        if(Gdx.input.isKeyPressed(rightKey))
+            ballView.moveRight(body.getPosition().x, body.getPosition().y);
+        if(Gdx.input.isKeyPressed(upKey))
+            ballView.moveUp(body.getPosition().x, body.getPosition().y);
+        if(Gdx.input.isKeyPressed(downKey))
+            ballView.moveDown(body.getPosition().x, body.getPosition().y);
+        return false;
     }
+
 
     @Override
     public boolean keyUp(int keycode) {
