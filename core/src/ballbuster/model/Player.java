@@ -20,10 +20,10 @@ public class Player {
     private boolean invertedKeys;
     private boolean speedUp;
 
-    public Player(int playerId, String playerName, float startPosX, float startPosY){
+    public Player(int playerId, String playerName, Ball ball){
         this.playerName = playerName;
         this.playerId = playerId;
-        this.ball = new Ball(startPosX, startPosY);
+        this.ball = ball;
         this.invertedKeys = false;
     }
     public int getPlayerId(){

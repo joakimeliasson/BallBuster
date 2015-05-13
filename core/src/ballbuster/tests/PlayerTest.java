@@ -18,8 +18,7 @@ public class PlayerTest {
     private Player p;
     @Before
     public void setUpPlayerTest(){
-        //p = new Player(1,"Player1", new Ball(1f,1f,new Aura()));
-        p = new Player(1,"Player1",1f,1f);
+        p = new Player(1,"Player1", new Ball(1f,1f,new Aura()));
     }
     @Test
     public void testAddPlayer() {

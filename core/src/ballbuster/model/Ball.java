@@ -27,10 +27,10 @@ public class Ball {
     private float speed;
     private boolean hasPowerUp = false;
 
-    public Ball(float x, float y) {
+    public Ball(float x, float y, Aura aura) {
+        this.aura = aura;
         this.x = x;
         this.y = y;
-        this.aura = new Aura();
 
         speed = 0.50f;
         shield = 100;
