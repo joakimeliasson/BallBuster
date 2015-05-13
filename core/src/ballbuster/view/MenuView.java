@@ -74,6 +74,7 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
         background = new Sprite(backgroundTexture);
 
+
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/play.png"))));
 
@@ -93,18 +94,6 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
                 new Texture(Gdx.files.internal("core/images/play.png"))));
 
 
-        playButton = new ImageButton(playDrawable);
-        playButton.addListener(this);
-  /*      cycleLeftButton = new ImageButton(cycleLeftDrawable);
-        cycleLeftButton.addListener(this);
-        cycleRightButton = new ImageButton(cycleRightDrawable);
-        cycleRightButton.addListener(this);
-        exitButton = new ImageButton(exitDrawable);
-        exitButton.addListener(this);
-*/
-
-        playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
-        Gdx.input.setInputProcessor(this);
 
         //Default keys for players
         keyList = new LinkedList<Integer>();
@@ -136,6 +125,26 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         bindLabelList = new LinkedList<>();
         bindButtonList = new LinkedList<>();
 
+        //TODO set correct resources when available
+        //playButton
+        playButton = new ImageButton(playDrawable);
+        playButton.addListener(this);
+        playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
+        //cycleLeftButton
+        cycleLeftButton = new ImageButton(playDrawable);
+        cycleLeftButton.addListener(this);
+        cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3*playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        //cycleRightButton
+        cycleRightButton = new ImageButton(playDrawable);
+        cycleRightButton.addListener(this);
+        cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3*playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        //exitButton
+        exitButton = new ImageButton(playDrawable);
+        exitButton.addListener(this);
+        exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight()/2);
+
+        Gdx.input.setInputProcessor(this);
+
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
             ImageButton bindButton = new ImageButton(bindButtonDrawable);
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
@@ -148,11 +157,13 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
             }else if(i < 10) {
                 //TODO calculations for positions
                 bindButton.setPosition(Gdx.graphics.getWidth() - bindButton.getWidth(), Gdx.graphics.getHeight() -(i-5)*(bindButton.getHeight()));
-                bindLabel.setPosition(Gdx.graphics.getWidth() - bindButton.getWidth()+bindButton.getWidth(), Gdx.graphics.getHeight()-(i-5)*(bindButton.getHeight()));
+                bindLabel.setPosition(Gdx.graphics.getWidth() - bindButton.getWidth() + bindButton.getWidth(), Gdx.graphics.getHeight()-(i-5)*(bindButton.getHeight()));
             }
             bindButtonList.add(bindButton);
             bindLabelList.add(bindLabel);
         }
+
+
 
 
     }
@@ -169,6 +180,9 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
             batch.begin();
             batch.draw(background, 0, 0);
             playButton.draw(batch, alpha);
+            exitButton.draw(batch,alpha);
+            cycleLeftButton.draw(batch,alpha);
+            cycleRightButton.draw(batch,alpha);
             for(int i = 0; i < bindLabelList.size(); i++){
                 bindLabelList.get(i).draw(batch, alpha);
                 bindButtonList.get(i).draw(batch, alpha);
@@ -264,7 +278,7 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
 
     /**
-     * Key map from com.badlogic.gdx.Input.Kyes to custom enumeration;
+     * Key map from com.badlogic.gdx.Input.Keys to custom enumeration;
      * @author Marek Halmo (c) Maniacs Software
      * Got the code from gdx file and used replace
      * (.*)(Keys.(.*), "(.*)"),
