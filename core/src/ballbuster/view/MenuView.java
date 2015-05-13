@@ -73,8 +73,8 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
     @Override
     public void create() {
+        //TODO uncomment methods when they have the resources they need
         bindFont = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
-        initBindLabels();
 
         alpha = 1;
 
@@ -131,8 +131,6 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         p2AuraButton.addListener(this);
 */
 
-
-
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
         Gdx.input.setInputProcessor(this);
 
@@ -152,6 +150,9 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
         keyList.add(Keys.DPAD_LEFT);
         keyList.add(Keys.DPAD_RIGHT);
         keyList.add(Keys.SPACE);
+
+        initBindLabels();
+
     }
 
     @Override
@@ -166,6 +167,9 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
             batch.begin();
             batch.draw(background, 0, 0);
             playButton.draw(batch, alpha);
+            for(int i = 0; i < bindLabelList.size(); i++){
+                bindLabelList.get(i).draw(batch, alpha);
+            }
             batch.end();
         }
 
@@ -254,7 +258,9 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
     private void initBindLabels(){
 
-        int labelNbr = 0;
+
+        final int DIVIDE_SCREEN = 20;
+        final int PORTION_OF_SCREEN = DIVIDE_SCREEN*9/10;
         bindPrefixList = new LinkedList<>();
         bindPrefixList.add("UpKey:");
         bindPrefixList.add("DownKey:");
@@ -265,31 +271,16 @@ public class MenuView implements ApplicationListener, InputProcessor, EventListe
 
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
             if(i < 5) {
-                bindLabelList.add(new Label(bindPrefixList.get(i) + keyList.get(labelNbr), new Label.LabelStyle(bindFont, Color.WHITE)));
+                bindLabelList.add(new Label(bindPrefixList.get(i) + keyList.get(i), new Label.LabelStyle(bindFont, Color.WHITE)));
                 //TODO calculations for positions
-                bindLabelList.get(labelNbr).setPosition(1,1);
+                bindLabelList.get(i).setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN, Gdx.graphics.getHeight()*i / DIVIDE_SCREEN);
             }else if(i < 10) {
-                bindLabelList.add(new Label(bindPrefixList.get(i-5) + keyList.get(labelNbr), new Label.LabelStyle(bindFont, Color.WHITE)));
+                bindLabelList.add(new Label(bindPrefixList.get(i-5) + keyList.get(i), new Label.LabelStyle(bindFont, Color.WHITE)));
                 //TODO calculations for positions
-                bindLabelList.get(labelNbr).setPosition(1, 1);
+                bindLabelList.get(i).setPosition(Gdx.graphics.getWidth() *PORTION_OF_SCREEN/DIVIDE_SCREEN, Gdx.graphics.getHeight()*i / DIVIDE_SCREEN);
             }
-
-        }
-        //Player 1
-
-        bindLabelList.add(new Label("UpKey:" + keyList.get(labelNbr), new Label.LabelStyle(bindFont, Color.WHITE)));
-
-        bindLabelList.add(new Label("DownKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("LeftKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("RightKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("AuraKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        //Player 2
-        bindLabelList.add(new Label("UpKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("DownKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("LeftKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("RightKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
-        bindLabelList.add(new Label("AuraKey:"+keyList.get(labelNbr),new Label.LabelStyle(bindFont, Color.WHITE)));
         }
     }
+}
 
 
