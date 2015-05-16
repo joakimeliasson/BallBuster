@@ -36,6 +36,7 @@ public class MenuView implements ApplicationListener{
 
     //TODO should this be input processor?
     private Sprite background;
+    private Sprite currentMap;
     private SpriteBatch batch;
     private BBMenuButton playButton;
     private Stage thisStage;
@@ -45,11 +46,12 @@ public class MenuView implements ApplicationListener{
     private List<Integer> keyList;
     private List<Label> bindLabelList;
     private List<String> bindPrefixList;
-    private int mapState = 0;
+    private List<Sprite> mapSprites;
+    private int mapState;
+    private boolean isInFocus;
     private final float DEFAULT_ALPHA = 1f;
     private final float MOUSEOVER_ALPHA = 0.75f;
     private final float CLICKED_ALPHA = 0.5f;
-    private Sprite mapSprite;
     private final int NUMBER_OF_PLAYERS = 2;
 
 
@@ -78,13 +80,7 @@ public class MenuView implements ApplicationListener{
         }
 
         @Override
-        public boolean keyDown(int keycode) {
-            return false;
-        }
-
-        @Override
         public boolean keyUp(int keycode) {
-
             keyList.remove(buttonIndex);
             keyList.add(buttonIndex, keycode);
             bindLabelList.get(buttonIndex).setText(bindPrefixList.get(buttonIndex) + KeyCodeMap.valueOf(keyList.get(buttonIndex)).getHumanName());
@@ -93,47 +89,48 @@ public class MenuView implements ApplicationListener{
         }
 
         @Override
-        public boolean keyTyped(char character) {
-            return false;
-        }
-
+        public boolean keyDown(int keycode) {return false;}
         @Override
-        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
-
+        public boolean keyTyped(char character) {return false;}
         @Override
-        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-            return false;
-        }
-
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {return false;}
         @Override
-        public boolean touchDragged(int screenX, int screenY, int pointer) {
-            return false;
-        }
-
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {return false;}
         @Override
-        public boolean mouseMoved(int screenX, int screenY) {
-            return false;
-        }
-
+        public boolean touchDragged(int screenX, int screenY, int pointer) {return false;}
         @Override
-        public boolean scrolled(int amount) {
-            return false;
-        }
+        public boolean mouseMoved(int screenX, int screenY) {return false;}
+        @Override
+        public boolean scrolled(int amount) {return false;}
     }
 
 
     private BitmapFont bindFont;
 
-    //TODO activate drawsprite and fix drawables with filepaths
 
     @Override
     public void create() {
-        //TODO uncomment methods when they have the resources they need
+
+        thisStage = new Stage();
+
+        //Add map sprites to list
+        mapSprites = new LinkedList<>();
+        mapSprites.add(new Sprite(new Texture("core/images/tempTexture.png")));
+        mapSprites.add(new Sprite(new Texture("core/images/normal.png")));
+        mapSprites.add(new Sprite(new Texture("core/images/playershield.png")));
+
+        currentMap = mapSprites.get(0);
+        currentMap.setCenterX(Gdx.graphics.getWidth() / 2);
+        currentMap.setCenterY(Gdx.graphics.getHeight()/4);
+        mapState = 0;
+
+
+
+
+
+        isInFocus = true;
         bindFont = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
         bindFont.setScale(0.5f,0.5f);
-        thisStage = new Stage();
         Gdx.input.setInputProcessor(thisStage);
         batch = new SpriteBatch();
         FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
@@ -180,6 +177,7 @@ public class MenuView implements ApplicationListener{
         //playButton
         playButton = new BBMenuButton(playDrawable, -1);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
+        ;
         //Add proper bounds value
         playButton.setBounds(playButton.getX(), playButton.getY(), 300, 400);
         thisStage.addActor(playButton);
@@ -187,15 +185,18 @@ public class MenuView implements ApplicationListener{
         //Listener for playButton
         playButton.addListener(new ClickListener() {
             @Override public void clicked(InputEvent event, float x, float y){
-                playButton.setAlpha(CLICKED_ALPHA);
-                ballBuster = new BallBuster();
-                ballBuster.create();
-                int bindNbr = 0;
-                playerList = ballBuster.getPlayers();
-                //Should not loop more than once, as there are only 2 players
-                for (int i = bindNbr; i < playerList.size(); i++) {
-                    playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2), keyList.get(bindNbr + 3), keyList.get(bindNbr + 4));
-                    bindNbr = bindNbr + 5;
+                if(isInFocus) {
+                    playButton.setAlpha(CLICKED_ALPHA);
+                    ballBuster = new BallBuster();
+                    ballBuster.create();
+                    int bindNbr = 0;
+                    playerList = ballBuster.getPlayers();
+                    //Should not loop more than once, as there are only 2 players
+                    for (int i = bindNbr; i < playerList.size(); i++) {
+                        playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2), keyList.get(bindNbr + 3), keyList.get(bindNbr + 4));
+                        bindNbr = bindNbr + 5;
+                    }
+                    isInFocus = false;
                 }
             }
 
@@ -215,39 +216,52 @@ public class MenuView implements ApplicationListener{
         cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
         thisStage.addActor(cycleLeftButton);
         cycleLeftButton.addListener(new InputListener() {
+            @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //TODO Cycle maps left
+                if(isInFocus) {
+                    mapState--;
+                    if(mapState < 0) {mapState = mapSprites.size() - 1;}
+                    currentMap = mapSprites.get(mapState);
+                    currentMap.setCenterX(Gdx.graphics.getWidth() / 2);
+                    currentMap.setCenterY(Gdx.graphics.getHeight()/4);
+                }
                 return true;
             }
         });
         //cycleRightButton
+
+
         BBMenuButton cycleRightButton = new BBMenuButton(cycleRightDrawable);
         cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
         thisStage.addActor(cycleRightButton);
         cycleRightButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //TODO Cycle maps right
+                if(isInFocus) {
+                    mapState++;
+                    mapState = mapState%mapSprites.size();
+                    currentMap = mapSprites.get(mapState);
+                    currentMap.setCenterX(Gdx.graphics.getWidth() / 2);
+                    currentMap.setCenterY(Gdx.graphics.getHeight()/4);
+                }
                 return true;
             }
         });
+
         //exitButton
         BBMenuButton exitButton = new BBMenuButton(exitDrawable);
         exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
-        cycleRightButton.addListener(new InputListener() {
+        exitButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.exit(0);
+                if (isInFocus) {
+                    Gdx.app.exit();
+                }
                 return true;
             }
         });
-
-        //TODO REMOVE THIS?
-        //Gdx.input.setInputProcessor(this);
-
-
 
 
 
@@ -258,11 +272,12 @@ public class MenuView implements ApplicationListener{
 
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-
-                    bindButton.pressed = true;
-                    Gdx.input.setInputProcessor(bindButton);
-                    for(Integer key: keyList){
-                        System.out.println(KeyCodeMap.valueOf(key).getHumanName());
+                    if(isInFocus) {
+                        bindButton.pressed = true;
+                        Gdx.input.setInputProcessor(bindButton);
+                        for (Integer key : keyList) {
+                            System.out.println(KeyCodeMap.valueOf(key).getHumanName());
+                        }
                     }
                 }
 
@@ -293,6 +308,9 @@ public class MenuView implements ApplicationListener{
 
     @Override
     public void resize(int width, int height) {
+        for(Actor actor: thisStage.getActors()){
+            actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
+        }
         batch.getProjectionMatrix().setToOrtho2D( 0, 0, width, height);
     }
 
@@ -311,6 +329,7 @@ public class MenuView implements ApplicationListener{
                     ((Label)a).draw(batch, DEFAULT_ALPHA);
                 }
             }
+            currentMap.draw(batch);
             batch.end();
         }
 
@@ -335,9 +354,7 @@ public class MenuView implements ApplicationListener{
 
     }
 
-    private void setMapSprite(){
-        mapSprite.setTexture(mapList.get(mapState));
-    }
+
 
 
 
