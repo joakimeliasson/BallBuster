@@ -54,16 +54,22 @@ public class MenuView implements ApplicationListener{
     private final float DEFAULT_ALPHA = 1f;
     private final float MOUSEOVER_ALPHA = 0.75f;
     private final float CLICKED_ALPHA = 0.5f;
+    private final int NO_INDEX = -1;
     private Sprite mapSprite;
     private boolean inFocus = true;
     private final int NUMBER_OF_PLAYERS = 2;
 
 
-    private class BBMenuButton extends ImageButton{
-        private float alpha = 1f;
+    private class BBMenuButton extends ImageButton implements InputProcessor{
 
-        BBMenuButton(Drawable imageup){
+        private int buttonIndex;
+        private float alpha = 1f;
+        private boolean pressed = false;
+
+        BBMenuButton(Drawable imageup, Integer buttonIndex){
             super(imageup);
+            this.buttonIndex = buttonIndex;
+
         }
 
         public void setAlpha(float alpha){
@@ -72,6 +78,51 @@ public class MenuView implements ApplicationListener{
 
         public float getAlpha(){
             return alpha;
+        }
+
+        @Override
+        public boolean keyDown(int keycode) {
+            return false;
+        }
+
+        @Override
+        public boolean keyUp(int keycode) {
+
+            keyList.remove(buttonIndex);
+            keyList.add(buttonIndex, keycode);
+            bindLabelList.get(buttonIndex).setText(bindPrefixList.get(buttonIndex) + KeyCodeMap.valueOf(keyList.get(buttonIndex)).getHumanName());
+            Gdx.input.setInputProcessor(thisStage);
+            return true;
+        }
+
+        @Override
+        public boolean keyTyped(char character) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+            return false;
+        }
+
+        @Override
+        public boolean touchDragged(int screenX, int screenY, int pointer) {
+            return false;
+        }
+
+        @Override
+        public boolean mouseMoved(int screenX, int screenY) {
+            return false;
+        }
+
+        @Override
+        public boolean scrolled(int amount) {
+            return false;
         }
     }
 
@@ -136,7 +187,7 @@ public class MenuView implements ApplicationListener{
         //TODO set correct resources when available
         final int DIVIDE_SCREEN = 50;
         //playButton
-        playButton = new BBMenuButton(playDrawable);
+        playButton = new BBMenuButton(playDrawable, -1);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
         //Add proper bounds value
         playButton.setBounds(playButton.getX(), playButton.getY(), 300, 400);
@@ -174,7 +225,7 @@ public class MenuView implements ApplicationListener{
         });
 
         //cycleLeftButton
-        cycleLeftButton = new BBMenuButton(playDrawable);
+        cycleLeftButton = new BBMenuButton(playDrawable, NO_INDEX);
         cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
         thisStage.addActor(cycleLeftButton);
         cycleLeftButton.addListener(new InputListener() {
@@ -183,7 +234,7 @@ public class MenuView implements ApplicationListener{
                 return true;}
         });
         //cycleRightButton
-        cycleRightButton = new BBMenuButton(playDrawable);
+        cycleRightButton = new BBMenuButton(playDrawable, NO_INDEX);
         cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
         thisStage.addActor(cycleRightButton);
         cycleRightButton.addListener(new InputListener() {
@@ -194,7 +245,7 @@ public class MenuView implements ApplicationListener{
             }
         });
         //exitButton
-        exitButton = new BBMenuButton(playDrawable);
+        exitButton = new BBMenuButton(playDrawable, NO_INDEX);
         exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
@@ -210,17 +261,22 @@ public class MenuView implements ApplicationListener{
         //Gdx.input.setInputProcessor(this);
 
 
-        //TODO NOT THIS
 
+
+
+        //Rebind Buttons
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
-            final int indexNumber = i;
-            BBMenuButton bindButton = new BBMenuButton(bindButtonDrawable);
+            BBMenuButton bindButton = new BBMenuButton(bindButtonDrawable, i);
             bindButton.addListener(new ClickListener() {
-                public final int buttonIndex = indexNumber;
 
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    bindState = indexNumber;
+
+                    bindButton.pressed = true;
+                    Gdx.input.setInputProcessor(bindButton);
+                    for(Integer key: keyList){
+                        System.out.println(KeyCodeMap.valueOf(key).getHumanName());
+                    }
                 }
 
             });
@@ -291,74 +347,6 @@ public class MenuView implements ApplicationListener{
     public void dispose() {
 
     }
-
-    /*
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        if(bindState != -1){
-            keyList.remove(bindState);
-            keyList.add(keycode, bindState);
-            bindState = -1;
-        }
-        return true;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-
-        if(screenX > playButton.getX() && screenX < (playButton.getX()+playButton.getWidth())
-                && screenY > playButton.getY() && screenY < (playButton.getY()+playButton.getHeight())){
-            //Play button pressed, start the game
-            //TODO start the game
-
-        }else if (screenX > exitButton.getX() && screenX < (exitButton.getX()+exitButton.getWidth())
-                && screenY > exitButton.getY() && screenY < (exitButton.getY()+exitButton.getHeight())){
-            //Exit button pressed, exit the game
-            System.exit(0);
-        }
-
-        for(int i = 0; i<bindButtonList.size(); i++) {
-
-            BBMenuButton currentButton = bindButtonList.get(i);
-            if (screenX > currentButton.getX() && screenX < (currentButton.getX() + currentButton.getWidth())
-                    && screenY > currentButton.getY() && screenY < (currentButton.getY() + currentButton.getHeight())) {
-                bindState = i;
-            }
-        }
-
-
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
-    }*/
 
     private void setMapSprite(){
         mapSprite.setTexture(mapList.get(mapState));
