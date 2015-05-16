@@ -38,9 +38,6 @@ public class MenuView implements ApplicationListener{
     private Sprite background;
     private SpriteBatch batch;
     private BBMenuButton playButton;
-    private BBMenuButton cycleRightButton;
-    private BBMenuButton cycleLeftButton;
-    private BBMenuButton exitButton;
     private Stage thisStage;
     private ArrayList<Texture> mapList;
     private BallBuster ballBuster;
@@ -48,15 +45,11 @@ public class MenuView implements ApplicationListener{
     private List<Integer> keyList;
     private List<Label> bindLabelList;
     private List<String> bindPrefixList;
-    private List<BBMenuButton> bindButtonList;
-    private int bindState = -1;
     private int mapState = 0;
     private final float DEFAULT_ALPHA = 1f;
     private final float MOUSEOVER_ALPHA = 0.75f;
     private final float CLICKED_ALPHA = 0.5f;
-    private final int NO_INDEX = -1;
     private Sprite mapSprite;
-    private boolean inFocus = true;
     private final int NUMBER_OF_PLAYERS = 2;
 
 
@@ -65,6 +58,10 @@ public class MenuView implements ApplicationListener{
         private int buttonIndex;
         private float alpha = 1f;
         private boolean pressed = false;
+
+        BBMenuButton(Drawable imageup){
+            super(imageup);
+        }
 
         BBMenuButton(Drawable imageup, Integer buttonIndex){
             super(imageup);
@@ -144,18 +141,12 @@ public class MenuView implements ApplicationListener{
         background = new Sprite(backgroundTexture);
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/play.png"))));
-        /*
         final Drawable cycleRightDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/cycleright.png"))));
+                new Texture(Gdx.files.internal("core/images/tempRight.png"))));
         final Drawable cycleLeftDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/cycleleft.png"))));
+                new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
         final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/exit.png"))));
-        final Drawable bindDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/bind.png"))));
-        final Drawable bindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/rebind.png"))));
-        */
+                new Texture(Gdx.files.internal("core/images/tempExit.png"))));
         final Drawable bindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/tempbind.png"))));
         //Default keys for players
@@ -182,7 +173,7 @@ public class MenuView implements ApplicationListener{
         bindPrefixList.add("AuraKey:");
         bindPrefixList.addAll(bindPrefixList);
         bindLabelList = new LinkedList<>();
-        bindButtonList = new LinkedList<>();
+        List<BBMenuButton> bindButtonList = new LinkedList<>();
 
         //TODO set correct resources when available
         final int DIVIDE_SCREEN = 50;
@@ -192,13 +183,11 @@ public class MenuView implements ApplicationListener{
         //Add proper bounds value
         playButton.setBounds(playButton.getX(), playButton.getY(), 300, 400);
         thisStage.addActor(playButton);
+
+        //Listener for playButton
         playButton.addListener(new ClickListener() {
-
-
-
             @Override public void clicked(InputEvent event, float x, float y){
-
-                playButton.setAlpha(MOUSEOVER_ALPHA);
+                playButton.setAlpha(CLICKED_ALPHA);
                 ballBuster = new BallBuster();
                 ballBuster.create();
                 int bindNbr = 0;
@@ -219,22 +208,20 @@ public class MenuView implements ApplicationListener{
             public void exit(InputEvent event, float x, float y, int pointer, Actor actor){
                 playButton.setAlpha(DEFAULT_ALPHA);
             }
-
-
-
         });
 
         //cycleLeftButton
-        cycleLeftButton = new BBMenuButton(playDrawable, NO_INDEX);
+        BBMenuButton cycleLeftButton = new BBMenuButton(cycleLeftDrawable);
         cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
         thisStage.addActor(cycleLeftButton);
         cycleLeftButton.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //TODO Cycle maps left
-                return true;}
+                return true;
+            }
         });
         //cycleRightButton
-        cycleRightButton = new BBMenuButton(playDrawable, NO_INDEX);
+        BBMenuButton cycleRightButton = new BBMenuButton(cycleRightDrawable);
         cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
         thisStage.addActor(cycleRightButton);
         cycleRightButton.addListener(new InputListener() {
@@ -245,7 +232,7 @@ public class MenuView implements ApplicationListener{
             }
         });
         //exitButton
-        exitButton = new BBMenuButton(playDrawable, NO_INDEX);
+        BBMenuButton exitButton = new BBMenuButton(exitDrawable);
         exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
@@ -306,7 +293,7 @@ public class MenuView implements ApplicationListener{
 
     @Override
     public void resize(int width, int height) {
-
+        batch.getProjectionMatrix().setToOrtho2D( 0, 0, width, height);
     }
 
     @Override

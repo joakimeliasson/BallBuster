@@ -6,12 +6,17 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+import java.awt.*;
+
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new MenuView(), config);
 
-        config.height = 720;
-        config.width = 1280;
+        config.height = height;
+        config.width = width;
     }
 }
