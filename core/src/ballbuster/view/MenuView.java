@@ -143,9 +143,19 @@ public class MenuView implements ApplicationListener{
         final Drawable cycleLeftDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
         final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempExit.png"))));
+                new Texture(Gdx.files.internal("core/images/exit.png"))));
         final Drawable bindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/tempbind.png"))));
+        final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/leftbind.png"))));
+        final Drawable rightBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/rightbind.png"))));
+        final Drawable upBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/upbind.png"))));
+        final Drawable downBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/downbind.png"))));
+        final Drawable auraBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/aurabind.png"))));
         //Default keys for players
         keyList = new LinkedList<>();
         //Player 1 keys
@@ -250,7 +260,8 @@ public class MenuView implements ApplicationListener{
 
         //exitButton
         BBMenuButton exitButton = new BBMenuButton(exitDrawable);
-        exitButton.setPosition(Gdx.graphics.getWidth() / 2 - exitButton.getWidth() / 2, Gdx.graphics.getHeight() / 2);
+        exitButton.setPosition(playButton.getX(), playButton.getY());
+        System.out.println(playButton.getX()+" " + exitButton.getX());
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
         exitButton.addListener(new InputListener() {
@@ -264,10 +275,27 @@ public class MenuView implements ApplicationListener{
         });
 
 
-
         //Rebind Buttons
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
-            BBMenuButton bindButton = new BBMenuButton(bindButtonDrawable, i);
+            Drawable drawable = null;
+            switch(i) {
+                case 0:
+                    drawable = leftBindButtonDrawable;
+                    break;
+                case 1:
+                    drawable = rightBindButtonDrawable;
+                    break;
+                case 2:
+                    drawable = downBindButtonDrawable;
+                    break;
+                case 3:
+                    drawable = upBindButtonDrawable;
+                    break;
+                case 4:
+                    drawable = auraBindButtonDrawable;
+
+            }
+            BBMenuButton bindButton = new BBMenuButton(drawable, i);
             bindButton.addListener(new ClickListener() {
 
                 @Override
