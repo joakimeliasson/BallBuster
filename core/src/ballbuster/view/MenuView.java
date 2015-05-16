@@ -186,10 +186,10 @@ public class MenuView implements ApplicationListener{
         final int DIVIDE_SCREEN = 50;
         //playButton
         playButton = new BBMenuButton(playDrawable, -1);
-        playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 - playButton.getHeight() / 2);
+        playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 + playButton.getHeight() / 2);
         ;
         //Add proper bounds value
-        playButton.setBounds(playButton.getX(), playButton.getY(), 300, 400);
+        playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
         thisStage.addActor(playButton);
 
         //Listener for playButton
@@ -260,7 +260,7 @@ public class MenuView implements ApplicationListener{
 
         //exitButton
         BBMenuButton exitButton = new BBMenuButton(exitDrawable);
-        exitButton.setPosition(playButton.getX(), playButton.getY());
+        exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
         System.out.println(playButton.getX()+" " + exitButton.getX());
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
