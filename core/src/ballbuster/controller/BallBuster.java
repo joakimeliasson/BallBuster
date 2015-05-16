@@ -4,6 +4,7 @@ import ballbuster.model.Aura;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
+import ballbuster.view.hudView;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -15,14 +16,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by jacobth on 2015-04-28.
@@ -49,6 +48,8 @@ public class BallBuster extends Game{
 
     private Aura aura;
     private Aura aura2;
+
+    private hudView hud;
 
     private Texture backgroundTexture;
 
@@ -135,6 +136,8 @@ public class BallBuster extends Game{
         for(IController controller : controllerList)
             controller.onRender();
 
+        hud.render();
+
         world.setContactListener(collisionController);
 
         //debugRenderer.render(world, debugMatrix);
@@ -176,6 +179,7 @@ public class BallBuster extends Game{
 
         controllerList.add(ballController);
         controllerList.add(ballController2);
+        hud = new hudView(player,player2,batch,camera);
     }
     public void createMap() {
         mapController = new MapController(world, camera);
