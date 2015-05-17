@@ -154,7 +154,7 @@ public class BallBuster extends Game{
         //ball = new Ball(-camera.viewportWidth/2, -camera.viewportHeight/2;
         player = new Player(1,"Player1",-camera.viewportWidth/2,-camera.viewportHeight/2);
         //player.getBall().getAura().setPosition(ball.getX(), ball.getY());
-        player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
+        player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT,Input.Keys.Q);
         playerList.add(player);
 
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
@@ -166,7 +166,7 @@ public class BallBuster extends Game{
         //aura2 = new Aura();
         //ball2 = new Ball();
         player2 = new Player(2, "Player2",camera.viewportWidth/2-100f, camera.viewportHeight/2-100f);
-        player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
+        player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE, Input.Keys.M);
         this.playerList.add(player2);
 
         ballController = new BallController(player, batch, texture, world, shieldTexture);
