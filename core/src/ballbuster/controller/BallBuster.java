@@ -72,7 +72,7 @@ public class BallBuster extends Game{
 
     private CollisionController collisionController;
 
-    private final String map; //Location of the map exampe: "core/res/TiledMaps/designmap.tmx"
+    private final String map; //Location of the map example: "core/res/TiledMaps/designmap.tmx"
 
 
     public BallBuster() {
