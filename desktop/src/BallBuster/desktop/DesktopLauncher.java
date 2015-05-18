@@ -17,6 +17,6 @@ public class DesktopLauncher {
 		new LwjglApplication(new MenuView(), config);
         config.height = height;
         config.width = width;
-        config.fullscreen = true;
+        //config.fullscreen = true;
     }
 }

@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -88,7 +89,10 @@ public class BallBuster extends Game{
 
         debugRenderer = new Box2DDebugRenderer();
 
-        camera = new OrthographicCamera(1920, 1080);
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        camera = new OrthographicCamera(width, height);
 
         Gdx.gl.glClearColor(106f / 255f, 165f / 255f, 255f / 255f, 1f);
 

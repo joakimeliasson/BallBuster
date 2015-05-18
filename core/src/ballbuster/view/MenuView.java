@@ -180,7 +180,7 @@ public class MenuView implements ApplicationListener{
         bindPrefixList.add("UpKey:");
         bindPrefixList.add("DownKey:");
         bindPrefixList.add("AuraKey:");
-        bindPrefixList.add("SpeedKey");
+        bindPrefixList.add("SpeedKey:");
         bindPrefixList.addAll(bindPrefixList);
         bindLabelList = new LinkedList<>();
         List<BBMenuButton> bindButtonList = new LinkedList<>();
@@ -188,9 +188,9 @@ public class MenuView implements ApplicationListener{
         //TODO set correct resources when available
         final int DIVIDE_SCREEN = 50;
         //playButton
-        playButton = new BBMenuButton(playDrawable, -1);
+        playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 + playButton.getHeight() / 2);
-        ;
+
         //Add proper bounds value
         playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
         thisStage.addActor(playButton);
@@ -207,7 +207,7 @@ public class MenuView implements ApplicationListener{
                     //Should not loop more than once, as there are only 2 players
                     for (int i = bindNbr; i < playerList.size(); i++) {
                         playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2), keyList.get(bindNbr + 3), keyList.get(bindNbr + 4), keyList.get(bindNbr + 5));
-                        bindNbr = bindNbr + 6;
+                        bindNbr = bindNbr + bindPrefixList.size()/2;
                     }
                     isInFocus = false;
                 }
@@ -279,24 +279,27 @@ public class MenuView implements ApplicationListener{
 
 
         //Rebind Buttons
-        for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
+        for(int i = 0; i < NUMBER_OF_PLAYERS*bindPrefixList.size()/2; i++) {
             Drawable drawable = null;
-            switch(i%5) {
+            switch(i%(bindPrefixList.size()/2)) {
                 case 0:
-                    drawable = leftBindButtonDrawable;
-                    break;
-                case 1:
                     drawable = rightBindButtonDrawable;
                     break;
+                case 1:
+                    drawable = leftBindButtonDrawable;
+                    break;
                 case 2:
-                    drawable = downBindButtonDrawable;
+                    drawable = upBindButtonDrawable;
                     break;
                 case 3:
-                    drawable = upBindButtonDrawable;
+                    drawable = downBindButtonDrawable;
                     break;
                 case 4:
                     drawable = auraBindButtonDrawable;
-
+                    break;
+                case 5:
+                    drawable = auraBindButtonDrawable;
+                    break;
             }
             BBMenuButton bindButton = new BBMenuButton(drawable, i);
             bindButton.addListener(new ClickListener() {
@@ -312,15 +315,15 @@ public class MenuView implements ApplicationListener{
             });
 
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
-            if(i < 5) {
+            if(i < bindPrefixList.size()/2) {
                 //TODO calculations for positions
                 bindButton.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN, Gdx.graphics.getHeight()/2 - i * (bindButton.getHeight()));
                 bindLabel.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN + bindButton.getWidth(), Gdx.graphics.getHeight()/2 - i * (bindButton.getHeight()));
 
-            }else if(i < 10) {
+            }else if(i < bindPrefixList.size()) {
                 //TODO calculations for positions
-                bindButton.setPosition(Gdx.graphics.getWidth() - 4*bindButton.getWidth(), Gdx.graphics.getHeight()/2 -(i-5)*(bindButton.getHeight()));
-                bindLabel.setPosition(Gdx.graphics.getWidth() - 3*bindButton.getWidth(), Gdx.graphics.getHeight()/2-(i-5)*(bindButton.getHeight()));
+                bindButton.setPosition(Gdx.graphics.getWidth() - 4*bindButton.getWidth(), Gdx.graphics.getHeight()/2 -(i-bindPrefixList.size()/2)*(bindButton.getHeight()));
+                bindLabel.setPosition(Gdx.graphics.getWidth() - 3*bindButton.getWidth(), Gdx.graphics.getHeight()/2-(i-bindPrefixList.size()/2)*(bindButton.getHeight()));
             }
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
             thisStage.addActor(bindButton);
