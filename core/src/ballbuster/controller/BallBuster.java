@@ -60,6 +60,7 @@ public class BallBuster extends Game{
     private MapController mapController;
     private TileController tileWallController;
     private PowerUpController powerUpController;
+    private HudController hudController;
 
     private ArrayList<IController> controllerList;
     private ArrayList<BallController> ballList;
@@ -147,8 +148,6 @@ public class BallBuster extends Game{
         for(IController controller : controllerList)
             controller.onRender();
 
-        hud.render();
-
         world.setContactListener(collisionController);
 
         //debugRenderer.render(world, debugMatrix);
@@ -190,7 +189,9 @@ public class BallBuster extends Game{
 
         controllerList.add(ballController);
         controllerList.add(ballController2);
-        hud = new HudView(player,player2,batch,camera);
+
+        hudController = new HudController(player,player2,batch,camera);
+        controllerList.add(hudController);
     }
     public void createMap() {
         mapController = new MapController(map,world, camera);
