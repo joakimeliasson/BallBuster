@@ -48,8 +48,8 @@ public class BallController implements InputProcessor, IController{
 
     @Override
     public boolean keyDown(int keycode) {
+        ballSpeed = player.getBall().getSpeed();
         if (Gdx.input.isKeyPressed(player.getSpeedKey())) {
-            ballSpeed = player.getBall().getSpeed();
             if(player.getBall().getMana() >= 1) {
                 player.getBall().setSpeed(ballSpeed*3); // The speed increase
                 player.getBall().changeMana(-1); //How much mana that will drain each tick

@@ -89,10 +89,7 @@ public class BallBuster extends Game{
 
         debugRenderer = new Box2DDebugRenderer();
 
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
-        camera = new OrthographicCamera(width, height);
+        camera = new OrthographicCamera(1920, 1080);
 
         Gdx.gl.glClearColor(106f / 255f, 165f / 255f, 255f / 255f, 1f);
 
