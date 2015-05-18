@@ -261,7 +261,7 @@ public class MenuView implements ApplicationListener{
         //exitButton
         BBMenuButton exitButton = new BBMenuButton(exitDrawable);
         exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
-        System.out.println(playButton.getX()+" " + exitButton.getX());
+        System.out.println(playButton.getX() + " " + exitButton.getX());
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
         exitButton.addListener(new InputListener() {
@@ -278,7 +278,7 @@ public class MenuView implements ApplicationListener{
         //Rebind Buttons
         for(int i = 0; i < NUMBER_OF_PLAYERS*5; i++) {
             Drawable drawable = null;
-            switch(i) {
+            switch(i%5) {
                 case 0:
                     drawable = leftBindButtonDrawable;
                     break;
@@ -303,9 +303,6 @@ public class MenuView implements ApplicationListener{
                     if(isInFocus) {
                         bindButton.pressed = true;
                         Gdx.input.setInputProcessor(bindButton);
-                        for (Integer key : keyList) {
-                            System.out.println(KeyCodeMap.valueOf(key).getHumanName());
-                        }
                     }
                 }
 
@@ -314,13 +311,13 @@ public class MenuView implements ApplicationListener{
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
             if(i < 5) {
                 //TODO calculations for positions
-                bindButton.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN, Gdx.graphics.getHeight() - i * (bindButton.getHeight()));
-                bindLabel.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN + bindButton.getWidth(), Gdx.graphics.getHeight() - i * (bindButton.getHeight()));
+                bindButton.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN, Gdx.graphics.getHeight()/2 - i * (bindButton.getHeight()));
+                bindLabel.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN + bindButton.getWidth(), Gdx.graphics.getHeight()/2 - i * (bindButton.getHeight()));
 
             }else if(i < 10) {
                 //TODO calculations for positions
-                bindButton.setPosition(Gdx.graphics.getWidth() - bindButton.getWidth(), Gdx.graphics.getHeight() -(i-5)*(bindButton.getHeight()));
-                bindLabel.setPosition(Gdx.graphics.getWidth() - bindButton.getWidth() + bindButton.getWidth(), Gdx.graphics.getHeight()-(i-5)*(bindButton.getHeight()));
+                bindButton.setPosition(Gdx.graphics.getWidth() - 4*bindButton.getWidth(), Gdx.graphics.getHeight()/2 -(i-5)*(bindButton.getHeight()));
+                bindLabel.setPosition(Gdx.graphics.getWidth() - 3*bindButton.getWidth(), Gdx.graphics.getHeight()/2-(i-5)*(bindButton.getHeight()));
             }
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
             thisStage.addActor(bindButton);
@@ -336,10 +333,10 @@ public class MenuView implements ApplicationListener{
 
     @Override
     public void resize(int width, int height) {
+        batch.getProjectionMatrix().setToOrtho2D( 0, 0, width, height);
         for(Actor actor: thisStage.getActors()){
             actor.setBounds(actor.getX(), actor.getY(), actor.getWidth(), actor.getHeight());
         }
-        batch.getProjectionMatrix().setToOrtho2D( 0, 0, width, height);
     }
 
     @Override
