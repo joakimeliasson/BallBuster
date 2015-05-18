@@ -15,6 +15,7 @@ import java.awt.*;
 public class Ball {
 
     private double shield;
+    private float mana, maximumMana;
 
     private Aura aura;
 
@@ -34,13 +35,28 @@ public class Ball {
 
         speed = 0.50f;
         shield = 100;
+        mana = 100;
+        maximumMana = 100;
+
     }
 
     public void shieldDamage(double damage) {
          shield = shield -damage;
     }
+
     public double getShield() {
         return shield;
+    }
+
+    public float getMana() {
+        return mana;
+    }
+    public float getMaximumMana() {
+        return maximumMana;
+    }
+
+    public void changeMana(float mana){
+        this.mana = this.mana + mana;
     }
     public void addHealthToShield(int health){
         if (shield+health < 100)

@@ -164,6 +164,7 @@ public class MenuView implements ApplicationListener{
         keyList.add(Keys.W);
         keyList.add(Keys.S);
         keyList.add(Keys.ALT_LEFT);
+        keyList.add(Keys.Q);
 
         //Player 2 keys
         keyList.add(Keys.DPAD_RIGHT);
@@ -171,6 +172,7 @@ public class MenuView implements ApplicationListener{
         keyList.add(Keys.DPAD_UP);
         keyList.add(Keys.DPAD_DOWN);
         keyList.add(Keys.SPACE);
+        keyList.add(Keys.M);
 
         bindPrefixList = new LinkedList<>();
         bindPrefixList.add("RightKey:");
@@ -178,6 +180,7 @@ public class MenuView implements ApplicationListener{
         bindPrefixList.add("UpKey:");
         bindPrefixList.add("DownKey:");
         bindPrefixList.add("AuraKey:");
+        bindPrefixList.add("SpeedKey");
         bindPrefixList.addAll(bindPrefixList);
         bindLabelList = new LinkedList<>();
         List<BBMenuButton> bindButtonList = new LinkedList<>();
@@ -203,8 +206,8 @@ public class MenuView implements ApplicationListener{
                     playerList = ballBuster.getPlayers();
                     //Should not loop more than once, as there are only 2 players
                     for (int i = bindNbr; i < playerList.size(); i++) {
-                        playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2), keyList.get(bindNbr + 3), keyList.get(bindNbr + 4));
-                        bindNbr = bindNbr + 5;
+                        playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2), keyList.get(bindNbr + 3), keyList.get(bindNbr + 4), keyList.get(bindNbr + 5));
+                        bindNbr = bindNbr + 6;
                     }
                     isInFocus = false;
                 }

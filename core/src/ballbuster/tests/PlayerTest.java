@@ -49,12 +49,13 @@ public class PlayerTest {
 
     @Test
     public void testPlayerKeys(){
-        p.setKeys(1,2,3,4,5);
+        p.setKeys(1,2,3,4,5,6);
         assertEquals(1, p.getLeftKey());
         assertEquals(2, p.getRightKey());
         assertEquals(3, p.getUpKey());
         assertEquals(4, p.getDownKey());
         assertEquals(5, p.getAuraKey());
+        assertEquals(6, p.getSpeedKey());
     }
 
     @Test
