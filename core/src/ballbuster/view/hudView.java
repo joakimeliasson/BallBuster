@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 /**
  * Created by Johan Segerlund on 2015-05-15.
  */
-public class hudView {
+public class HudView {
 
     private SpriteBatch batch;
     private Player player1;
@@ -26,7 +26,7 @@ public class hudView {
     private final float player1MaxMp, player2MaxMp;
 
 
-    public hudView(Player player1, Player player2, SpriteBatch batch, OrthographicCamera camera) {
+    public HudView(Player player1, Player player2, SpriteBatch batch, OrthographicCamera camera) {
         this.player1 = player1;
         this.player2 = player2;
         this.player1MaxHp = player1.getBall().getShield();

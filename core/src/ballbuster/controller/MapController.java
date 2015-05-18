@@ -14,8 +14,9 @@ public class MapController implements IController{
 
     private MapView mapView;
 
-    public MapController(World world, OrthographicCamera camera) {
-        mapView = new MapView("core/res/TiledMaps/designmap.tmx",world, camera);
+    public MapController(String map, World world, OrthographicCamera camera) { //map is the file location. ex "core/res/TiledMaps/designmap.tmx"
+        mapView = new MapView(map,world, camera);
+
     }
     @Override
     public void onCreate() {

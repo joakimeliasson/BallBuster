@@ -4,7 +4,7 @@ import ballbuster.model.Aura;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
-import ballbuster.view.hudView;
+import ballbuster.view.HudView;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -19,7 +19,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +49,7 @@ public class BallBuster extends Game{
     private Aura aura;
     private Aura aura2;
 
-    private hudView hud;
+    private HudView hud;
 
     private Texture backgroundTexture;
 
@@ -73,11 +72,22 @@ public class BallBuster extends Game{
 
     private CollisionController collisionController;
 
-    public BallBuster() {}
+    private final String map; //Location of the map exampe: "core/res/TiledMaps/designmap.tmx"
 
-    public BallBuster(int id) {
-        this.id = id;
+
+    public BallBuster() {
+        this.map = "core/res/TiledMaps/designmap.tmx";
     }
+
+    public BallBuster(int id, String map) {
+        this.id = id;
+        this.map = map;
+    }
+
+    public BallBuster(String map) {
+        this.map = map;
+    }
+
     public int getId() {
         return id;
     }
@@ -180,10 +190,10 @@ public class BallBuster extends Game{
 
         controllerList.add(ballController);
         controllerList.add(ballController2);
-        hud = new hudView(player,player2,batch,camera);
+        hud = new HudView(player,player2,batch,camera);
     }
     public void createMap() {
-        mapController = new MapController(world, camera);
+        mapController = new MapController(map,world, camera);
         controllerList.add(mapController);
     }
     public void createAura() {
