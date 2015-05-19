@@ -3,7 +3,6 @@ package ballbuster.tests;
 /**
  * Created by jacobth on 2015-03-30.
  */
-import ballbuster.model.Aura;
 import ballbuster.model.Ball;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +18,6 @@ public class BallTest {
 
     @Before
     public void setUp() throws Exception {
-        //ball = new Ball(4f, 5f, new Aura);
         ball = new Ball(4f, 5f);
     }
 
@@ -49,8 +47,9 @@ public class BallTest {
     @Test
     public void testDamage() {
         ball.shieldDamage(10);
-        int tmp = (int)ball.getShield();
-        assertEquals(90, tmp);
+        assertTrue(90 == ball.getShield());
+        ball.addHealthToShield(1+(int)ball.getMaximumShield());
+        assertTrue(ball.getMaximumShield() == ball.getShield());
     }
     @Test
     public void testGetX2() {
@@ -62,6 +61,19 @@ public class BallTest {
         ball.setBodyPosition(3f,4f);
         assertTrue(ball.getY2() == 4f);
     }
+
+    @Test
+    public void testGetBallsAura() {
+        assertNotNull(ball.getAura());
+    }
+
+    @Test
+    public void testMana() {
+        ball.setMana(0);
+        ball.changeMana(-10);
+        assertTrue(ball.getMana() ==  0);
+    }
+
 
 
 }

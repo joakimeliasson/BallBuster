@@ -4,7 +4,6 @@ import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.view.BallView;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -49,11 +48,9 @@ public class BallController implements InputProcessor, IController{
     @Override
     public boolean keyDown(int keycode) {
         ballSpeed = player.getBall().getSpeed();
-        if (Gdx.input.isKeyPressed(player.getSpeedKey())) {
-            if(player.getBall().getMana() >= 1) {
+        if (Gdx.input.isKeyPressed(player.getSpeedKey())&& player.getBall().getMana() >= 1) {
                 player.getBall().setSpeed(ballSpeed*3); // The speed increase
                 player.getBall().changeMana(-1); //How much mana that will drain each tick
-            }
         }
         if(Gdx.input.isKeyPressed(player.getLeftKey()))
             ballView.moveLeft(body.getPosition().x, body.getPosition().y);

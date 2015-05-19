@@ -4,6 +4,7 @@ import ballbuster.model.Aura;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
+import ballbuster.view.BlockTileView;
 import ballbuster.view.HudView;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -66,6 +67,7 @@ public class BallBuster extends Game{
     private ArrayList<BallController> ballList;
     private ArrayList<Player> playerList;
     private ArrayList<PowerUp> powerUpList;
+    private ArrayList<BlockTileView> tileLocations;
 
     private int id;
 
@@ -126,6 +128,8 @@ public class BallBuster extends Game{
         collisionController = new CollisionController(tileWallController.getWallList(), ballList, batch);
 
         controllerList.add(collisionController);
+
+
     }
 
     @Override
@@ -196,6 +200,7 @@ public class BallBuster extends Game{
     public void createMap() {
         mapController = new MapController(map,world, camera);
         controllerList.add(mapController);
+        tileLocations = mapController.getTileLocations();
     }
     public void createAura() {
         auraController = new AuraController(player, ballController.getBody(),mapController.getBodyListPlayer1(), batch);
@@ -222,7 +227,7 @@ public class BallBuster extends Game{
         FileHandle healthPackFileHandle = Gdx.files.internal("core/images/heart.png");
         Texture healthPackTexture = new Texture(healthPackFileHandle);
 
-        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch);
+        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch, tileLocations);
         controllerList.add(powerUpController);
     }
 

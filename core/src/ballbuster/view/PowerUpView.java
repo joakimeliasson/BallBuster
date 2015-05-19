@@ -121,7 +121,7 @@ public class PowerUpView{
 
     public Player getHitPlayer(ArrayList<Player> playerList, Sprite sprite) {
         for(Player player : playerList) {
-            if (hasCollision(player.getBall())){
+            if (hasCollision(player.getBall(), sprite)){
                 player.getBall().setHasPowerUp(true);
                 powerUpTimer.reset();
                 return player;
@@ -146,13 +146,13 @@ public class PowerUpView{
     public void setMessage(String message){
         this.message = message;
     }
-    public boolean hasCollision(Ball ball){
+    public boolean hasCollision(Ball ball, Sprite sprite){
         double xDiff = sprite.getX() - ball.getX();
         double yDiff = sprite.getY() - ball.getY();
 
-        double distance = Math.sqrt((Math.pow(xDiff, 2) + Math.pow(yDiff, 2)));
+        double distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
 
-        return distance < (ball.getRadius() + sprite.getWidth()/2);
+        return distance < (ball.getRadius() + sprite.getHeight()/2);
     }
 
 }

@@ -1,7 +1,5 @@
 package ballbuster.tests;
 
-import ballbuster.model.Aura;
-import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import org.junit.Test;
 import org.junit.Before;
@@ -18,7 +16,6 @@ public class PlayerTest {
     private Player p;
     @Before
     public void setUpPlayerTest(){
-        //p = new Player(1,"Player1", new Ball(1f,1f,new Aura()));
         p = new Player(1,"Player1",1f,1f);
     }
     @Test
@@ -50,24 +47,19 @@ public class PlayerTest {
     @Test
     public void testPlayerKeys(){
         p.setKeys(1,2,3,4,5,6);
-        assertEquals(1, p.getLeftKey());
-        assertEquals(2, p.getRightKey());
+        assertEquals(1, p.getRightKey());
+        assertEquals(2, p.getLeftKey());
         assertEquals(3, p.getUpKey());
         assertEquals(4, p.getDownKey());
         assertEquals(5, p.getAuraKey());
         assertEquals(6, p.getSpeedKey());
     }
 
-    @Test
-    public void testGetAndSetPlayerPowerUp(){
-        p.setPlayerPowerUp("test");
-        assertEquals("test", p.getPlayerPowerUp());
-    }
 
     @Test
-    public void testPlayerHasPowerUp(){
-        p.setPlayerPowerUp("test");
-        assertTrue(p.playerHasPowerUp());
+    public void testPlayerSpeedUp() {
+        p.setSpeedUp(true);
+        assertTrue(p.hasSpeedUp());
     }
 
 

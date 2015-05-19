@@ -3,7 +3,6 @@ package ballbuster.view;
 import ballbuster.model.Player;
 import ballbuster.model.Timer;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
