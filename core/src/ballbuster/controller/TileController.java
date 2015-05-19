@@ -20,7 +20,6 @@ public class TileController implements IController{
     private ArrayList<TileView> tileViewList;
 
     public TileController(World world, SpriteBatch batch, Camera camera) {
-        //tileView = new TileView(world, tile, texture, batch);
 
         FileHandle horizontalFileHandle = Gdx.files.internal("core/images/wallhorizontal.png");
         Texture horizontalTexture = new Texture(horizontalFileHandle);
@@ -46,14 +45,12 @@ public class TileController implements IController{
     public void onCreate() {
         for(TileView tileView : tileViewList)
             tileView.createBody();
-        //tileView.createBody();
     }
 
     @Override
     public void onRender() {
         for(TileView tileView : tileViewList)
             tileView.renderBody();
-        //tileView.renderBody();
     }
     public Body getBody() {
         return tileView.getBody();

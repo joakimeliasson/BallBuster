@@ -2,14 +2,11 @@ package ballbuster.view;
 
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import ballbuster.model.Timer;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * Created by Joakim on 2015-05-07.
