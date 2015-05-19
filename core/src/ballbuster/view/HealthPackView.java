@@ -33,15 +33,11 @@ public class HealthPackView extends PowerUpView {
     public void healthPackSet(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, float delta, SpriteBatch batch, int x, int y){
         timer.update(delta);
         healthPackTimer.update(delta);
-
-
         showSprite(sprite);
         Player player = getHitPlayer(playerList, sprite);
         if(timer.hasTimeElapsed()) {
             if (getHitPlayer(playerList, sprite) != null)
                 sprite.setPosition(x, y);
-
-
             draw(sprite, batch);
             if (player != null) {
                 int random = (int) (Math.random() * 20 + 10);

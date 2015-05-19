@@ -71,4 +71,11 @@ public class TileView{
     public Body getBody() {
         return body;
     }
+
+    public Sprite getSprite() { return sprite; }
+
+    public float getTileX(){ return tile.getX(); }
+    public float getTileY(){ return tile.getY(); }
+    public float getWidth(){ return width; }
+    public float getHeight(){ return height; }
 }

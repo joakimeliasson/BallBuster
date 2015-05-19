@@ -23,6 +23,7 @@ public class MapView {
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer mapRenderer;
     private ArrayList<BlockTileView> tiles = new ArrayList<>();
+    private ArrayList<BlockTileView> tileLocations;
     private OrthographicCamera camera;
     private OrthographicCamera renderCamera;
     private Map mapModel;
@@ -60,8 +61,9 @@ public class MapView {
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
                 tileView.createBody();
                 tiles.add(tileView);
-
+                tileLocations = tiles;
                 bodyListPlayer1.add(tileView.getBody());
+
             }
         }
 
@@ -83,7 +85,7 @@ public class MapView {
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
                 tileView.createBody();
                 tiles.add(tileView);
-
+                tileLocations = tiles;
                 bodyListPlayer2.add(tileView.getBody());
             }
         }
@@ -96,7 +98,7 @@ public class MapView {
         mapWidth =  getTileMap().getProperties().get("width", Integer.class) * getTileMap().getProperties().get("tilewidth", Integer.class);
 
         //camera position
-        camera.position.set(mapWidth/2, mapHeight/2, 0);
+        camera.position.set(mapWidth / 2, mapHeight / 2, 0);
 
         //camera scale
         camera.viewportHeight = mapHeight;
@@ -129,4 +131,5 @@ public class MapView {
     public OrthogonalTiledMapRenderer getMapRenderer() {
         return  mapRenderer;
     }
+    public ArrayList<BlockTileView> getTileLocations() { return tileLocations; }
 }
