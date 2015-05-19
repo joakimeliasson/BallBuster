@@ -1,6 +1,6 @@
 package ballbuster.model;
 
-import ballbuster.controller.MenuButtonListener;
+import ballbuster.controller.IMenuController;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
@@ -12,14 +12,14 @@ public class BBMenuButton extends ImageButton implements InputProcessor{
 
     private int buttonIndex;
     private float alpha = 1f;
-    private MenuButtonListener listener;
+    private IMenuController listener;
 
-    public BBMenuButton(Drawable imageup, MenuButtonListener listener){
+    public BBMenuButton(Drawable imageup, IMenuController listener){
         super(imageup);
         this.listener = listener;
     }
 
-    public BBMenuButton(Drawable imageup, Integer buttonIndex, MenuButtonListener listener){
+    public BBMenuButton(Drawable imageup, Integer buttonIndex, IMenuController listener){
         super(imageup);
         this.buttonIndex = buttonIndex;
         this.listener = listener;

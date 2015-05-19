@@ -13,14 +13,12 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import javafx.scene.layout.Background;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -31,7 +29,7 @@ import java.util.List;
 /**
  * Created by Matthias on 2015-05-19.
  */
-public class MenuController implements ApplicationListener, MenuButtonListener {
+public class MenuController implements ApplicationListener, IMenuController {
 
     private BallBuster ballBuster;
     private List<Player> playerList;
