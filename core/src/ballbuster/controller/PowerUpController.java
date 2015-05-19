@@ -10,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -21,8 +22,7 @@ public class PowerUpController implements IController{
     private PowerUpView powerUpView;
     private HealthPackView healthPackView;
     private ArrayList<BlockTileView> tiles;
-    private ArrayList<Float> forbiddenXLocations;
-    private ArrayList<Float> forbiddenYLocations;
+    private ArrayList<Point> forbiddenLocations;
     private PowerUp powerUp;
     private ArrayList<Player> playerList;
     private ArrayList<PowerUp> powerUpList;
@@ -32,6 +32,9 @@ public class PowerUpController implements IController{
     private SpriteBatch batch;
     private int x;
     private int y;
+    private Point location;
+    private Point spawnLocation;
+    private Random random;
 
     public PowerUpController(ArrayList<PowerUp> powerUpList, ArrayList<Player> playerList, Sprite sprite, Sprite healthSprite, SpriteBatch batch, ArrayList<BlockTileView> tiles){
         this.powerUpList = powerUpList;
@@ -40,38 +43,41 @@ public class PowerUpController implements IController{
         this.healthSprite = healthSprite;
         this.batch = batch;
         this.tiles = tiles;
+        forbiddenLocations = new ArrayList<>();
+        location = new Point();
+        spawnLocation = new Point();
+        random = new Random();
+
     }
-
-    private void setHealthSpritePosition(){
+    private void setForbiddenLocations(){
         for (BlockTileView b : tiles) {
-            forbiddenXLocations = new ArrayList<>();
-            forbiddenYLocations = new ArrayList<>();
-
-            for (float i = b.getTileX(); i < b.getTileX() + b.getWidth(); i++) {
-                for (float k = b.getTileY(); k < b.getTileY() + b.getHeight(); k++) {
-                    forbiddenYLocations.add(k);
+            for (float i = b.getTile().getX()-healthSprite.getWidth()/2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth()/2; i++) {
+                for (float k = b.getTile().getY()-healthSprite.getHeight()/2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
+                    forbiddenLocations.add(new Point((int)i,(int)k));
                 }
-                forbiddenXLocations.add(i);
             }
+        }
+    }
+    private void setHealthSpritePosition(){
 
             float pos = Gdx.graphics.getWidth();
-            Random random = new Random();
-            int x = random.nextInt(Math.round(pos)) - Gdx.graphics.getWidth() / 2;
+            int xpos = random.nextInt(Math.round(pos)) - Gdx.graphics.getWidth() / 2;
             float pos2 = Gdx.graphics.getHeight();
-            int y = random.nextInt(Math.round(pos2)) - Gdx.graphics.getHeight() / 2;
+            int ypos = random.nextInt(Math.round(pos2)) - Gdx.graphics.getHeight() / 2;
 
-            if (!forbiddenXLocations.contains(x) && !forbiddenYLocations.contains(y)) {
-                this.x = x;
-                this.y = y;
+            spawnLocation.setLocation(xpos,ypos);
+            if (!forbiddenLocations.contains(spawnLocation)) {
+                this.x = xpos;
+                this.y = ypos;
             } else {
                 setHealthSpritePosition();
             }
-        }
+
     }
 
     @Override
     public void onCreate() {
-
+        setForbiddenLocations();
         setHealthSpritePosition();
         healthSprite.setPosition(x,y);
         powerUpView = new PowerUpView(powerUp, playerList, sprite, batch);

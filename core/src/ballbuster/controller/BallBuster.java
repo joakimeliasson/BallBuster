@@ -4,6 +4,8 @@ import ballbuster.model.Aura;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
+import ballbuster.model.tile.BlockTile;
+import ballbuster.model.tile.Tile;
 import ballbuster.view.BlockTileView;
 import ballbuster.view.HudView;
 import com.badlogic.gdx.Game;
