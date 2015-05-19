@@ -85,7 +85,7 @@ public class PowerUpView{
                             if (!p.equals(player)){
                                 p.invertKeys(true);
                                 p.getBall().setHasPowerUp(true);
-                                p.setKeys(player.getLeftKey(), player.getRightKey(), player.getDownKey(), player.getUpKey(), p.getAuraKey(),p.getSpeedKey());
+                                p.setKeys(p.getLeftKey(), p.getRightKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey(),p.getSpeedKey());
                                 message = "Inverted keys for "+p.getPlayerName();
                             }
                         }
