@@ -1,7 +1,9 @@
 package ballbuster.view;
 
+import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
+import ballbuster.model.Timer;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -108,7 +110,7 @@ public class PowerUpView{
                     message = "";
                 }
                 else if(message!=null){
-                    font.setColor(1,1,1,powerUpTimer.remaining*2);
+                    font.setColor(1,1,1,powerUpTimer.getRemaining()*2);
                     batch.begin();
                     font.draw(batch, message, 0-font.getBounds(message).width/2, 0);
                     batch.end();
@@ -119,7 +121,7 @@ public class PowerUpView{
 
     public Player getHitPlayer(ArrayList<Player> playerList, Sprite sprite) {
         for(Player player : playerList) {
-            if (sprite.getBoundingRectangle().contains(player.getBall().getX(), player.getBall().getY())) {
+            if (hasCollision(player.getBall())){
                 player.getBall().setHasPowerUp(true);
                 powerUpTimer.reset();
                 return player;
@@ -141,31 +143,16 @@ public class PowerUpView{
         batch.end();
     }
 
-    private class Timer {
-        private float remaining;
-        private float interval;
-
-        public Timer(float interval) {
-            this.interval = interval;
-            this.remaining = interval;
-        }
-        public boolean hasTimeElapsed() {
-            return remaining<0.0f;
-        }
-        public void reset() {
-            remaining = interval;
-        }
-        public void reset(float interval) {
-            this.interval = interval;
-            this.remaining = interval;
-        }
-        public void update(float delta) {
-            remaining = remaining - delta;
-        }
-    }
-
     public void setMessage(String message){
         this.message = message;
+    }
+    public boolean hasCollision(Ball ball){
+        double xDiff = sprite.getX() - ball.getX();
+        double yDiff = sprite.getY() - ball.getY();
+
+        double distance = Math.sqrt((Math.pow(xDiff, 2) + Math.pow(yDiff, 2)));
+
+        return distance < (ball.getRadius() + sprite.getWidth()/2);
     }
 
 }
