@@ -25,6 +25,8 @@ public class Ball {
     private float x2;
     private float y2;
 
+    private float radius;
+
     private float speed;
     private boolean hasPowerUp = false;
 
@@ -68,6 +70,12 @@ public class Ball {
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
+    }
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+    public float getRadius() {
+        return radius;
     }
 
     public float getY() {

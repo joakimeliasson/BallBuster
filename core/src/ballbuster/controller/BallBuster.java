@@ -150,7 +150,7 @@ public class BallBuster extends Game{
 
         world.setContactListener(collisionController);
 
-        //debugRenderer.render(world, debugMatrix);
+        debugRenderer.render(world, debugMatrix);
     }
     public void createBalls() {
         playerList = new ArrayList<Player>();
@@ -185,7 +185,7 @@ public class BallBuster extends Game{
         //ballController2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
 
         //Uncomment to add AI =D
-        ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
+        //ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
 
         controllerList.add(ballController);
         controllerList.add(ballController2);

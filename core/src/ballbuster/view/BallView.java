@@ -29,6 +29,7 @@ public class BallView{
         this.player = player;
         Ball ball = player.getBall();
         sprite.setPosition(ball.getX(), ball.getY());
+        ball.setRadius(sprite.getWidth()/2);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
