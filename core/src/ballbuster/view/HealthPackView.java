@@ -33,14 +33,14 @@ public class HealthPackView extends PowerUpView {
         showSprite(sprite);
         Player player = getHitPlayer(playerList, sprite);
         if(timer.hasTimeElapsed()) {
-            if (getHitPlayer(playerList, sprite) != null)
+            if (player != null)
                 sprite.setPosition(x, y);
             draw(sprite, batch);
             if (player != null) {
                 int random = (int) (Math.random() * 20 + 10);
                 timer.reset(random);
                 System.out.println(random);
-                hideSprite(sprite);
+                //hideSprite(sprite);
                 if (powerUp.getPowerUp().toString() == "healthPack"){
                     player.getBall().addHealthToShield(10);
                     System.out.println(player.getBall().getShield());

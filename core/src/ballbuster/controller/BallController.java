@@ -35,6 +35,7 @@ public class BallController implements InputProcessor, IController{
         this.body = ballView.getBody();
         ballSpeed = ball.getSpeed();
 
+
     }
 
 

@@ -18,10 +18,8 @@ import java.util.Random;
  */
 public class PowerUpController implements IController{
 
-    private BallBuster ballBuster;
     private PowerUpView powerUpView;
     private HealthPackView healthPackView;
-    private MapView mapView;
     private ArrayList<BlockTileView> tiles;
     private ArrayList<Float> forbiddenXLocations;
     private ArrayList<Float> forbiddenYLocations;
@@ -48,12 +46,14 @@ public class PowerUpController implements IController{
         for (BlockTileView b : tiles) {
             forbiddenXLocations = new ArrayList<>();
             forbiddenYLocations = new ArrayList<>();
+
             for (float i = b.getTileX(); i < b.getTileX() + b.getWidth(); i++) {
                 for (float k = b.getTileY(); k < b.getTileY() + b.getHeight(); k++) {
                     forbiddenYLocations.add(k);
                 }
                 forbiddenXLocations.add(i);
             }
+
             float pos = Gdx.graphics.getWidth();
             Random random = new Random();
             int x = random.nextInt(Math.round(pos)) - Gdx.graphics.getWidth() / 2;
@@ -73,7 +73,7 @@ public class PowerUpController implements IController{
     public void onCreate() {
 
         setHealthSpritePosition();
-
+        healthSprite.setPosition(x,y);
         powerUpView = new PowerUpView(powerUp, playerList, sprite, batch);
         healthPackView = new HealthPackView(new PowerUp("healthPack"), playerList, healthSprite, batch);
     }

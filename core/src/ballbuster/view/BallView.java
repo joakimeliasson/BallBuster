@@ -41,6 +41,7 @@ public class BallView{
 
         shape.setRadius(sprite.getWidth()/(2* BallBuster.SCALE));
 
+
         //Set physical attributes to the body
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
