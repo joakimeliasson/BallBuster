@@ -59,6 +59,7 @@ public class MenuView implements ApplicationListener{
     private final float CLICKED_ALPHA = 0.5f;
     private final int NUMBER_OF_PLAYERS = 2;
     private final float SCREEN_PARITION = 2.2f;
+    private final int STANDARD_MEASUREMENT = 100;
 
 
     private class BBMenuButton extends ImageButton implements InputProcessor{
@@ -140,15 +141,6 @@ public class MenuView implements ApplicationListener{
         }catch(IOException e){
             System.out.println("map file missing");
         }
-        /*
-        mapSprites.add(new Sprite(new Texture("core/images/tempTexture.png")));
-        mapSprites.add(new Sprite(new Texture("core/images/normal.png")));
-        mapSprites.add(new Sprite(new Texture("core/images/playershield.png")));
-
-        mapList.add("core/res/TiledMaps/designmap.tmx");
-        mapList.add("core/res/TiledMaps/designmap.tmx");
-        mapList.add("core/res/TiledMaps/designmap.tmx");
-        */
 
         mapState = 0;
         currentMap = mapSprites.get(mapState);
@@ -247,7 +239,7 @@ public class MenuView implements ApplicationListener{
 
         //cycleLeftButton
         BBMenuButton cycleLeftButton = new BBMenuButton(cycleLeftDrawable);
-        cycleLeftButton.setPosition(-2*playButton.getWidth(), -camera.viewportHeight/SCREEN_PARITION);
+        cycleLeftButton.setPosition((float) (-camera.viewportWidth/Math.pow(SCREEN_PARITION, 1.5)), -camera.viewportHeight/SCREEN_PARITION);
         thisStage.addActor(cycleLeftButton);
         cycleLeftButton.addListener(new InputListener() {
             @Override
@@ -265,7 +257,7 @@ public class MenuView implements ApplicationListener{
 
         //cycleRightButton
         BBMenuButton cycleRightButton = new BBMenuButton(cycleRightDrawable);
-        cycleRightButton.setPosition(-cycleLeftButton.getX(), -camera.viewportHeight/SCREEN_PARITION);
+        cycleRightButton.setPosition((float) (camera.viewportWidth/Math.pow(SCREEN_PARITION, 1.6)), -camera.viewportHeight/SCREEN_PARITION);
         thisStage.addActor(cycleRightButton);
         cycleRightButton.addListener(new InputListener() {
             @Override
@@ -336,13 +328,13 @@ public class MenuView implements ApplicationListener{
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
             if(i < bindPrefixList.size()/2) {
                 //TODO calculations for positions
-                bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION, -i * (bindButton.getHeight()));
-                bindLabel.setPosition(-camera.viewportWidth /SCREEN_PARITION + bindButton.getWidth(), -i*(bindButton.getHeight()));
+                bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION, camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
+                bindLabel.setPosition(-camera.viewportWidth /SCREEN_PARITION + bindButton.getWidth(), camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
 
             }else if(i < bindPrefixList.size()) {
                 //TODO calculations for positions
-                bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)), (-i%(bindPrefixList.size()/2)) * (bindButton.getHeight()));
-                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()), (-i%(bindPrefixList.size()/2))*(bindButton.getHeight()));
+                bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)), camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
+                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()), camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
             }
 
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
