@@ -1,0 +1,54 @@
+Meeting Agenda
+
+  Date: 2015-05-19
+
+  Facilitator: Johan Segerlund
+
+  Participants: Matthias Andersson, Jacob Lundberg, Joakim Eliasson
+
+1. Objectives (5 min).
+Write UML, SDD, RAD, Discuss what needs to be done in the project.
+
+
+2. Reports (15 min) from previous meeting
+Matthias have implemented a menu where you can start the game and change keybinds.
+Joakim have implemented healthpacks and done network research.
+Jacob implemented sound, made some grafic designs and done network research.
+Johan implemented a hud that views hp and mana and done network research.
+
+3. Discussion items (35 min)
+
+We feel that we are getting closer to our goal, we have discusses network, some TODOS and extra features we can implement.
+SDD and RAD is almost complete. We looked into how to create an UML and from what we could see, it would be very big and hard to write by hand.
+
+4. Outcomes and assignments (5 min)
+
+We looked into network and decided not to implement it in our game. We think it will need to much work since our game is not build to handle network.
+We would have to rebuild the system in order to make it work and we would rather put our remaning time to polish and make our game complete.
+
+Stuff that needs to be done:
+UML
+
+Stuff that we can add/change to the game:
+Add Music
+Adjust the menu
+Add more maps
+Clean the code
+Win Condition
+Move some stuff from Ballbuster to view and controller
+Visual Design(lightning)
+Adjust the damage player takes when they have a speed boost
+Bugs:
+Shield bug, the shield is very large when a collision happens
+Healthpacks spawns inside tiles
+
+
+5. Wrap up
+UML needs to be done
+Johan is gonna work with lightning
+Matthias will adjust the menu
+Joakim will work on healthpacks so they will not spawn inside tiles.
+and next time we meet we will work on the UML
+Jacob will work on shield bug
+
+Time for the next meeting will be set at a later time.
