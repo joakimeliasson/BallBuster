@@ -69,7 +69,7 @@ public class PowerUpView{
                         break;
                     case "invertKeys":
                         player.invertKeys(true);
-                        player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey(),player.getSpeedKey());
+                        player.setKeys(player.getLeftKey(), player.getRightKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey(),player.getSpeedKey());
                         message = "Inverted Keys!";
                         break;
                     case "damageOther":
@@ -85,7 +85,7 @@ public class PowerUpView{
                             if (!p.equals(player)){
                                 p.invertKeys(true);
                                 p.getBall().setHasPowerUp(true);
-                                p.setKeys(p.getRightKey(), p.getLeftKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey(),p.getSpeedKey());
+                                p.setKeys(player.getLeftKey(), player.getRightKey(), player.getDownKey(), player.getUpKey(), p.getAuraKey(),p.getSpeedKey());
                                 message = "Inverted keys for "+p.getPlayerName();
                             }
                         }
@@ -101,7 +101,7 @@ public class PowerUpView{
             if(player.getBall().hasPowerUp()) {
                 if(powerUpTimer.hasTimeElapsed()) {
                     if (player.hasInvertedKeys()) {
-                        player.setKeys(player.getRightKey(), player.getLeftKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey(),player.getSpeedKey());
+                        player.setKeys(player.getLeftKey(), player.getRightKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey(),player.getSpeedKey());
                         player.invertKeys(false);
                     }
                     player.getBall().setSpeed(0.5f);

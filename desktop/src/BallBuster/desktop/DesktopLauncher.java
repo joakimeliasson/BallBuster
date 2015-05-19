@@ -1,6 +1,7 @@
 package BallBuster.desktop;
 
 import ballbuster.controller.BallBuster;
+import ballbuster.controller.MenuController;
 import ballbuster.view.MenuView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -14,7 +15,7 @@ public class DesktopLauncher {
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new MenuView(), config);
+		new LwjglApplication(new MenuController(), config);
         config.height = height;
         config.width = width;
         //config.fullscreen = true;
