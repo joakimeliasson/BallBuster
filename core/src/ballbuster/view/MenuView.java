@@ -6,6 +6,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,10 +23,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import javafx.scene.text.Text;
 
 import javax.swing.text.Position;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 import static com.badlogic.gdx.Input.Keys.*;
 
@@ -34,25 +39,27 @@ import static com.badlogic.gdx.Input.Keys.*;
  */
 public class MenuView implements ApplicationListener{
 
-    //TODO should this be input processor?
+    private BallBuster ballBuster;
     private Sprite background;
     private Sprite currentMap;
     private SpriteBatch batch;
-    private BBMenuButton playButton;
+    private BitmapFont bindFont;
     private Stage thisStage;
-    private ArrayList<Texture> mapList;
-    private BallBuster ballBuster;
+    private OrthographicCamera camera;
     private List<Player> playerList;
     private List<Integer> keyList;
     private List<Label> bindLabelList;
     private List<String> bindPrefixList;
     private List<Sprite> mapSprites;
+    private List<String> mapList;
     private int mapState;
     private boolean isInFocus;
     private final float DEFAULT_ALPHA = 1f;
     private final float MOUSEOVER_ALPHA = 0.75f;
     private final float CLICKED_ALPHA = 0.5f;
     private final int NUMBER_OF_PLAYERS = 2;
+    private final float SCREEN_PARITION = 2.2f;
+    private final int STANDARD_MEASUREMENT = 100;
 
 
     private class BBMenuButton extends ImageButton implements InputProcessor{
@@ -105,28 +112,40 @@ public class MenuView implements ApplicationListener{
     }
 
 
-    private BitmapFont bindFont;
-
 
     @Override
     public void create() {
 
         thisStage = new Stage();
+        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        thisStage.getViewport().setCamera(camera);
 
         //Add map sprites to list
+
+        mapList = new LinkedList<>();
         mapSprites = new LinkedList<>();
-        mapSprites.add(new Sprite(new Texture("core/images/tempTexture.png")));
-        mapSprites.add(new Sprite(new Texture("core/images/normal.png")));
-        mapSprites.add(new Sprite(new Texture("core/images/playershield.png")));
 
-        currentMap = mapSprites.get(0);
-        currentMap.setCenterX(Gdx.graphics.getWidth() / 2);
-        currentMap.setCenterY(Gdx.graphics.getHeight()/4);
+
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("core/res/maps.txt"));
+            String line;
+            while((line=reader.readLine())!=null){
+                if(line.indexOf('.')==0){
+                    mapList.add(line.substring(1));
+                }else if(line.indexOf(':')==0){
+                    mapSprites.add(new Sprite(new Texture(line.substring(1))));
+                }
+            }
+            reader.close();
+
+        }catch(IOException e){
+            System.out.println("map file missing");
+        }
+
         mapState = 0;
-
-
-
-
+        currentMap = mapSprites.get(mapState);
+        currentMap.setCenterX(0);
+        currentMap.setCenterY((float) (-camera.viewportHeight*Math.pow(SCREEN_PARITION,-1.1)));
 
         isInFocus = true;
         bindFont = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
@@ -185,22 +204,16 @@ public class MenuView implements ApplicationListener{
         bindLabelList = new LinkedList<>();
         List<BBMenuButton> bindButtonList = new LinkedList<>();
 
-        //TODO set correct resources when available
-        final int DIVIDE_SCREEN = 50;
         //playButton
-        playButton = new BBMenuButton(playDrawable);
-        playButton.setPosition(Gdx.graphics.getWidth() / 2 - playButton.getWidth() / 2, Gdx.graphics.getHeight() / 2 + playButton.getHeight() / 2);
-
-        //Add proper bounds value
+        BBMenuButton playButton = new BBMenuButton(playDrawable);
+        playButton.setPosition(-playButton.getWidth()/2, -playButton.getHeight()/2);
         playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
         thisStage.addActor(playButton);
-
-        //Listener for playButton
         playButton.addListener(new ClickListener() {
             @Override public void clicked(InputEvent event, float x, float y){
                 if(isInFocus) {
                     playButton.setAlpha(CLICKED_ALPHA);
-                    ballBuster = new BallBuster();
+                    ballBuster = new BallBuster(mapList.get(mapState));
                     ballBuster.create();
                     int bindNbr = 0;
                     playerList = ballBuster.getPlayers();
@@ -226,7 +239,7 @@ public class MenuView implements ApplicationListener{
 
         //cycleLeftButton
         BBMenuButton cycleLeftButton = new BBMenuButton(cycleLeftDrawable);
-        cycleLeftButton.setPosition(Gdx.graphics.getWidth() / 2 - 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        cycleLeftButton.setPosition((float) (-camera.viewportWidth/Math.pow(SCREEN_PARITION, 1.5)), -camera.viewportHeight/SCREEN_PARITION);
         thisStage.addActor(cycleLeftButton);
         cycleLeftButton.addListener(new InputListener() {
             @Override
@@ -234,18 +247,17 @@ public class MenuView implements ApplicationListener{
                 if(isInFocus) {
                     mapState--;
                     if(mapState < 0) {mapState = mapSprites.size() - 1;}
+                    mapSprites.get(mapState).setCenterX(currentMap.getX()+currentMap.getWidth()/2);
+                    mapSprites.get(mapState).setCenterY(currentMap.getY() +currentMap.getHeight()/2);
                     currentMap = mapSprites.get(mapState);
-                    currentMap.setCenterX(Gdx.graphics.getWidth() / 2);
-                    currentMap.setCenterY(Gdx.graphics.getHeight()/4);
                 }
                 return true;
             }
         });
+
         //cycleRightButton
-
-
         BBMenuButton cycleRightButton = new BBMenuButton(cycleRightDrawable);
-        cycleRightButton.setPosition(Gdx.graphics.getWidth() / 2 + 3 * playButton.getWidth() / 2, Gdx.graphics.getHeight() / 5);
+        cycleRightButton.setPosition((float) (camera.viewportWidth/Math.pow(SCREEN_PARITION, 1.6)), -camera.viewportHeight/SCREEN_PARITION);
         thisStage.addActor(cycleRightButton);
         cycleRightButton.addListener(new InputListener() {
             @Override
@@ -253,9 +265,9 @@ public class MenuView implements ApplicationListener{
                 if(isInFocus) {
                     mapState++;
                     mapState = mapState%mapSprites.size();
+                    mapSprites.get(mapState).setCenterX(currentMap.getX()+currentMap.getWidth()/2);
+                    mapSprites.get(mapState).setCenterY(currentMap.getY() +currentMap.getHeight()/2);
                     currentMap = mapSprites.get(mapState);
-                    currentMap.setCenterX(Gdx.graphics.getWidth() / 2);
-                    currentMap.setCenterY(Gdx.graphics.getHeight()/4);
                 }
                 return true;
             }
@@ -264,7 +276,6 @@ public class MenuView implements ApplicationListener{
         //exitButton
         BBMenuButton exitButton = new BBMenuButton(exitDrawable);
         exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
-        System.out.println(playButton.getX() + " " + exitButton.getX());
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         thisStage.addActor(exitButton);
         exitButton.addListener(new InputListener() {
@@ -317,20 +328,44 @@ public class MenuView implements ApplicationListener{
             Label bindLabel = new Label(bindPrefixList.get(i) + KeyCodeMap.valueOf(keyList.get(i)).getHumanName(), new Label.LabelStyle(bindFont, Color.WHITE));
             if(i < bindPrefixList.size()/2) {
                 //TODO calculations for positions
-                bindButton.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN, Gdx.graphics.getHeight()/2 - i * (bindButton.getHeight()));
-                bindLabel.setPosition(Gdx.graphics.getWidth() / DIVIDE_SCREEN + bindButton.getWidth(), Gdx.graphics.getHeight()/2 - i * (bindButton.getHeight()));
+                bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION, camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
+                bindLabel.setPosition(-camera.viewportWidth /SCREEN_PARITION + bindButton.getWidth(), camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
 
             }else if(i < bindPrefixList.size()) {
                 //TODO calculations for positions
-                bindButton.setPosition(Gdx.graphics.getWidth() - 4*bindButton.getWidth(), Gdx.graphics.getHeight()/2 -(i-bindPrefixList.size()/2)*(bindButton.getHeight()));
-                bindLabel.setPosition(Gdx.graphics.getWidth() - 3*bindButton.getWidth(), Gdx.graphics.getHeight()/2-(i-bindPrefixList.size()/2)*(bindButton.getHeight()));
+                bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)), camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
+                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()), camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
             }
+
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
             thisStage.addActor(bindButton);
             thisStage.addActor(bindLabel);
             bindButtonList.add(bindButton);
             bindLabelList.add(bindLabel);
         }
+
+        int jump = 0;
+        for(int i = 0; i<NUMBER_OF_PLAYERS; i++) {
+            Label playerLabel = new Label("Player " + (i+1), new Label.LabelStyle(bindFont, Color.WHITE));
+            thisStage.addActor(playerLabel);
+            playerLabel.setPosition(bindButtonList.get(i+jump).getX(), bindButtonList.get(i+jump).getY()+bindButtonList.get(i+jump).getHeight());
+            jump = jump+(bindPrefixList.size()/2-1);
+        }
+
+        final Drawable measurementDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/Measurement.png"))));
+
+        //Measurement
+        /*
+        for(int i = 0; i < 40; i++){
+            BBMenuButton measurement = new BBMenuButton(measurementDrawable);
+            BBMenuButton invMeasurement = new BBMenuButton(measurementDrawable);
+            measurement.setPosition(i*bindButtonList.get(0).getHeight(),-camera.viewportHeight/2);
+            invMeasurement.setPosition(-i*bindButtonList.get(0).getHeight(),-camera.viewportHeight/2);
+            thisStage.addActor(measurement);
+            thisStage.addActor(invMeasurement);
+        }
+        */
 
 
 
@@ -350,7 +385,9 @@ public class MenuView implements ApplicationListener{
         if(ballBuster==null) {
             //setMapSprite();
             batch.begin();
-            batch.draw(background, 0, 0);
+            camera.update();
+            batch.setProjectionMatrix(camera.combined);
+            batch.draw(background, -camera.viewportWidth / 2, -camera.viewportHeight / 2);
 
             for(Actor a: thisStage.getActors()){
                 if(a.getClass() == BBMenuButton.class){

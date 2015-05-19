@@ -1,0 +1,5 @@
+Maps:
+.core/res/TiledMaps/designmap.tmx
+
+Miniatures:
+:core/images/map1.PNG
