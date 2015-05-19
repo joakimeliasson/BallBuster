@@ -150,7 +150,7 @@ public class PowerUpView{
         double xDiff = sprite.getX() - ball.getX();
         double yDiff = sprite.getY() - ball.getY();
 
-        double distance = Math.sqrt((Math.pow(xDiff, 2) + Math.pow(yDiff, 2)));
+        double distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
 
         return distance < (ball.getRadius() + sprite.getWidth()/2);
     }

@@ -67,7 +67,7 @@ public class HudView {
         if (player1HP < 0 ) {
             player1HP = 0;
         }
-        float player1MP = ((float)player1.getBall().getMana() / (float)player1MaxMp);
+        float player1MP = (float)player1.getBall().getMana() / (float)player1MaxMp;
         if(player1MP < 0) {
             player1MP = 0;
         }
@@ -77,7 +77,7 @@ public class HudView {
             player2HP = 0;
         }
 
-        float player2MP =  ((float)player2.getBall().getMana() / (float)player2MaxMp) ;
+        float player2MP =  (float)player2.getBall().getMana() / (float)player2MaxMp ;
         if (player2MP < 0) {
             player2MP = 0;
         }
