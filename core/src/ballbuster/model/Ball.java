@@ -1,20 +1,12 @@
 package ballbuster.model;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
-
-import java.awt.*;
 
 /**
  * Created by Jacob Lundberg on 2015-03-30.
  */
 public class Ball {
 
-    private double shield;
+    private double shield, maximumShield;
     private float mana, maximumMana;
 
     private Aura aura;
@@ -39,6 +31,8 @@ public class Ball {
         shield = 100;
         mana = 100;
         maximumMana = 100;
+        maximumShield = 100;
+
 
     }
 
@@ -53,18 +47,30 @@ public class Ball {
     public float getMana() {
         return mana;
     }
+
+    public void setMana(float mana) {
+        this.mana = mana;
+    }
     public float getMaximumMana() {
         return maximumMana;
     }
-
+    public double getMaximumShield() {
+        return maximumShield;
+    }
     public void changeMana(float mana){
-        this.mana = this.mana + mana;
+        if(this.mana + mana < 0) {
+            this.mana = 0;
+        } else if(this.mana + mana > getMaximumMana()) {
+            this.mana = getMaximumMana();
+        } else {
+            this.mana = this.mana + mana;
+        }
     }
     public void addHealthToShield(int health){
-        if (shield+health < 100)
+        if (shield+health < getMaximumShield())
             this.shield = shield+health;
         else
-            this.shield = 100;
+            this.shield = getMaximumShield();
     }
 
     public void setPosition(float x, float y) {
