@@ -59,11 +59,12 @@ public class PowerUpController implements IController{
         }
     }
     private void setHealthSpritePosition(){
-
-            float pos = Gdx.graphics.getWidth();
-            int xpos = random.nextInt(Math.round(pos)) - Gdx.graphics.getWidth() / 2;
-            float pos2 = Gdx.graphics.getHeight();
-            int ypos = random.nextInt(Math.round(pos2)) - Gdx.graphics.getHeight() / 2;
+            float xminus = (0-Gdx.graphics.getWidth()/2)+(2*healthSprite.getWidth());
+            float xplus = (0+Gdx.graphics.getWidth()/2)-(2*healthSprite.getWidth());
+            float yminus = (0-Gdx.graphics.getHeight()/2)+(2*healthSprite.getHeight());
+            float yplus = (0+Gdx.graphics.getHeight()/2)-(2*healthSprite.getWidth());
+            int xpos = (int)(random.nextInt(Math.round(xplus) + 1) + xminus);
+            int ypos = (int)(random.nextInt(Math.round(yplus) + 1) + yminus);
 
             spawnLocation.setLocation(xpos,ypos);
             if (!forbiddenLocations.contains(spawnLocation)) {
