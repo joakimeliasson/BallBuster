@@ -18,7 +18,7 @@ public class DesktopLauncher {
 		new LwjglApplication(new MenuController(), config);
         config.height = height;
         config.width = width;
-        config.resizable = false;
+        //config.resizable = false;
         config.title = "Ball Buster";
         //config.fullscreen = true;
     }
