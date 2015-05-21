@@ -8,13 +8,15 @@ import ballbuster.model.tile.BlockTile;
 import ballbuster.model.tile.Tile;
 import ballbuster.view.BlockTileView;
 import ballbuster.view.HudView;
+import box2dLight.ChainLight;
+import box2dLight.PointLight;
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
@@ -22,6 +24,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +40,13 @@ public class BallBuster extends Game{
 
     private Box2DDebugRenderer debugRenderer;
     private Matrix4 debugMatrix;
+
+    private RayHandler lightHandler;
+    private PointLight lightSun;
+    private PointLight lightBall1;
+    private PointLight lightBall2;
+    private ChainLight chainLight;
+
 
     private SpriteBatch batch;
 
@@ -110,6 +120,14 @@ public class BallBuster extends Game{
 
         batch = new SpriteBatch();
 
+        lightHandler = new RayHandler(world);
+        lightSun = new PointLight(lightHandler,100, Color.WHITE,1000, 0, camera.viewportHeight/3); //TODO Move this into ball
+        lightBall1 = new PointLight(lightHandler,100, Color.BLUE,1000, 0, camera.viewportHeight/3); //TODO Move this into ball
+        lightBall2 = new PointLight(lightHandler,100, Color.RED,1000, 0, camera.viewportHeight/3); //TODO Move this into ball
+   //     chainLight = new ChainLight(lightHandler,10,Color.BLUE,1f,10);
+
+        
+
         controllerList = new ArrayList<>();
 
         createWalls();
@@ -157,7 +175,18 @@ public class BallBuster extends Game{
         world.setContactListener(collisionController);
 
         debugRenderer.render(world, debugMatrix);
+/*
+        pointLight.setPosition(player.getBall().getX() + player.getBall().getRadius(),
+                player.getBall().getY() + player.getBall().getRadius()); //TODO Move this into ball
+*/
+
+        lightBall1.setPosition(player.getBall().getX() + player.getBall().getRadius(),player.getBall().getY() + player.getBall().getRadius());
+        lightBall2.setPosition(player2.getBall().getX() + player2.getBall().getRadius(),player2.getBall().getY() + player2.getBall().getRadius());
+
+        lightHandler.setCombinedMatrix(camera.combined);
+        lightHandler.updateAndRender();
     }
+
     public void createBalls() {
         playerList = new ArrayList<Player>();
         FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
