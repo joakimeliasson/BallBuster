@@ -60,7 +60,7 @@ public class MenuController implements ApplicationListener, IMenuController {
         mapList = new LinkedList<>();
 
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("core/res/maps.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("core/images/maps.txt"));
             String line;
             while((line=reader.readLine())!=null){
                 if(line.indexOf('.')==0){
