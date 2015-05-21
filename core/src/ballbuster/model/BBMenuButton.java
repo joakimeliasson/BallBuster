@@ -1,7 +1,6 @@
 package ballbuster.model;
 
-import ballbuster.controller.IMenuController;
-import com.badlogic.gdx.InputProcessor;
+
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
@@ -10,26 +9,25 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
  */
 public class BBMenuButton extends ImageButton{
 
-    private int buttonIndex;
-    private float alpha = 1f;
+    private int buttonIndex = -1;
 
+    /*
+     * To be used by unindexed buttons such as the play button,
+     * exit button and cycle buttons.
+     */
     public BBMenuButton(Drawable imageup){
         super(imageup);
     }
 
+    /*
+     * To be used in indexed buttons, such as the key rebind buttons
+     */
     public BBMenuButton(Drawable imageup, Integer buttonIndex){
         super(imageup);
         this.buttonIndex = buttonIndex;
     }
 
-    public void setAlpha(float alpha){
-        this.alpha = alpha;
-    }
-
-    public float getAlpha(){
-        return alpha;
-    }
-
+    //Gets the buttons index, only relevant for indexed buttons;
     public int getIndex(){
         return buttonIndex;
     }

@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -237,9 +238,17 @@ public class MenuView{
             jump = jump+(bindPrefixList.size()/2-1);
         }
 
-        //Measurement
-        /*
+        //Adds a title to the sceen
+        Label titleLabel = new Label("BALL BUSTER", new Label.LabelStyle(font, Color.DARK_GRAY));
+        stage.addActor(titleLabel);
+        titleLabel.setAlignment(Align.center);
+        titleLabel.setPosition(0, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
 
+
+
+        //Measurements for adjusting the screen, update code as needed
+
+        /*
         final Drawable measurementDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/Measurement.png"))));
         for(int i = 0; i < 40; i++){
@@ -247,10 +256,11 @@ public class MenuView{
             BBMenuButton invMeasurement = new BBMenuButton(measurementDrawable);
             measurement.setPosition(i*bindButtonList.get(0).getHeight(),-camera.viewportHeight/2);
             invMeasurement.setPosition(-i*bindButtonList.get(0).getHeight(),-camera.viewportHeight/2);
-            thisStage.addActor(measurement);
-            thisStage.addActor(invMeasurement);
+            stage.addActor(measurement);
+            stage.addActor(invMeasurement);
         }
         */
+
     }
 
 
@@ -258,11 +268,11 @@ public class MenuView{
         return stage;
     }
 
-    public String getMap() {
+    public String getMapFilePath() {
         return mapList.get(mapState);
     }
 
-    public List<Integer> getKeys(){
+    public List<Integer> getKeyList(){
         return keyList;
     }
 
@@ -311,7 +321,9 @@ public class MenuView{
         currentMap = mapSprites.get(mapState);
     }
 
-
+    /*
+     * Called whenever the MenuController renders
+     */
     public void update() {
 
         batch.begin();
