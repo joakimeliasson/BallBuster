@@ -1,8 +1,6 @@
 package ballbuster.view;
 
-import ballbuster.controller.MenuController;
 import ballbuster.model.BBMenuButton;
-import ballbuster.model.Map;
 import ballbuster.model.Player;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
@@ -16,7 +14,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
@@ -128,26 +125,26 @@ public class MenuView{
         //Default keys for players
         keyList = new LinkedList<>();
         //Player 1 keys
-        keyList.add(Input.Keys.D);
-        keyList.add(Input.Keys.A);
         keyList.add(Input.Keys.W);
+        keyList.add(Input.Keys.A);
         keyList.add(Input.Keys.S);
+        keyList.add(Input.Keys.D);
         keyList.add(Input.Keys.ALT_LEFT);
         keyList.add(Input.Keys.Q);
 
         //Player 2 keys
-        keyList.add(Input.Keys.DPAD_RIGHT);
-        keyList.add(Input.Keys.DPAD_LEFT);
         keyList.add(Input.Keys.DPAD_UP);
+        keyList.add(Input.Keys.DPAD_LEFT);
         keyList.add(Input.Keys.DPAD_DOWN);
+        keyList.add(Input.Keys.DPAD_RIGHT);
         keyList.add(Input.Keys.SPACE);
         keyList.add(Input.Keys.M);
 
         bindPrefixList = new LinkedList<>();
-        bindPrefixList.add("RightKey:");
-        bindPrefixList.add("LeftKey:");
         bindPrefixList.add("UpKey:");
+        bindPrefixList.add("LeftKey:");
         bindPrefixList.add("DownKey:");
+        bindPrefixList.add("RightKey:");
         bindPrefixList.add("AuraKey:");
         bindPrefixList.add("SpeedKey:");
         bindPrefixList.addAll(bindPrefixList);
@@ -186,16 +183,16 @@ public class MenuView{
             Drawable drawable;
             switch(i%(bindPrefixList.size()/2)) {
                 case 0:
-                    drawable = rightBindButtonDrawable;
+                    drawable = upBindButtonDrawable;
                     break;
                 case 1:
                     drawable = leftBindButtonDrawable;
                     break;
                 case 2:
-                    drawable = upBindButtonDrawable;
+                    drawable = downBindButtonDrawable;
                     break;
                 case 3:
-                    drawable = downBindButtonDrawable;
+                    drawable = rightBindButtonDrawable;
                     break;
                 case 4:
                     drawable = auraBindButtonDrawable;

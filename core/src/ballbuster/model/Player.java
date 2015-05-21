@@ -7,10 +7,10 @@ public class Player {
     private String playerName;
     private final Ball ball;
 
-    private int leftKey;
-    private int rightKey;
     private int upKey;
+    private int leftKey;
     private int downKey;
+    private int rightKey;
     private int auraKey;
     private int speedKey;
 
@@ -35,7 +35,7 @@ public class Player {
 
     public Ball getBall() { return this.ball; }
 
-    public void setKeys(int rightKey, int leftKey, int upKey, int downKey, int auraKey, int speedKey) {
+    public void setKeys(int upKey, int leftKey, int downKey, int rightKey, int auraKey, int speedKey) {
         this.rightKey = rightKey;
         this.leftKey = leftKey;
         this.upKey = upKey;

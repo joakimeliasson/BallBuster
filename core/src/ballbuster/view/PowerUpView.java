@@ -69,7 +69,7 @@ public class PowerUpView{
                         break;
                     case "invertKeys":
                         player.invertKeys(true);
-                        player.setKeys(player.getLeftKey(), player.getRightKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey(),player.getSpeedKey());
+                        player.setKeys(player.getDownKey(), player.getRightKey(), player.getUpKey(), player.getLeftKey(), player.getAuraKey(),player.getSpeedKey());
                         message = "Inverted Keys!";
                         break;
                     case "damageOther":
@@ -85,7 +85,7 @@ public class PowerUpView{
                             if (!p.equals(player)){
                                 p.invertKeys(true);
                                 p.getBall().setHasPowerUp(true);
-                                p.setKeys(p.getLeftKey(), p.getRightKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey(),p.getSpeedKey());
+                                p.setKeys(p.getDownKey(), p.getRightKey(), p.getUpKey(), p.getLeftKey(), p.getAuraKey(),p.getSpeedKey());
                                 message = "Inverted keys for "+p.getPlayerName();
                             }
                         }
@@ -101,7 +101,7 @@ public class PowerUpView{
             if(player.getBall().hasPowerUp()) {
                 if(powerUpTimer.hasTimeElapsed()) {
                     if (player.hasInvertedKeys()) {
-                        player.setKeys(player.getLeftKey(), player.getRightKey(), player.getDownKey(), player.getUpKey(), player.getAuraKey(),player.getSpeedKey());
+                        player.setKeys(player.getDownKey(), player.getRightKey(), player.getUpKey(), player.getLeftKey(), player.getAuraKey(),player.getSpeedKey());
                         player.invertKeys(false);
                     }
                     player.getBall().setSpeed(0.5f);
@@ -123,7 +123,7 @@ public class PowerUpView{
         for(Player player : playerList) {
             if (hasCollision(player.getBall(), sprite)){
                 player.getBall().setHasPowerUp(true);
-               hideSprite(sprite);
+                hideSprite(sprite);
                 powerUpTimer.reset();
                 return player;
             }
