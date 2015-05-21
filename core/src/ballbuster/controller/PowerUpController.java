@@ -51,18 +51,18 @@ public class PowerUpController implements IController{
     }
     private void setForbiddenLocations(){
         for (BlockTileView b : tiles) {
-            for (float i = b.getTile().getX()-healthSprite.getWidth()/2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth()/2; i++) {
-                for (float k = b.getTile().getY()-healthSprite.getHeight()/2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
+            for (double i = b.getTile().getX()-healthSprite.getWidth()/2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth()/2; i++) {
+                for (double k = b.getTile().getY()-healthSprite.getHeight()/2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
                     forbiddenLocations.add(new Point((int)i,(int)k));
                 }
             }
         }
     }
     private void setHealthSpritePosition(){
-            float xminus = (0-Gdx.graphics.getWidth()/2)+(2*healthSprite.getWidth());
-            float xplus = (0+Gdx.graphics.getWidth()/2)-(2*healthSprite.getWidth());
-            float yminus = (0-Gdx.graphics.getHeight()/2)+(2*healthSprite.getHeight());
-            float yplus = (0+Gdx.graphics.getHeight()/2)-(2*healthSprite.getWidth());
+            float xminus = -Gdx.graphics.getWidth()/2+2*healthSprite.getWidth();
+            float xplus = Gdx.graphics.getWidth()/2-2*healthSprite.getWidth();
+            float yminus = -Gdx.graphics.getHeight()/2+2*healthSprite.getHeight();
+            float yplus = Gdx.graphics.getHeight()/2-2*healthSprite.getWidth();
             int xpos = (int)(random.nextInt(Math.round(xplus) + 1) + xminus);
             int ypos = (int)(random.nextInt(Math.round(yplus) + 1) + yminus);
 

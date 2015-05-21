@@ -148,8 +148,8 @@ public class PowerUpView{
         this.message = message;
     }
     public boolean hasCollision(Ball ball, Sprite sprite){
-        double xDiff = ball.getX() + ball.getRadius() - (sprite.getX() + sprite.getWidth()/2);
-        double yDiff = ball.getY() + ball.getRadius() - (sprite.getY() + sprite.getWidth()/2);
+        double xDiff = ball.getX() + ball.getRadius() - sprite.getX() - sprite.getWidth()/2;
+        double yDiff = ball.getY() + ball.getRadius() - sprite.getY() - sprite.getWidth()/2;
 
         double distance = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
 

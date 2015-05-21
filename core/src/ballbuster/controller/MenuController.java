@@ -261,9 +261,9 @@ public class MenuController implements ApplicationListener, IMenuController {
 
             }else if(i < bindPrefixList.size()) {
                 bindButton.setPosition((float) (menuView.getStage().getCamera().viewportWidth * Math.pow(SCREEN_PARITION, -1.5)),
-                        menuView.getStage().getCamera().viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
+                        menuView.getStage().getCamera().viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)* bindButton.getHeight());
                 bindLabel.setPosition((float) (menuView.getStage().getCamera().viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()),
-                        menuView.getStage().getCamera().viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
+                        menuView.getStage().getCamera().viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)* bindButton.getHeight());
             }
 
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
@@ -278,7 +278,7 @@ public class MenuController implements ApplicationListener, IMenuController {
             Label playerLabel = new Label("Player " + (i+1), new Label.LabelStyle(font, Color.WHITE));
             menuView.getStage().addActor(playerLabel);
             playerLabel.setPosition(bindButtonList.get(i+jump).getX(), bindButtonList.get(i+jump).getY()+bindButtonList.get(i+jump).getHeight());
-            jump = jump+(bindPrefixList.size()/2-1);
+            jump = jump+bindPrefixList.size()/2-1;
         }
 
 
