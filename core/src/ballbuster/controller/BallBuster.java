@@ -9,6 +9,7 @@ import ballbuster.model.tile.Tile;
 import ballbuster.view.BlockTileView;
 import ballbuster.view.HudView;
 import box2dLight.ChainLight;
+import box2dLight.DirectionalLight;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Game;
@@ -33,6 +34,7 @@ import java.util.List;
  * Created by jacobth on 2015-04-28.
  */
 public class BallBuster extends Game{
+
     private OrthographicCamera camera;
     private World world;
 
@@ -41,28 +43,12 @@ public class BallBuster extends Game{
     private Box2DDebugRenderer debugRenderer;
     private Matrix4 debugMatrix;
 
-    private RayHandler lightHandler;
-    private PointLight lightSun;
-    private PointLight lightBall1;
-    private PointLight lightBall2;
-    private ChainLight chainLight;
-
-
     private SpriteBatch batch;
 
-    private Ball ball;
     private Texture texture;
     private Player player;
-    private Sprite sprite;
-
-    private Ball ball2;
     private Texture texture2;
     private Player player2;
-
-    private Aura aura;
-    private Aura aura2;
-
-    private HudView hud;
 
     private Texture backgroundTexture;
 
@@ -91,7 +77,7 @@ public class BallBuster extends Game{
 
 
     public BallBuster() {
-        this.map = "core/res/TiledMaps/designmap.tmx";
+        this.map = "core/images/tiledMap/designmap.tmx";
     }
 
     public BallBuster(int id, String map) {
@@ -110,6 +96,7 @@ public class BallBuster extends Game{
 
     @Override
     public void create() {
+
         world = new World(new Vector2(0, 0), true);
 
         debugRenderer = new Box2DDebugRenderer();
@@ -120,13 +107,6 @@ public class BallBuster extends Game{
 
         batch = new SpriteBatch();
 
-        lightHandler = new RayHandler(world);
-        lightSun = new PointLight(lightHandler,100, Color.WHITE,1000, 0, camera.viewportHeight/3); //TODO Move this into ball
-        lightBall1 = new PointLight(lightHandler,100, Color.BLUE,1000, 0, camera.viewportHeight/3); //TODO Move this into ball
-        lightBall2 = new PointLight(lightHandler,100, Color.RED,1000, 0, camera.viewportHeight/3); //TODO Move this into ball
-   //     chainLight = new ChainLight(lightHandler,10,Color.BLUE,1f,10);
-
-        
 
         controllerList = new ArrayList<>();
 
@@ -136,6 +116,7 @@ public class BallBuster extends Game{
         createAura();
         createPowerUp();
         collision();
+        controllerList.add(new LightController(world, camera,playerList));
 
         for(IController controller : controllerList)
             controller.onCreate();
@@ -154,6 +135,8 @@ public class BallBuster extends Game{
 
     @Override
     public void render() {
+
+
         camera.update();
 
         world.step(1f / 60f, 6, 2);
@@ -175,16 +158,7 @@ public class BallBuster extends Game{
         world.setContactListener(collisionController);
 
         debugRenderer.render(world, debugMatrix);
-/*
-        pointLight.setPosition(player.getBall().getX() + player.getBall().getRadius(),
-                player.getBall().getY() + player.getBall().getRadius()); //TODO Move this into ball
-*/
 
-        lightBall1.setPosition(player.getBall().getX() + player.getBall().getRadius(),player.getBall().getY() + player.getBall().getRadius());
-        lightBall2.setPosition(player2.getBall().getX() + player2.getBall().getRadius(),player2.getBall().getY() + player2.getBall().getRadius());
-
-        lightHandler.setCombinedMatrix(camera.combined);
-        lightHandler.updateAndRender();
     }
 
     public void createBalls() {
