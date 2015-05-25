@@ -3,8 +3,10 @@ package ballbuster.controller;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.view.BallView;
+import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -34,6 +36,7 @@ public class BallController implements InputProcessor, IController{
         ballView.createBody(texture, player,world, shieldTexture);
         this.body = ballView.getBody();
         ballSpeed = ball.getSpeed();
+
 
 
     }

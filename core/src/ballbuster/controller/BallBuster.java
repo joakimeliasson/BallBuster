@@ -6,15 +6,16 @@ import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
 import ballbuster.model.tile.BlockTile;
 import ballbuster.model.tile.Tile;
+import ballbuster.view.BallBusterView;
 import ballbuster.view.BlockTileView;
 import ballbuster.view.HudView;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix4;
@@ -22,6 +23,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,31 +32,15 @@ import java.util.List;
  * Created by jacobth on 2015-04-28.
  */
 public class BallBuster extends Game{
-    private OrthographicCamera camera;
-    private World world;
+
+    private BallBusterView ballBusterView;
 
     public static final float SCALE = 100f;
 
-    private Box2DDebugRenderer debugRenderer;
-    private Matrix4 debugMatrix;
-
-    private SpriteBatch batch;
-
-    private Ball ball;
     private Texture texture;
     private Player player;
-    private Sprite sprite;
-
-    private Ball ball2;
     private Texture texture2;
     private Player player2;
-
-    private Aura aura;
-    private Aura aura2;
-
-    private HudView hud;
-
-    private Texture backgroundTexture;
 
     private AuraController auraController;
     private AuraController auraController2;
@@ -73,15 +59,17 @@ public class BallBuster extends Game{
 
     private int id;
 
-    private Sprite background;
-
     private CollisionController collisionController;
 
     private final String map; //Location of the map example: "core/res/TiledMaps/designmap.tmx"
 
+    private World world;
+    private OrthographicCamera camera;
+    private SpriteBatch batch;
+
 
     public BallBuster() {
-        this.map = "core/res/TiledMaps/designmap.tmx";
+        this.map = "core/images/tiledMap/designmap.tmx";
     }
 
     public BallBuster(int id, String map) {
@@ -100,15 +88,11 @@ public class BallBuster extends Game{
 
     @Override
     public void create() {
-        world = new World(new Vector2(0, 0), true);
-
-        debugRenderer = new Box2DDebugRenderer();
-
-        camera = new OrthographicCamera(1920, 1080);
-
-        Gdx.gl.glClearColor(106f / 255f, 165f / 255f, 255f / 255f, 1f);
-
-        batch = new SpriteBatch();
+        ballBusterView = new BallBusterView();
+        ballBusterView.onCreate();
+        world = ballBusterView.getWorld();
+        camera = ballBusterView.getCamera();
+        batch = ballBusterView.getBatch();
 
         controllerList = new ArrayList<>();
 
@@ -118,46 +102,28 @@ public class BallBuster extends Game{
         createAura();
         createPowerUp();
         collision();
+        controllerList.add(new LightController(world, camera,playerList));
 
         for(IController controller : controllerList)
             controller.onCreate();
 
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
-        backgroundTexture = new Texture(backFileHandle);
-
-        background = new Sprite(backgroundTexture);
-
         collisionController = new CollisionController(tileWallController.getWallList(), ballList, batch);
 
         controllerList.add(collisionController);
-
-
     }
 
     @Override
     public void render() {
-        camera.update();
-
-        world.step(1f / 60f, 6, 2);
-
-        batch.setProjectionMatrix(camera.combined);
-        debugMatrix = batch.getProjectionMatrix().cpy().scale(SCALE, SCALE, 0);
-
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        batch.begin();
-        batch.draw(background, -camera.viewportWidth / 2, -camera.viewportHeight / 2);
-        batch.end();
-
-        //controllerList.add(collisionController);
+        ballBusterView.onRender();
 
         for(IController controller : controllerList)
             controller.onRender();
 
         world.setContactListener(collisionController);
 
-        debugRenderer.render(world, debugMatrix);
+        ballBusterView.setDebugRenderer();
     }
+
     public void createBalls() {
         playerList = new ArrayList<Player>();
         FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
