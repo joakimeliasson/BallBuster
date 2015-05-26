@@ -24,14 +24,13 @@ public class HealthPackView extends PowerUpView {
         int random = (int )(Math.random() * 20);
         this.timer = new Timer(random);
         healthPackTimer = new Timer(5f);
-        System.out.println(random);
     }
 
     public void healthPackSet(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, float delta, SpriteBatch batch, int x, int y){
         timer.update(delta);
         healthPackTimer.update(delta);
         showSprite(sprite);
-        Player player = getHitPlayer(playerList, sprite);
+        Player player = getHitPlayer(playerList, sprite, healthPackTimer);
         if(timer.hasTimeElapsed()) {
             if (player != null)
                 sprite.setPosition(x, y);
@@ -39,14 +38,9 @@ public class HealthPackView extends PowerUpView {
             if (player != null) {
                 int random = (int) (Math.random() * 20 + 10);
                 timer.reset(random);
-                System.out.println(random);
-                //hideSprite(sprite);
-                if (powerUp.getPowerUp().toString() == "healthPack"){
-                    player.getBall().addHealthToShield(10);
-                    System.out.println(player.getBall().getShield());
-                    this.message = player.getPlayerName()+" found a healthPack. +10HP";
-                    super.setMessage(message);
-                }
+                String message = player.applyHealthPack(powerUp,playerList);
+                setMessage(message);
+                resetBall(playerList, delta, healthPackTimer);
             }
         }
 
