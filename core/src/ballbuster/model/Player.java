@@ -82,7 +82,7 @@ public class Player {
     public void resetBall() {
             if(this.getBall().hasPowerUp()) {
                 if (this.hasInvertedKeys()) {
-                    this.setKeys(this.getLeftKey(), this.getRightKey(), this.getDownKey(), this.getUpKey(), this.getAuraKey(), this.getSpeedKey());
+                    this.setKeys(this.getDownKey(), this.getRightKey(), this.getUpKey(), this.getLeftKey(), this.getAuraKey(), this.getSpeedKey());
                     this.invertKeys(false);
                 }
                 this.getBall().setSpeed(0.5f);
@@ -106,7 +106,7 @@ public class Player {
                 break;
             case "invertKeys":
                 this.invertKeys(true);
-                this.setKeys(this.getLeftKey(), this.getRightKey(), this.getDownKey(), this.getUpKey(), this.getAuraKey(), this.getSpeedKey());
+                this.setKeys(this.getDownKey(), this.getRightKey(), this.getUpKey(), this.getLeftKey(), this.getAuraKey(), this.getSpeedKey());
                 message = "Inverted Keys!";
                 break;
             case "damageOther":
@@ -122,7 +122,7 @@ public class Player {
                     if (!p.equals(this)){
                         p.invertKeys(true);
                         p.getBall().setHasPowerUp(true);
-                        p.setKeys(p.getLeftKey(), p.getRightKey(), p.getDownKey(), p.getUpKey(), p.getAuraKey(),p.getSpeedKey());
+                        p.setKeys(p.getDownKey(), p.getRightKey(), p.getUpKey(), p.getLeftKey(), p.getAuraKey(),p.getSpeedKey());
                         message = "Inverted keys for "+p.getPlayerName();
                     }
                 }

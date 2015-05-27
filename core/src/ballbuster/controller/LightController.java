@@ -1,7 +1,15 @@
 package ballbuster.controller;
 
 import ballbuster.model.Player;
-import box2dLight.PointLight;
+import box2dLight.RayHandler;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g3d.environment.PointLight;
+import com.badlogic.gdx.physics.box2d.World;
+
+import java.util.ArrayList;
+
+
+import ballbuster.model.Player;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -20,8 +28,8 @@ public class LightController implements IController {
     private OrthographicCamera camera;
     private ArrayList<Player> playerList;
 
-    private PointLight lightBall1;
-    private PointLight lightBall2;
+    private box2dLight.PointLight lightBall1;
+    private box2dLight.PointLight lightBall2;
     private Player player1;
     private Player player2;
 
@@ -42,8 +50,8 @@ public class LightController implements IController {
         player1 = playerList.get(0);
         player2 = playerList.get(1);
 
-        lightBall1 = new PointLight(lightHandler,100, Color.RED,100, 0, 0); //(handler, number of rays, color, "radiuseffect",xPosition, yPosition)
-        lightBall2 = new PointLight(lightHandler,100, Color.BLUE,100, 0, 0);
+        lightBall1 = new box2dLight.PointLight(lightHandler,100, Color.RED,100, 0, 0); //(handler, number of rays, color, "radiuseffect",xPosition, yPosition)
+        lightBall2 = new box2dLight.PointLight(lightHandler,100, Color.BLUE,100, 0, 0);
     }
 
 

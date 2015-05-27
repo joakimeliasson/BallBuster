@@ -1,7 +1,6 @@
 package ballbuster.view;
 
 import ballbuster.model.BBMenuButton;
-import ballbuster.model.Player;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -16,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -30,11 +28,8 @@ public class MenuView{
 
 
     private List<Label> bindLabelList;
-    private List<String> bindPrefixList;
     private List<Sprite> mapSprites;
     private List<String> mapList;
-    private List<Player> playerList;
-    private List<Integer> keyList;
     private List<BBMenuButton> bindButtonList;
     private BBMenuButton playButton;
     private BBMenuButton exitButton;
@@ -46,53 +41,32 @@ public class MenuView{
     private Sprite background;
     private Stage stage;
     private int mapState;
-    private boolean isInFocus;
     private OrthographicCamera camera;
     private final static float DEFAULT_ALPHA = 1f;
-    private final static int NUMBER_OF_PLAYERS = 2;
     private final static float SCREEN_PARITION = 2.2f;
 
-    public MenuView(){
 
-
-
+    /**
+     * The only constructor for MenuView.
+     * In the current version, using a higher number of players than 2 is inadvisable, as there are no designated
+     * positions for additional actors on the stage.
+     *
+     * @Ensure that the size of the list of prefixes, and the list of keys are the same.
+     */
+    public MenuView(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList ){
         stage = new Stage();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.getViewport().setCamera(camera);
-
-        playerList = new LinkedList<>();
-        keyList = new LinkedList<>();
         bindLabelList = new LinkedList<>();
-        bindPrefixList = new LinkedList<>();
         mapSprites = new LinkedList<>();
         mapList = new LinkedList<>();
         bindButtonList = new LinkedList<>();
-
-
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader("core/res/maps.txt"));
-            String line;
-            while((line=reader.readLine())!=null){
-                if(line.indexOf('.')==0){
-                    mapList.add(line.substring(1));
-                }else if(line.indexOf(':')==0){
-                    mapSprites.add(new Sprite(new Texture(line.substring(1))));
-                }
-            }
-            reader.close();
-
-        }catch(IOException e){
-            System.out.println("map file missing");
-        }
-
+        readMapFile();
 
         mapState = 0;
         currentMap = mapSprites.get(mapState);
         currentMap.setCenterX(0);
         currentMap.setCenterY((float) (-camera.viewportHeight * Math.pow(SCREEN_PARITION, -1.5)));
-        //math pow -1.1 screen part viewport height
-
-        isInFocus = true;
         font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
         font.setScale(0.5f, 0.5f);
 
@@ -122,66 +96,38 @@ public class MenuView{
         final Drawable missingDrawable = new TextureRegionDrawable(new TextureRegion
                 (new Texture(Gdx.files.internal("core/images/tempbind.png"))));
 
-        //Default keys for players
-        keyList = new LinkedList<>();
-        //Player 1 keys
-        keyList.add(Input.Keys.W);
-        keyList.add(Input.Keys.A);
-        keyList.add(Input.Keys.S);
-        keyList.add(Input.Keys.D);
-        keyList.add(Input.Keys.ALT_LEFT);
-        keyList.add(Input.Keys.Q);
-
-        //Player 2 keys
-        keyList.add(Input.Keys.DPAD_UP);
-        keyList.add(Input.Keys.DPAD_LEFT);
-        keyList.add(Input.Keys.DPAD_DOWN);
-        keyList.add(Input.Keys.DPAD_RIGHT);
-        keyList.add(Input.Keys.SPACE);
-        keyList.add(Input.Keys.M);
-
-        bindPrefixList = new LinkedList<>();
-        bindPrefixList.add("UpKey:");
-        bindPrefixList.add("LeftKey:");
-        bindPrefixList.add("DownKey:");
-        bindPrefixList.add("RightKey:");
-        bindPrefixList.add("AuraKey:");
-        bindPrefixList.add("SpeedKey:");
-        bindPrefixList.addAll(bindPrefixList);
         bindLabelList = new LinkedList<>();
 
-
-
-        //playButton
         playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(-playButton.getWidth() / 2, playButton.getHeight() / 2);
         playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
         stage.addActor(playButton);
+        System.out.println("Play button placed on positions X: " + playButton.getX() + ", Y: " + playButton.getY());
 
-
-        //cycleLeftButton
         cycleLeftButton = new BBMenuButton(cycleLeftDrawable);
         cycleLeftButton.setPosition((float) (-camera.viewportWidth / Math.pow(SCREEN_PARITION, 1.5)), currentMap.getY() + currentMap.getHeight() / 2);
+        cycleLeftButton.setBounds(cycleLeftButton.getX(), cycleLeftButton.getY(), cycleLeftButton.getWidth(), cycleLeftButton.getHeight());
         stage.addActor(cycleLeftButton);
 
-
-        //cycleRightButton
         cycleRightButton = new BBMenuButton(cycleRightDrawable);
         cycleRightButton.setPosition((float) (camera.viewportWidth / Math.pow(SCREEN_PARITION, 1.6)), currentMap.getY() + currentMap.getHeight() / 2);
+        cycleRightButton.setBounds(cycleRightButton.getX(), cycleRightButton.getY(), cycleRightButton.getWidth(), cycleRightButton.getHeight());
         stage.addActor(cycleRightButton);
 
-
-        //exitButton
         exitButton = new BBMenuButton(exitDrawable);
         exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         stage.addActor(exitButton);
 
-
-        //Rebind Buttons
-        for(int i = 0; i < NUMBER_OF_PLAYERS*bindPrefixList.size()/2; i++) {
+        /*
+         * Creates a BBMenuButton and a Label for every keybind in the given list.
+         * If more buttons are added, further drawables should be added.
+         *
+         * Rebind Buttons
+        */
+        for(int i = 0; i < bindPrefixList.size(); i++) {
             Drawable drawable;
-            switch(i%(bindPrefixList.size()/2)) {
+            switch(i%(bindPrefixList.size()/nbrOfPlayers)) {
                 case 0:
                     drawable = upBindButtonDrawable;
                     break;
@@ -204,9 +150,13 @@ public class MenuView{
                     drawable = missingDrawable;
             }
             BBMenuButton bindButton = new BBMenuButton(drawable, i);
-
-
             Label bindLabel = new Label(bindPrefixList.get(i) + Input.Keys.toString(keyList.get(i)), new Label.LabelStyle(font, Color.WHITE));
+
+            /*
+             * Positons of the buttons are labels are set here by adding each pair below the former,
+             * starting from a new position for every player.
+             * Add further if cases if more players are required.
+             */
             if(i < bindPrefixList.size()/2) {
                 bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION,
                         camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
@@ -219,7 +169,6 @@ public class MenuView{
                 bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()),
                         camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
             }
-
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
             stage.addActor(bindButton);
             stage.addActor(bindLabel);
@@ -227,21 +176,29 @@ public class MenuView{
             bindLabelList.add(bindLabel);
         }
 
-        int jump = 0;
-        for(int i = 0; i<NUMBER_OF_PLAYERS; i++) {
+        /*
+         * Places a label with the players name, for example "Player 1",
+         * over the players keybinding area.
+         * This is done simply by looping through the number of players,
+         * assigning a position based on the number of keys in the list of keys divided by the number of players,
+         * and then placing the label above the position of the corresponding button.
+         * The button in question should always be the first button in each players lists
+         *
+         *
+         */
+        float buttonHeight = bindButtonList.get(0).getHeight();
+        for(int i = 0; i<nbrOfPlayers; i++) {
             Label playerLabel = new Label("Player " + (i+1), new Label.LabelStyle(font, Color.WHITE));
             stage.addActor(playerLabel);
-            playerLabel.setPosition(bindButtonList.get(i+jump).getX(), bindButtonList.get(i+jump).getY()+bindButtonList.get(i+jump).getHeight());
-            jump = jump+(bindPrefixList.size()/2-1);
+            playerLabel.setPosition(bindButtonList.get(i*bindPrefixList.size()/nbrOfPlayers).getX(),
+                    bindButtonList.get(i*bindPrefixList.size()/nbrOfPlayers).getY()+buttonHeight);
         }
 
-        //Adds a title to the sceen
+        //Adds a title to the screen
         Label titleLabel = new Label("BALL BUSTER", new Label.LabelStyle(font, Color.DARK_GRAY));
         stage.addActor(titleLabel);
         titleLabel.setAlignment(Align.center);
         titleLabel.setPosition(0, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
-
-
 
         //Measurements for adjusting the screen, update code as needed
 
@@ -260,6 +217,27 @@ public class MenuView{
 
     }
 
+    /*
+     * Utility method for the constructor
+     */
+    private void readMapFile(){
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader("core/images/maps.txt"));
+            String line;
+            while((line=reader.readLine())!=null){
+                if(line.indexOf('.')==0){
+                    mapList.add(line.substring(1));
+                }else if(line.indexOf(':')==0){
+                    mapSprites.add(new Sprite(new Texture(line.substring(1))));
+                }
+            }
+            reader.close();
+
+        }catch(IOException e){
+            System.out.println("Map file read failed");
+        }
+    }
+
 
     public Stage getStage(){
         return stage;
@@ -267,10 +245,6 @@ public class MenuView{
 
     public String getMapFilePath() {
         return mapList.get(mapState);
-    }
-
-    public List<Integer> getKeyList(){
-        return keyList;
     }
 
     public List<BBMenuButton> getBindButtons(){
@@ -286,20 +260,16 @@ public class MenuView{
     }
 
     public BBMenuButton getCycleRightButton(){
-        return playButton;
+        return cycleRightButton;
     }
 
     public BBMenuButton getCycleLeftButton(){
-        return playButton;
+        return cycleLeftButton;
     }
 
-    public void setBindButton(int index, int keyCode){
-        keyList.remove(index);
-        keyList.add(index, keyCode);
-        bindLabelList.get(index).setText(bindPrefixList.get(index) + Input.Keys.toString(keyList.get(index)));
-        //bindLabelList.get(index).setText(bindPrefixList.get(index) + KeyCodeMap.valueOf(keyList.get(index)).getHumanName());
 
-
+    public void setBindLabel(int index, String prefix, int keycode){
+        bindLabelList.get(index).setText(prefix + Input.Keys.toString(keycode));
     }
 
     public void cycleRight(){
@@ -320,6 +290,7 @@ public class MenuView{
 
     /*
      * Called whenever the MenuController renders
+     * Used to update the view itself
      */
     public void update() {
 

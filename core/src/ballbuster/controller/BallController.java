@@ -3,7 +3,6 @@ package ballbuster.controller;
 import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.view.BallView;
-import box2dLight.PointLight;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
