@@ -38,7 +38,6 @@ public class PowerUpView{
         int random = (int )(Math.random() * 20 + 10);
         timer = new Timer(random);
         powerUpTimer = new Timer(5f);
-        System.out.println(random);
         font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
     }
 
@@ -47,7 +46,7 @@ public class PowerUpView{
         timer.update(delta);
         powerUpTimer.update(delta);
         showSprite(sprite);
-        Player player = getHitPlayer(playerList, sprite);
+        Player player = getHitPlayer(playerList, sprite, powerUpTimer);
         if(timer.hasTimeElapsed()) {
             draw(sprite, batch);
             if (player != null) {
@@ -56,18 +55,17 @@ public class PowerUpView{
                 message = player.applyPowerUp(powerUp, playerList);
             }
         }
-        resetBall(playerList, delta);
+        resetBall(playerList, delta, powerUpTimer);
     }
-    public void resetBall(ArrayList<Player> playerList, float delta) {
-        powerUpTimer.update(delta);
+    public void resetBall(ArrayList<Player> playerList, float delta, Timer objectTimer) {
+        objectTimer.update(delta);
         for(Player player : playerList){
-                if(powerUpTimer.hasTimeElapsed()) {
+                if(objectTimer.hasTimeElapsed()) {
                     player.resetBall();
                     message = "";
                 }
                 else if(message!=null){
-                    System.out.println(message);
-                    font.setColor(1,1,1,powerUpTimer.getRemaining()*2);
+                    font.setColor(1,1,1,objectTimer.getRemaining()*2);
                     batch.begin();
                     font.draw(batch, message, 0-font.getBounds(message).width/2, 0);
                     batch.end();
@@ -75,12 +73,12 @@ public class PowerUpView{
         }
     }
 
-    public Player getHitPlayer(ArrayList<Player> playerList, Sprite sprite) {
+    public Player getHitPlayer(ArrayList<Player> playerList, Sprite sprite, Timer objectTimer) {
         for(Player player : playerList) {
             if (hasCollision(player.getBall(), sprite)){
                 player.getBall().setHasPowerUp(true);
                hideSprite(sprite);
-                powerUpTimer.reset();
+                objectTimer.reset();
                 return player;
             }
         }

@@ -96,12 +96,10 @@ public class Player {
             case "speedUp":
                 this.setSpeedUp(true);
                 this.getBall().setSpeed(this.getBall().getSpeed()*2);
-                System.out.println("speedUp");
                 message = "Obtained Faster Speed!";
                 break;
             case "slowDown":
                 this.getBall().setSpeed(0.02f);
-                System.out.println("slowDown");
                 message = "Obtained Slower Speed!";
                 break;
             case "invertKeys":
@@ -127,6 +125,15 @@ public class Player {
                     }
                 }
                 break;
+
+        }
+        return message;
+    }
+
+    public String applyHealthPack(PowerUp powerUp ,ArrayList<Player> playerList){
+        if (powerUp.getPowerUp().toString() == "healthPack"){
+            this.getBall().addHealthToShield(10);
+            this.message = this.getPlayerName()+" found a healthPack. +10HP";
         }
         return message;
     }

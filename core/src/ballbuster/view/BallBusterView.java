@@ -21,7 +21,7 @@ import com.badlogic.gdx.physics.box2d.*;
 import java.util.ArrayList;
 
 
-public class BallBusterView implements IController{
+public class BallBusterView{
 
     private OrthographicCamera camera;
     private World world;
@@ -37,7 +37,6 @@ public class BallBusterView implements IController{
 
     private Sprite background;
 
-    @Override
     public void onCreate() {
         world = new World(new Vector2(0, 0), true);
 
@@ -55,7 +54,6 @@ public class BallBusterView implements IController{
         background = new Sprite(backgroundTexture);
     }
 
-    @Override
     public void onRender() {
         camera.update();
 
