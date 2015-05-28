@@ -100,10 +100,16 @@ public class MenuView{
                     bindButtonList.get(i*bindPrefixList.size()/nbrOfPlayers).getY()+buttonHeight);
         }
 
+        //Adds label next to AI button
+        Label checkAILabel = new Label("AI", new Label.LabelStyle(font, Color.DARK_GRAY));
+        checkAILabel.setFontScale(1.5f);
+        checkAILabel.setPosition(checkAIButton.getX() - 1.2f * checkAIButton.getWidth(), checkAIButton.getY() + checkAILabel.getHeight());
+        stage.addActor(checkAILabel);
+
         //Adds a title to the screen
         Label titleLabel = new Label("BALL BUSTER", new Label.LabelStyle(font, Color.DARK_GRAY));
         stage.addActor(titleLabel);
-        titleLabel.setAlignment(Align.center);
+        //titleLabel.setAlignment(Align.center);
         titleLabel.setPosition(0-titleLabel.getWidth()/2, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
 
         //Measurements for adjusting the screen, update code as needed
@@ -144,9 +150,6 @@ public class MenuView{
         }
     }
 
-    private void toggleCheckBoxDrawable(){
-
-    }
 
     private void createUnindexedButtons(){
 
@@ -158,6 +161,8 @@ public class MenuView{
                 new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
         final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/exit.png"))));
+        final Drawable defaultToggleDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/unchecked.png"))));
 
         playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(-playButton.getWidth() / 2, playButton.getHeight() / 2);
@@ -179,6 +184,14 @@ public class MenuView{
         exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
         exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
         stage.addActor(exitButton);
+
+        checkAIButton = new BBMenuButton(defaultToggleDrawable);
+        checkAIButton.setPosition(playButton.getX()+2*playButton.getWidth(), playButton.getY() +3*playButton.getHeight());
+        checkAIButton.setBounds(checkAIButton.getX(), checkAIButton.getY(), 100, 100);
+        stage.addActor(checkAIButton);
+
+
+
     }
 
     private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
@@ -285,9 +298,19 @@ public class MenuView{
         return cycleLeftButton;
     }
 
+    public BBMenuButton getCheckAIButton(){return checkAIButton; }
+
 
     public void setBindLabel(int index, String prefix, int keycode){
         bindLabelList.get(index).setText(prefix + Input.Keys.toString(keycode));
+    }
+
+    public void toggleCheckBoxDrawable(boolean isAIActive){
+        if(isAIActive){
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("core/images/check.png")));
+        }else{
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("core/images/unchecked.png")));
+        }
     }
 
     public void cycleRight(){

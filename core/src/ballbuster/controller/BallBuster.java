@@ -42,6 +42,7 @@ public class BallBuster extends Game{
     private Texture texture2;
     private Player player2;
     private boolean isGameOver = false;
+    private boolean isAIActive;
 
     private AuraController auraController;
     private AuraController auraController2;
@@ -69,17 +70,10 @@ public class BallBuster extends Game{
     private SpriteBatch batch;
 
 
-    public BallBuster() {
-        this.map = "core/images/tiledMap/designmap.tmx";
-    }
 
-    public BallBuster(int id, String map) {
-        this.id = id;
+    public BallBuster(String map, boolean isAIActive) {
         this.map = map;
-    }
-
-    public BallBuster(String map) {
-        this.map = map;
+        this.isAIActive = isAIActive;
     }
 
     public int getId() {
@@ -164,12 +158,12 @@ public class BallBuster extends Game{
         this.playerList.add(player2);
 
         ballController = new BallController(player, batch, texture, world, shieldTexture);
-        //ballController.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT);
-        ballController2 = new BallController(player2, batch, texture2, world, shieldTexture2);
-        //ballController2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE);
+        if(isAIActive){
+            ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
+        }else{
+            ballController2 = new BallController(player2, batch, texture2, world, shieldTexture2);
 
-        //Uncomment to add AI =D
-        //ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
+        }
 
         controllerList.add(ballController);
         controllerList.add(ballController2);

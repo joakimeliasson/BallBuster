@@ -29,6 +29,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
     private MenuView menuView;
     private int currentBindIndex = NO_INDEX;
     private boolean isInFocus = true;
+    private boolean isAIActive = false;
     private final int NUMBER_OF_PLAYERS = 2;
 
 
@@ -82,7 +83,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
                  * and assigning keys to the players.
                  */
                 if (isInFocus) {
-                    ballBuster = new BallBuster(menuView.getMapFilePath());
+                    ballBuster = new BallBuster(menuView.getMapFilePath(),isAIActive);
                     ballBuster.create();
                     playerList = ballBuster.getPlayers();
                     int bindNbr = 0;
@@ -127,6 +128,17 @@ public class MenuController implements ApplicationListener, InputProcessor {
             }
         });
 
+        menuView.getCheckAIButton().addListener(new InputListener(){
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
+                if(isInFocus){
+                    isAIActive = !isAIActive;
+                    menuView.toggleCheckBoxDrawable(isAIActive);
+                }
+                return true;
+            }
+        });
+
 
         for(int i = 0; i < menuView.getBindButtons().size(); i++) {
             BBMenuButton bindButton = menuView.getBindButtons().get(i);
@@ -140,6 +152,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
                 }
             });
         }
+
     }
 
     /*
