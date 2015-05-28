@@ -104,7 +104,7 @@ public class MenuView{
         Label titleLabel = new Label("BALL BUSTER", new Label.LabelStyle(font, Color.DARK_GRAY));
         stage.addActor(titleLabel);
         titleLabel.setAlignment(Align.center);
-        titleLabel.setPosition(0, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
+        titleLabel.setPosition(0-titleLabel.getWidth()/2, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
 
         //Measurements for adjusting the screen, update code as needed
 

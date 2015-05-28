@@ -122,6 +122,7 @@ public class BallBuster extends Game{
 
         world.setContactListener(collisionController);
 
+        //ballBusterView.setDebugRenderer();
         ballBusterView.setDebugRenderer();
         for(BallController ball: ballList){
             if(ball.getBall().getShield()<0){
