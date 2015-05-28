@@ -1,4 +1,4 @@
-package ballbuster.model.tile;
+package ballbuster.model;
 
 /**
  * Created by Matthias on 2015-03-30.

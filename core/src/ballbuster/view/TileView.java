@@ -1,7 +1,7 @@
 package ballbuster.view;
 
 import ballbuster.controller.BallBuster;
-import ballbuster.model.tile.Tile;
+import ballbuster.model.Tile;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

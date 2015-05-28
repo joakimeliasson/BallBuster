@@ -1,9 +1,6 @@
 package ballbuster.view;
 
-import ballbuster.model.Map;
-import ballbuster.model.tile.BlackTile;
-import ballbuster.model.tile.Tile;
-import ballbuster.model.tile.WhiteTile;
+import ballbuster.model.Tile;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -26,7 +23,6 @@ public class MapView {
     private ArrayList<BlockTileView> tileLocations;
     private OrthographicCamera camera;
     private OrthographicCamera renderCamera;
-    private Map mapModel;
     private ArrayList<Body> bodyListPlayer1;
     private ArrayList<Body> bodyListPlayer2;
 
@@ -38,7 +34,6 @@ public class MapView {
         this.bodyListPlayer2 = new ArrayList<>();
         this.mapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         this.mapRenderer.setView(camera);
-        this.mapModel = new Map();
 
         //RenderCamera moves the map so that is located where our camera is.
         renderCamera = new OrthographicCamera(camera.viewportWidth, camera.viewportHeight);
@@ -55,15 +50,13 @@ public class MapView {
                 if(cell == null) {continue; }
                 if(cell.getTile() == null) {continue; }
 
-                Tile tile = new BlackTile(col * layer.getTileWidth() - camera.viewportWidth/2, row * layer.getTileHeight() -camera.viewportHeight/2);
-                mapModel.addTile(tile);
+                Tile tile = new Tile(col * layer.getTileWidth() - camera.viewportWidth/2, row * layer.getTileHeight() -camera.viewportHeight/2);
 
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
                 tileView.createBody();
                 tiles.add(tileView);
                 tileLocations = tiles;
                 bodyListPlayer1.add(tileView.getBody());
-
             }
         }
 
@@ -79,8 +72,7 @@ public class MapView {
                 if(cell == null) {continue; }
                 if(cell.getTile() == null) {continue; }
 
-                Tile tile = new WhiteTile(col * layer.getTileWidth()- camera.viewportWidth/2,row * layer.getTileHeight()- camera.viewportHeight/2);
-                mapModel.addTile(tile);
+                Tile tile = new Tile(col * layer.getTileWidth()- camera.viewportWidth/2,row * layer.getTileHeight()- camera.viewportHeight/2);
 
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
                 tileView.createBody();
@@ -91,20 +83,6 @@ public class MapView {
         }
 
     }
-    //Used to focus map but doesn't work now since we moved it
-    public void cameraFocusMap() {
-        int mapHeight,mapWidth;
-        mapHeight = getTileMap().getProperties().get("height", Integer.class) * getTileMap().getProperties().get("tileheight", Integer.class);
-        mapWidth =  getTileMap().getProperties().get("width", Integer.class) * getTileMap().getProperties().get("tilewidth", Integer.class);
-
-        //camera position
-        camera.position.set(mapWidth / 2, mapHeight / 2, 0);
-
-        //camera scale
-        camera.viewportHeight = mapHeight;
-        camera.viewportWidth = mapWidth;
-        camera.update();
-    }
 
     public ArrayList<Body> getBodyListPlayer1() {
         return bodyListPlayer1;
@@ -114,17 +92,10 @@ public class MapView {
         return bodyListPlayer2;
     }
 
-    /**
-     * Returns the mapfile which is loaded from a .tmx (tiled map) file.
-     */
     public TiledMap getTileMap() {
         return tiledMap;
     }
 
-    public void render() {
-        mapRenderer.setView(renderCamera);
-        mapRenderer.render();
-    }
     public OrthographicCamera getRenderCamera() {
         return renderCamera;
     }

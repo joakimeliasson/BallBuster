@@ -1,6 +1,6 @@
 package ballbuster.controller;
 
-import ballbuster.model.tile.Tile;
+import ballbuster.model.Tile;
 import ballbuster.view.TileView;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

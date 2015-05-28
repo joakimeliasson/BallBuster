@@ -1,6 +1,6 @@
 package ballbuster.tests;
 
-import ballbuster.model.tile.Tile;
+import ballbuster.model.Tile;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,29 +1,18 @@
 package ballbuster.controller;
 
-import ballbuster.model.Aura;
-import ballbuster.model.Ball;
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
-import ballbuster.model.tile.BlockTile;
-import ballbuster.model.tile.Tile;
 import ballbuster.view.BallBusterView;
 import ballbuster.view.BlockTileView;
-import ballbuster.view.HudView;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -59,8 +48,6 @@ public class BallBuster extends Game{
     private ArrayList<PowerUp> powerUpList;
     private ArrayList<BlockTileView> tileLocations;
 
-    private int id;
-
     private CollisionController collisionController;
 
     private final String map; //Location of the map example: "core/res/TiledMaps/designmap.tmx"
@@ -69,17 +56,10 @@ public class BallBuster extends Game{
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
-
-
     public BallBuster(String map, boolean isAIActive) {
         this.map = map;
         this.isAIActive = isAIActive;
     }
-
-    public int getId() {
-        return id;
-    }
-
 
     @Override
     public void create() {
