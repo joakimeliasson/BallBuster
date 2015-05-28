@@ -92,10 +92,6 @@ public class MapView {
         return bodyListPlayer2;
     }
 
-    public TiledMap getTileMap() {
-        return tiledMap;
-    }
-
     public OrthographicCamera getRenderCamera() {
         return renderCamera;
     }
