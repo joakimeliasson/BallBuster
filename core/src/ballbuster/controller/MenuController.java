@@ -29,14 +29,14 @@ public class MenuController implements ApplicationListener, InputProcessor {
     private MenuView menuView;
     private int currentBindIndex = NO_INDEX;
     private boolean isInFocus = true;
+    private final int NUMBER_OF_PLAYERS = 2;
+
 
 
 
 
     @Override
     public void create() {
-
-        final int NUMBER_OF_PLAYERS = 2;
 
 
         //Default keys for players
@@ -69,6 +69,12 @@ public class MenuController implements ApplicationListener, InputProcessor {
         menuView = new MenuView(NUMBER_OF_PLAYERS,keyPrefixList, keyList);
 
         Gdx.input.setInputProcessor(menuView.getStage());
+
+        addListeners();
+
+    }
+
+    public void addListeners(){
         menuView.getPlayButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 /*
@@ -80,9 +86,9 @@ public class MenuController implements ApplicationListener, InputProcessor {
                     ballBuster.create();
                     playerList = ballBuster.getPlayers();
                     int bindNbr = 0;
-                    //Should not loop more than the implemented number of players
-                    for (int i = 0; i < playerList.size(); i++) {
-                        playerList.get(i).setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2),
+
+                    for(Player p: playerList) {
+                        p.setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2),
                                 keyList.get(bindNbr + 3), keyList.get(bindNbr + 4), keyList.get(bindNbr + 5));
                         bindNbr = bindNbr + keyList.size() / NUMBER_OF_PLAYERS;
                     }
@@ -137,25 +143,18 @@ public class MenuController implements ApplicationListener, InputProcessor {
     }
 
     /*
-     * Used by BallBuster class to return to the menu after a game is finished
-     * Should not be used for any other purpose
-     */
-    public void setInFocus(){
-        isInFocus = true;
-    }
-
-    /*
      * Renders the menu if ballbuster is inactive and the menu is in focus,
      * renders the game if ballbuster is active, and the menu is not in focus,
      * disposes the current ballbuster session if the menu regains focus
      */
     @Override
     public void render() {
-        if (isInFocus && ballBuster == null) {
+        if (ballBuster == null) {
             menuView.update();
-        }else if (!isInFocus && ballBuster != null) {
+        }else if (!ballBuster.getIsGameOver()) {
             ballBuster.render();
-        }else if (isInFocus && ballBuster != null) {
+        }else{
+            isInFocus = true;
             ballBuster = null;
         }
     }

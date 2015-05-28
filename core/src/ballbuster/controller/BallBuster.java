@@ -41,6 +41,7 @@ public class BallBuster extends Game{
     private Player player;
     private Texture texture2;
     private Player player2;
+    private boolean isGameOver = false;
 
     private AuraController auraController;
     private AuraController auraController2;
@@ -122,10 +123,20 @@ public class BallBuster extends Game{
         world.setContactListener(collisionController);
 
         ballBusterView.setDebugRenderer();
+        for(BallController ball: ballList){
+            if(ball.getBall().getShield()<0){
+                isGameOver = true;
+                break;
+            }
+        }
+    }
+
+    public boolean getIsGameOver(){
+        return isGameOver;
     }
 
     public void createBalls() {
-        playerList = new ArrayList<Player>();
+        playerList = new ArrayList<>();
         FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
         texture = new Texture(ballFileHandle);
 
@@ -177,7 +188,7 @@ public class BallBuster extends Game{
         controllerList.add(auraController2);
     }
     public void createPowerUp(){
-        powerUpList = new ArrayList<PowerUp>();
+        powerUpList = new ArrayList<>();
         PowerUp speedUp = new PowerUp("speedUp");
         PowerUp slowDown = new PowerUp("slowDown");
         PowerUp invertKeys = new PowerUp("invertKeys");
@@ -205,7 +216,7 @@ public class BallBuster extends Game{
         controllerList.add(tileWallController);
     }
     private void collision() {
-        ballList = new ArrayList<BallController>();
+        ballList = new ArrayList<>();
 
         ballList.add(ballController);
         ballList.add(ballController2);
