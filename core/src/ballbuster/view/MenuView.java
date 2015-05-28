@@ -28,20 +28,20 @@ public class MenuView{
 
 
     private List<Label> bindLabelList;
-    private List<Sprite> mapSprites;
-    private List<String> mapList;
-    private List<BBMenuButton> bindButtonList;
+    private final List<Sprite> mapSprites;
+    private final List<String> mapList;
+    private final List<BBMenuButton> bindButtonList;
     private BBMenuButton playButton;
     private BBMenuButton exitButton;
     private BBMenuButton cycleRightButton;
     private BBMenuButton cycleLeftButton;
     private Sprite currentMap;
-    private BitmapFont font;
-    private SpriteBatch batch;
-    private Sprite background;
-    private Stage stage;
+    private final BitmapFont font;
+    private final SpriteBatch batch;
+    private final Sprite background;
+    private final Stage stage;
     private int mapState;
-    private OrthographicCamera camera;
+    private final OrthographicCamera camera;
     private final static float DEFAULT_ALPHA = 1f;
     private final static float SCREEN_PARITION = 2.2f;
 
@@ -78,7 +78,7 @@ public class MenuView{
         bindLabelList = new LinkedList<>();
 
 
-        createUnindexedButtons(nbrOfPlayers, bindPrefixList, keyList);
+        createUnindexedButtons();
         createIndexedButtons(nbrOfPlayers,bindPrefixList,keyList);
 
         /*
@@ -143,7 +143,7 @@ public class MenuView{
         }
     }
 
-    private void createUnindexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
+    private void createUnindexedButtons(){
 
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/play.png"))));
