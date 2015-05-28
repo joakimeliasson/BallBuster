@@ -165,9 +165,9 @@ public class MenuView{
 
             }else if(i < bindPrefixList.size()) {
                 bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)),
-                        camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
+                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
                 bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()),
-                        camera.viewportHeight/SCREEN_PARITION-((i%(bindPrefixList.size()/2)+1)* (bindButton.getHeight())));
+                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
             }
             bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
             stage.addActor(bindButton);

@@ -47,10 +47,10 @@ public class PlayerTest {
     @Test
     public void testPlayerKeys(){
         p.setKeys(1,2,3,4,5,6);
-        assertEquals(1, p.getRightKey());
+        assertEquals(1, p.getUpKey());
         assertEquals(2, p.getLeftKey());
-        assertEquals(3, p.getUpKey());
-        assertEquals(4, p.getDownKey());
+        assertEquals(3, p.getDownKey());
+        assertEquals(4, p.getRightKey());
         assertEquals(5, p.getAuraKey());
         assertEquals(6, p.getSpeedKey());
     }
