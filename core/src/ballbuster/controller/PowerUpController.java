@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -50,12 +51,15 @@ public class PowerUpController implements IController{
 
     }
     private void setForbiddenLocations(){
-        for (BlockTileView b : tiles) {
-            for (double i = b.getTile().getX()-healthSprite.getWidth()/2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth()/2; i++) {
-                for (double k = b.getTile().getY()-healthSprite.getHeight()/2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
-                    forbiddenLocations.add(new Point((int)i,(int)k));
+        try {
+            for (BlockTileView b : tiles) {
+                for (double i = b.getTile().getX() - healthSprite.getWidth() / 2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth() / 2; i++) {
+                    for (double k = b.getTile().getY() - healthSprite.getHeight() / 2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
+                        forbiddenLocations.add(new Point((int) i, (int) k));
+                    }
                 }
             }
+        }catch (NullPointerException e){
         }
     }
     private void setHealthSpritePosition(){

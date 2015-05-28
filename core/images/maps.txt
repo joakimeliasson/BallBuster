@@ -1,5 +1,7 @@
 Maps:
 .core/images/tiledMap/designmap.tmx
+.core/images/tiledMap/empty.tmx
 
 Miniatures:
 :core/images/map1.PNG
+:core/images/empty.PNG

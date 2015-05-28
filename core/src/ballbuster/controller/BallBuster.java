@@ -121,7 +121,7 @@ public class BallBuster extends Game{
 
         world.setContactListener(collisionController);
 
-        ballBusterView.setDebugRenderer();
+        //ballBusterView.setDebugRenderer();
     }
 
     public void createBalls() {
