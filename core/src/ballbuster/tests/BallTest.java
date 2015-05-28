@@ -48,12 +48,19 @@ public class BallTest {
     public void testDamage() {
         ball.shieldDamage(10);
         assertTrue(90 == ball.getShield());
-        ball.addHealthToShield(1+(int)ball.getMaximumShield());
-        assertTrue(ball.getMaximumShield() == ball.getShield());
+    }
+
+    @Test
+    public void testAddHealthToShield(){
+        ball.addHealthToShield(10);
+        assertTrue(ball.getShield() == 100);
+        ball.shieldDamage(20);
+        ball.addHealthToShield(10);
+        assertTrue(ball.getShield() == 90);
     }
     @Test
     public void testGetX2() {
-        ball.setBodyPosition(3f,4f);
+        ball.setBodyPosition(3f, 4f);
         assertTrue(ball.getX2() == 3f);
     }
     @Test
@@ -67,12 +74,48 @@ public class BallTest {
         assertNotNull(ball.getAura());
     }
 
+
     @Test
-    public void testMana() {
-        ball.setMana(0);
-        ball.changeMana(-10);
-        assertTrue(ball.getMana() ==  0);
+    public void testGetAndSetMana() {
+        ball.setMana(10);
+        assertTrue(ball.getMana() == 10);
     }
+
+    @Test
+    public void testChangeMana(){
+        float mana = ball.getMana();
+        ball.changeMana(10);
+        assertTrue(ball.getMana() == ball.getMaximumMana());
+        ball.changeMana(-50);
+        assertTrue(ball.getMana() == ball.getMaximumMana() - 50);
+        ball.changeMana(-60);
+        assertTrue(ball.getMana() == 0);
+    }
+
+    @Test
+    public void testSetAndHasPowerUp(){
+        ball.setHasPowerUp(true);
+        assertTrue(ball.hasPowerUp());
+    }
+
+    @Test
+    public void testSetAndGetRadius(){
+        ball.setRadius(2f);
+        assertTrue(ball.getRadius() == 2f);
+    }
+
+    @Test
+    public void testSetAndGetSpeed(){
+        ball.setSpeed(2f);
+        assertTrue(ball.getSpeed() == 2f);
+    }
+
+    @Test
+    public void testMaximumMana() {
+        assertTrue(ball.getMaximumMana() == 100);
+    }
+
+
 
 
 

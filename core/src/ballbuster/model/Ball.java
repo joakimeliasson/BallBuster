@@ -67,10 +67,10 @@ public class Ball {
         }
     }
     public void addHealthToShield(int health){
-        if (shield+health < getMaximumShield())
-            this.shield = shield+health;
-        else
+        if (shield+health >= getMaximumShield())
             this.shield = getMaximumShield();
+        else
+            this.shield = shield+health;
     }
 
     public void setPosition(float x, float y) {

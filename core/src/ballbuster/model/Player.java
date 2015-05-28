@@ -121,7 +121,7 @@ public class Player {
                         p.invertKeys(true);
                         p.getBall().setHasPowerUp(true);
                         p.setKeys(p.getDownKey(), p.getRightKey(), p.getUpKey(), p.getLeftKey(), p.getAuraKey(),p.getSpeedKey());
-                        message = "Inverted keys for "+p.getPlayerName();
+                        message = "Inverted keys for other player";
                     }
                 }
                 break;
@@ -133,7 +133,7 @@ public class Player {
     public String applyHealthPack(PowerUp powerUp ,ArrayList<Player> playerList){
         if (powerUp.getPowerUp() == "healthPack"){
             this.getBall().addHealthToShield(10);
-            this.message = this.getPlayerName()+" found a healthPack. +10HP";
+            message = "A player found a healthPack. +10HP";
         }
         return message;
     }
