@@ -50,17 +50,16 @@ public class PowerUpController implements IController{
         random = new Random();
 
     }
-    private void setForbiddenLocations(){
-        try {
-            for (BlockTileView b : tiles) {
-                for (double i = b.getTile().getX() - healthSprite.getWidth() / 2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth() / 2; i++) {
-                    for (double k = b.getTile().getY() - healthSprite.getHeight() / 2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
-                        forbiddenLocations.add(new Point((int) i, (int) k));
-                    }
+    private void setForbiddenLocations() {
+    if(tiles !=null) {
+        for (BlockTileView b : tiles) {
+            for (double i = b.getTile().getX() - healthSprite.getWidth() / 2; i < b.getTile().getX() + b.getWidth() + healthSprite.getWidth() / 2; i++) {
+                for (double k = b.getTile().getY() - healthSprite.getHeight() / 2; k < b.getTile().getY() + b.getHeight() + healthSprite.getWidth(); k++) {
+                    forbiddenLocations.add(new Point((int) i, (int) k));
                 }
             }
-        }catch (NullPointerException e){
         }
+    }
     }
     private void setHealthSpritePosition(){
             float xminus = -Gdx.graphics.getWidth()/2+2*healthSprite.getWidth();
