@@ -51,7 +51,7 @@ public class MenuView{
      * In the current version, using a higher number of players than 2 is inadvisable, as there are no designated
      * positions for additional actors on the stage.
      *
-     * @Ensure that the size of the list of prefixes, and the list of keys are the same.
+     * @Ensure that the size of the list of prefixes, and the size of the list of keys are the same.
      */
     public MenuView(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList ){
         stage = new Stage();
@@ -75,106 +75,11 @@ public class MenuView{
         FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
         Texture backgroundTexture = new Texture(backFileHandle);
         background = new Sprite(backgroundTexture);
-        final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/play.png"))));
-        final Drawable cycleRightDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempRight.png"))));
-        final Drawable cycleLeftDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
-        final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/exit.png"))));
-        final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/leftbind.png"))));
-        final Drawable rightBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/rightbind.png"))));
-        final Drawable upBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/upbind.png"))));
-        final Drawable downBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/downbind.png"))));
-        final Drawable auraBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/aurabind.png"))));
-        final Drawable missingDrawable = new TextureRegionDrawable(new TextureRegion
-                (new Texture(Gdx.files.internal("core/images/tempbind.png"))));
-
         bindLabelList = new LinkedList<>();
 
-        playButton = new BBMenuButton(playDrawable);
-        playButton.setPosition(-playButton.getWidth() / 2, playButton.getHeight() / 2);
-        playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
-        stage.addActor(playButton);
-        System.out.println("Play button placed on positions X: " + playButton.getX() + ", Y: " + playButton.getY());
 
-        cycleLeftButton = new BBMenuButton(cycleLeftDrawable);
-        cycleLeftButton.setPosition((float) (-camera.viewportWidth / Math.pow(SCREEN_PARITION, 1.5)), currentMap.getY() + currentMap.getHeight() / 2);
-        cycleLeftButton.setBounds(cycleLeftButton.getX(), cycleLeftButton.getY(), cycleLeftButton.getWidth(), cycleLeftButton.getHeight());
-        stage.addActor(cycleLeftButton);
-
-        cycleRightButton = new BBMenuButton(cycleRightDrawable);
-        cycleRightButton.setPosition((float) (camera.viewportWidth / Math.pow(SCREEN_PARITION, 1.6)), currentMap.getY() + currentMap.getHeight() / 2);
-        cycleRightButton.setBounds(cycleRightButton.getX(), cycleRightButton.getY(), cycleRightButton.getWidth(), cycleRightButton.getHeight());
-        stage.addActor(cycleRightButton);
-
-        exitButton = new BBMenuButton(exitDrawable);
-        exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
-        exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
-        stage.addActor(exitButton);
-
-        /*
-         * Creates a BBMenuButton and a Label for every keybind in the given list.
-         * If more buttons are added, further drawables should be added.
-         *
-         * Rebind Buttons
-        */
-        for(int i = 0; i < bindPrefixList.size(); i++) {
-            Drawable drawable;
-            switch(i%(bindPrefixList.size()/nbrOfPlayers)) {
-                case 0:
-                    drawable = upBindButtonDrawable;
-                    break;
-                case 1:
-                    drawable = leftBindButtonDrawable;
-                    break;
-                case 2:
-                    drawable = downBindButtonDrawable;
-                    break;
-                case 3:
-                    drawable = rightBindButtonDrawable;
-                    break;
-                case 4:
-                    drawable = auraBindButtonDrawable;
-                    break;
-                case 5:
-                    drawable = auraBindButtonDrawable;
-                    break;
-                default:
-                    drawable = missingDrawable;
-            }
-            BBMenuButton bindButton = new BBMenuButton(drawable, i);
-            Label bindLabel = new Label(bindPrefixList.get(i) + Input.Keys.toString(keyList.get(i)), new Label.LabelStyle(font, Color.WHITE));
-
-            /*
-             * Positons of the buttons are labels are set here by adding each pair below the former,
-             * starting from a new position for every player.
-             * Add further if cases if more players are required.
-             */
-            if(i < bindPrefixList.size()/2) {
-                bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION,
-                        camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
-                bindLabel.setPosition(-camera.viewportWidth /SCREEN_PARITION + bindButton.getWidth(),
-                        camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
-
-            }else if(i < bindPrefixList.size()) {
-                bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)),
-                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
-                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()),
-                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
-            }
-            bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
-            stage.addActor(bindButton);
-            stage.addActor(bindLabel);
-            bindButtonList.add(bindButton);
-            bindLabelList.add(bindLabel);
-        }
+        createUnindexedButtons(nbrOfPlayers, bindPrefixList, keyList);
+        createIndexedButtons(nbrOfPlayers,bindPrefixList,keyList);
 
         /*
          * Places a label with the players name, for example "Player 1",
@@ -236,6 +141,114 @@ public class MenuView{
         }catch(IOException e){
             System.out.println("Map file read failed");
         }
+    }
+
+    private void createUnindexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
+
+        final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/play.png"))));
+        final Drawable cycleRightDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/tempRight.png"))));
+        final Drawable cycleLeftDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
+        final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/exit.png"))));
+
+        playButton = new BBMenuButton(playDrawable);
+        playButton.setPosition(-playButton.getWidth() / 2, playButton.getHeight() / 2);
+        playButton.setBounds(playButton.getX(), playButton.getY(), playButton.getWidth(), playButton.getHeight());
+        stage.addActor(playButton);
+        System.out.println("Play button placed on positions X: " + playButton.getX() + ", Y: " + playButton.getY());
+
+        cycleLeftButton = new BBMenuButton(cycleLeftDrawable);
+        cycleLeftButton.setPosition((float) (-camera.viewportWidth / Math.pow(SCREEN_PARITION, 1.5)), currentMap.getY() + currentMap.getHeight() / 2);
+        cycleLeftButton.setBounds(cycleLeftButton.getX(), cycleLeftButton.getY(), cycleLeftButton.getWidth(), cycleLeftButton.getHeight());
+        stage.addActor(cycleLeftButton);
+
+        cycleRightButton = new BBMenuButton(cycleRightDrawable);
+        cycleRightButton.setPosition((float) (camera.viewportWidth / Math.pow(SCREEN_PARITION, 1.6)), currentMap.getY() + currentMap.getHeight() / 2);
+        cycleRightButton.setBounds(cycleRightButton.getX(), cycleRightButton.getY(), cycleRightButton.getWidth(), cycleRightButton.getHeight());
+        stage.addActor(cycleRightButton);
+
+        exitButton = new BBMenuButton(exitDrawable);
+        exitButton.setPosition(playButton.getX(), playButton.getY() - exitButton.getHeight());
+        exitButton.setBounds(exitButton.getX(), exitButton.getY(), exitButton.getWidth(), exitButton.getHeight());
+        stage.addActor(exitButton);
+    }
+
+    private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
+
+        final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/leftbind.png"))));
+        final Drawable rightBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/rightbind.png"))));
+        final Drawable upBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/upbind.png"))));
+        final Drawable downBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/downbind.png"))));
+        final Drawable auraBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
+                new Texture(Gdx.files.internal("core/images/aurabind.png"))));
+        final Drawable missingDrawable = new TextureRegionDrawable(new TextureRegion
+                (new Texture(Gdx.files.internal("core/images/tempbind.png"))));
+
+
+        /*
+         * Creates a BBMenuButton and a Label for every keybind in the given list.
+         * If more buttons are added, further drawables should be added.
+         *
+         * Rebind Buttons
+        */
+        for(int i = 0; i < bindPrefixList.size(); i++) {
+            Drawable drawable;
+            switch(i%(bindPrefixList.size()/nbrOfPlayers)) {
+                case 0:
+                    drawable = upBindButtonDrawable;
+                    break;
+                case 1:
+                    drawable = leftBindButtonDrawable;
+                    break;
+                case 2:
+                    drawable = downBindButtonDrawable;
+                    break;
+                case 3:
+                    drawable = rightBindButtonDrawable;
+                    break;
+                case 4:
+                    drawable = auraBindButtonDrawable;
+                    break;
+                case 5:
+                    drawable = auraBindButtonDrawable;
+                    break;
+                default:
+                    drawable = missingDrawable;
+            }
+            BBMenuButton bindButton = new BBMenuButton(drawable, i);
+            Label bindLabel = new Label(bindPrefixList.get(i) + Input.Keys.toString(keyList.get(i)), new Label.LabelStyle(font, Color.WHITE));
+
+            /*
+             * Positons of the buttons are labels are set here by adding each pair below the former,
+             * starting from a new position for every player.
+             * Add further if cases if more players are required.
+             */
+            if(i < bindPrefixList.size()/2) {
+                bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION,
+                        camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
+                bindLabel.setPosition(-camera.viewportWidth /SCREEN_PARITION + bindButton.getWidth(),
+                        camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
+
+            }else if(i < bindPrefixList.size()) {
+                bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)),
+                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
+                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()),
+                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
+            }
+            bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
+            stage.addActor(bindButton);
+            stage.addActor(bindLabel);
+            bindButtonList.add(bindButton);
+            bindLabelList.add(bindLabel);
+        }
+
     }
 
 
