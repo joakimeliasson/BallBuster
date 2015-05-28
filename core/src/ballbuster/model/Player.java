@@ -92,7 +92,7 @@ public class Player {
             }
     }
     public String applyPowerUp(PowerUp powerUp ,ArrayList<Player> playerList) {
-        switch (powerUp.getPowerUp().toString()) {
+        switch (powerUp.getPowerUp()) {
             case "speedUp":
                 this.setSpeedUp(true);
                 this.getBall().setSpeed(this.getBall().getSpeed()*2);
@@ -131,7 +131,7 @@ public class Player {
     }
 
     public String applyHealthPack(PowerUp powerUp ,ArrayList<Player> playerList){
-        if (powerUp.getPowerUp().toString() == "healthPack"){
+        if (powerUp.getPowerUp() == "healthPack"){
             this.getBall().addHealthToShield(10);
             this.message = this.getPlayerName()+" found a healthPack. +10HP";
         }

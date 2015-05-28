@@ -35,6 +35,7 @@ public class MenuView{
     private BBMenuButton exitButton;
     private BBMenuButton cycleRightButton;
     private BBMenuButton cycleLeftButton;
+    private BBMenuButton checkAIButton;
     private Sprite currentMap;
     private final BitmapFont font;
     private final SpriteBatch batch;
@@ -141,6 +142,10 @@ public class MenuView{
         }catch(IOException e){
             System.out.println("Map file read failed");
         }
+    }
+
+    private void toggleCheckBoxDrawable(){
+
     }
 
     private void createUnindexedButtons(){
