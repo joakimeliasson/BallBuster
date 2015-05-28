@@ -52,13 +52,11 @@ public class BallTest {
 
     @Test
     public void testAddHealthToShield(){
-        double health = ball.getShield();
         ball.addHealthToShield(10);
-        if (health >= 90){
-            assertTrue(ball.getShield() == 100);
-        } else {
-            assertTrue(ball.getShield() == health+10);
-        }
+        assertTrue(ball.getShield() == 100);
+        ball.shieldDamage(20);
+        ball.addHealthToShield(10);
+        assertTrue(ball.getShield() == 90);
     }
     @Test
     public void testGetX2() {
@@ -86,17 +84,12 @@ public class BallTest {
     @Test
     public void testChangeMana(){
         float mana = ball.getMana();
-        float manaChange = 10;
-        if (mana+manaChange <= 0){
-            ball.changeMana(manaChange);
-            assertTrue(ball.getMana() == 0);
-        } else if (mana+manaChange >= 100){
-            ball.changeMana(manaChange);
-            assertTrue(ball.getMana() == 100);
-        } else {
-            ball.changeMana(manaChange);
-            assertTrue(ball.getMana() == mana+manaChange);
-        }
+        ball.changeMana(10);
+        assertTrue(ball.getMana() == ball.getMaximumMana());
+        ball.changeMana(-50);
+        assertTrue(ball.getMana() == ball.getMaximumMana() - 50);
+        ball.changeMana(-60);
+        assertTrue(ball.getMana() == 0);
     }
 
     @Test
@@ -118,7 +111,7 @@ public class BallTest {
     }
 
     @Test
-    public void testMaximumMana(){
+    public void testMaximumMana() {
         assertTrue(ball.getMaximumMana() == 100);
     }
 
