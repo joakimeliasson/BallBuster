@@ -128,7 +128,7 @@ public class BallBuster extends Game {
         FileHandle shield2FileHandle = Gdx.files.internal("playershield2.png");
         Texture shieldTexture2 = new Texture(shield2FileHandle);
 
-        player2 = new Player(2, "Player2", camera.viewportWidth / 2 - 100f, camera.viewportHeight / 2 - 100f);
+        player2 = new Player(2, "Player2", camera.viewportWidth / 2-70f, -camera.viewportHeight / 2+15f);
         player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE, Input.Keys.M);
         this.playerList.add(player2);
 
