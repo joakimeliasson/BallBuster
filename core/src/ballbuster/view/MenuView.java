@@ -316,9 +316,9 @@ public class MenuView {
 
     public void toggleCheckBoxDrawable(boolean isAIActive) {
         if (isAIActive) {
-            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture("core/images/check.png")));
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture("check.png")));
         } else {
-            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture("core/images/unchecked.png")));
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture("unchecked.png")));
         }
     }
 
