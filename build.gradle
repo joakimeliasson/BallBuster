@@ -111,16 +111,16 @@ project(":ios") {
 project(":core") {
     apply plugin: "java"
     apply plugin: 'pmd'
-    apply plugin: 'findbugs'
+//    apply plugin: 'findbugs'
 
-
+/*
     tasks.withType(FindBugs) {
         reports {
             xml.enabled = false
             html.enabled = true
         }
     }
-
+*/
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"

@@ -15,7 +15,7 @@ public class BBMenuButtonTest {
 
     private BBMenuButton indexedButton;
     private BBMenuButton unindexedButton;
-    private final int INDEX = 2;
+    private final static int INDEX = 2;
 
     @Before
     public void setUp() throws Exception {

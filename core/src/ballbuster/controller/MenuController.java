@@ -24,17 +24,13 @@ public class MenuController implements ApplicationListener, InputProcessor {
     private List<Integer> keyList;
     private List<String> keyPrefixList;
     private BallBuster ballBuster;
-    private final int NO_INDEX = -1;
-    private final MenuController thisController = this;
     private MenuView menuView;
+    private final static int NUMBER_OF_PLAYERS = 2;
+    private final static int NO_INDEX = -1;
+    private final MenuController thisController = this;
     private int currentBindIndex = NO_INDEX;
     private boolean isInFocus = true;
     private boolean isAIActive = false;
-    private final int NUMBER_OF_PLAYERS = 2;
-
-
-
-
 
     @Override
     public void create() {
@@ -188,7 +184,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
         if(isInFocus && currentBindIndex!=NO_INDEX){
             keyList.remove(currentBindIndex);
             keyList.add(currentBindIndex, keycode);
-            menuView.setBindLabel(currentBindIndex,keyPrefixList.get(currentBindIndex) ,keycode);
+            menuView.setBindLabel(currentBindIndex,keyPrefixList.get(currentBindIndex), keycode);
             Gdx.input.setInputProcessor(menuView.getStage());
         }
         return true;

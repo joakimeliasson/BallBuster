@@ -15,9 +15,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
+import java.nio.charset.Charset;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -134,7 +134,7 @@ public class MenuView{
      */
     private void readMapFile(){
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("core/images/maps.txt"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("core/images/maps.txt"), "UTF-8"));
             String line;
             while((line=reader.readLine())!=null){
                 if(line.indexOf('.')==0){
