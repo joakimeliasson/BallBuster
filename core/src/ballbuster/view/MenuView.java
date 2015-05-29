@@ -69,12 +69,12 @@ public class MenuView {
         currentMap = mapSprites.get(mapState);
         currentMap.setCenterX(0);
         currentMap.setCenterY((float) (-camera.viewportHeight * Math.pow(SCREEN_PARITION, -1.5)));
-        font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
         font.setScale(0.5f, 0.5f);
 
 
         batch = new SpriteBatch();
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
+        FileHandle backFileHandle = Gdx.files.internal("background3.png");
         Texture backgroundTexture = new Texture(backFileHandle);
         background = new Sprite(backgroundTexture);
         bindLabelList = new LinkedList<>();
@@ -135,7 +135,7 @@ public class MenuView {
      */
     private void readMapFile() {
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("core/images/maps.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader("maps.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 if (line.indexOf('.') == 0) {
@@ -159,15 +159,15 @@ public class MenuView {
     private void createUnindexedButtons() {
 
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/play.png"))));
+                new Texture(Gdx.files.internal("play.png"))));
         final Drawable cycleRightDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempRight.png"))));
+                new Texture(Gdx.files.internal("tempRight.png"))));
         final Drawable cycleLeftDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
+                new Texture(Gdx.files.internal("tempLeft.png"))));
         final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/exit.png"))));
+                new Texture(Gdx.files.internal("exit.png"))));
         final Drawable defaultToggleDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/unchecked.png"))));
+                new Texture(Gdx.files.internal("unchecked.png"))));
 
         playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(-playButton.getWidth() / 2, playButton.getHeight() / 2);
@@ -206,17 +206,17 @@ public class MenuView {
     private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList) {
 
         final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/leftbind.png"))));
+                new Texture(Gdx.files.internal("leftbind.png"))));
         final Drawable rightBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/rightbind.png"))));
+                new Texture(Gdx.files.internal("rightbind.png"))));
         final Drawable upBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/upbind.png"))));
+                new Texture(Gdx.files.internal("upbind.png"))));
         final Drawable downBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/downbind.png"))));
+                new Texture(Gdx.files.internal("downbind.png"))));
         final Drawable auraBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/aurabind.png"))));
+                new Texture(Gdx.files.internal("aurabind.png"))));
         final Drawable missingDrawable = new TextureRegionDrawable(new TextureRegion
-                (new Texture(Gdx.files.internal("core/images/tempbind.png"))));
+                (new Texture(Gdx.files.internal("tempbind.png"))));
 
 
         /*

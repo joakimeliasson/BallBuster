@@ -14,7 +14,7 @@ public class CollisionView {
     private BitmapFont font;
 
     public CollisionView() {
-        font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
         font.setColor(1, 1, 1, 1);
     }
 

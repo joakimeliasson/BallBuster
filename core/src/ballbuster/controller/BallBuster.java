@@ -96,7 +96,8 @@ public class BallBuster extends Game {
 
         world.setContactListener(collisionController);
 
-        ballBusterView.setDebugRenderer();
+        //ballBusterView.setDebugRenderer();
+
         for (BallController ball : ballList) {
             if (ball.getBall().getShield() < 0) {
                 isGameOver = true;
@@ -111,20 +112,20 @@ public class BallBuster extends Game {
 
     public void createBalls() {
         playerList = new ArrayList<>();
-        FileHandle ballFileHandle = Gdx.files.internal("core/images/leftBall.png");
+        FileHandle ballFileHandle = Gdx.files.internal("leftBall.png");
         texture = new Texture(ballFileHandle);
 
-        FileHandle shieldFileHandle = Gdx.files.internal("core/images/playershield.png");
+        FileHandle shieldFileHandle = Gdx.files.internal("playershield.png");
         Texture shieldTexture = new Texture(shieldFileHandle);
 
         player = new Player(1, "Player1", -camera.viewportWidth / 2, -camera.viewportHeight / 2);
         player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT, Input.Keys.Q);
         playerList.add(player);
 
-        FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
+        FileHandle ballFileHandle2 = Gdx.files.internal("rightBall.png");
         texture2 = new Texture(ballFileHandle2);
 
-        FileHandle shield2FileHandle = Gdx.files.internal("core/images/playershield2.png");
+        FileHandle shield2FileHandle = Gdx.files.internal("playershield2.png");
         Texture shieldTexture2 = new Texture(shield2FileHandle);
 
         player2 = new Player(2, "Player2", camera.viewportWidth / 2 - 100f, camera.viewportHeight / 2 - 100f);
@@ -172,10 +173,10 @@ public class BallBuster extends Game {
         powerUpList.add(damageOther);
         powerUpList.add(invertOther);
 
-        FileHandle powerUpFileHandle = Gdx.files.internal("core/images/powerUp.png");
+        FileHandle powerUpFileHandle = Gdx.files.internal("powerUp.png");
         Texture powerUpTexture = new Texture(powerUpFileHandle);
 
-        FileHandle healthPackFileHandle = Gdx.files.internal("core/images/heart.png");
+        FileHandle healthPackFileHandle = Gdx.files.internal("heart.png");
         Texture healthPackTexture = new Texture(healthPackFileHandle);
 
         powerUpController = new PowerUpController(powerUpList, playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch, tileLocations);

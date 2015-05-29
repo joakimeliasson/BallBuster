@@ -32,7 +32,7 @@ public class CollisionController implements ContactListener, IController {
         timer = new Timer(4f);
         collisionView = new CollisionView();
 
-        FileHandle collisionFileHandle = Gdx.files.internal("core/sounds/collision.mp3");
+        FileHandle collisionFileHandle = Gdx.files.internal("sounds/collision.mp3");
         sound = Gdx.audio.newSound(collisionFileHandle);
     }
 

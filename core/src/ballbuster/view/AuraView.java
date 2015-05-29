@@ -39,7 +39,7 @@ public class AuraView {
     }
 
     public void createAnimation() {
-        walkSheet = new Texture(Gdx.files.internal("core/images/aurasheet.png"));
+        walkSheet = new Texture(Gdx.files.internal("aurasheet.png"));
         TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;

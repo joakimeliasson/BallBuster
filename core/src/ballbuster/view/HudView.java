@@ -35,14 +35,14 @@ public class HudView {
         this.player2MaxMp = player2.getBall().getMana();
         this.batch = batch;
 
-        leftBar = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/leftBar.png")));
-        rightBar = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/leftBar.png")));
+        leftBar = new Sprite(new Texture(Gdx.files.internal("healthBar/leftBar.png")));
+        rightBar = new Sprite(new Texture(Gdx.files.internal("healthBar/leftBar.png")));
 
-        hpBarLeftPlayer = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/hpbar.png")));
-        manaBarLeftPlayer = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/manabar.png")));
+        hpBarLeftPlayer = new Sprite(new Texture(Gdx.files.internal("healthBar/hpbar.png")));
+        manaBarLeftPlayer = new Sprite(new Texture(Gdx.files.internal("healthBar/manabar.png")));
 
-        hpBarRightPlayer = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/hpbar.png")));
-        manaBarRightPlayer = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/manabar.png")));
+        hpBarRightPlayer = new Sprite(new Texture(Gdx.files.internal("healthBar/hpbar.png")));
+        manaBarRightPlayer = new Sprite(new Texture(Gdx.files.internal("healthBar/manabar.png")));
 
         int distanceFromScreenEdge = 32;
         float leftBarPositionX = -camera.viewportWidth / 2 + distanceFromScreenEdge;

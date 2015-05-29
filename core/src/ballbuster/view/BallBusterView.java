@@ -38,7 +38,7 @@ public class BallBusterView {
 
         batch = new SpriteBatch();
 
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
+        FileHandle backFileHandle = Gdx.files.internal("background3.png");
         backgroundTexture = new Texture(backFileHandle);
 
         background = new Sprite(backgroundTexture);

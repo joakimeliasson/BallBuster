@@ -30,7 +30,7 @@ public class PowerUpView {
         int random = (int) (Math.random() * 20 + 10);
         timer = new Timer(random);
         powerUpTimer = new Timer(5f);
-        font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
     }
 
 
