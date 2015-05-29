@@ -64,7 +64,7 @@ public class BallView{
 
         float shield = (float)player.getBall().getShield()/100+player.getBall().getRadius()/100;
 
-        if(shieldSprite.getWidth()>= sprite.getWidth())
+        if(shieldSprite.getWidth()>= sprite.getWidth() && shield >0)
         shieldSprite.setSize(shieldTexture.getWidth()*shield, shieldTexture.getHeight()*shield);
 
         batch.begin();

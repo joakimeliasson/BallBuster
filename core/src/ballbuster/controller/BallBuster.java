@@ -2,6 +2,7 @@ package ballbuster.controller;
 
 import ballbuster.model.Player;
 import ballbuster.model.PowerUp;
+import ballbuster.model.Timer;
 import ballbuster.view.BallBusterView;
 import ballbuster.view.BlockTileView;
 import com.badlogic.gdx.Game;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
@@ -56,6 +58,10 @@ public class BallBuster extends Game {
     private OrthographicCamera camera;
     private SpriteBatch batch;
 
+    private BitmapFont font;
+
+    private Timer timer;
+
     public BallBuster(String map, boolean isAIActive) {
         this.map = map;
         this.isAIActive = isAIActive;
@@ -63,6 +69,7 @@ public class BallBuster extends Game {
 
     @Override
     public void create() {
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
         ballBusterView = new BallBusterView();
         ballBusterView.onCreate();
         world = ballBusterView.getWorld();
@@ -85,6 +92,8 @@ public class BallBuster extends Game {
         collisionController = new CollisionController(tileWallController.getWallList(), ballList, batch);
 
         controllerList.add(collisionController);
+
+        timer = new Timer(5f);
     }
 
     @Override
@@ -100,7 +109,13 @@ public class BallBuster extends Game {
 
         for (BallController ball : ballList) {
             if (ball.getBall().getShield() < 0) {
-                isGameOver = true;
+                String message = ball.getPlayer().getPlayerName() + " Lost!";
+                batch.begin();
+                font.draw(batch, message, 0 - font.getBounds(message).width / 2, 0);
+                batch.end();
+                timer.update(Gdx.graphics.getDeltaTime());
+                if (timer.hasTimeElapsed())
+                    isGameOver = true;
                 break;
             }
         }
@@ -128,7 +143,7 @@ public class BallBuster extends Game {
         FileHandle shield2FileHandle = Gdx.files.internal("playershield2.png");
         Texture shieldTexture2 = new Texture(shield2FileHandle);
 
-        player2 = new Player(2, "Player2", camera.viewportWidth / 2-70f, -camera.viewportHeight / 2+15f);
+        player2 = new Player(2, "Player2", camera.viewportWidth / 2 - 70f, -camera.viewportHeight / 2 + 15f);
         player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE, Input.Keys.M);
         this.playerList.add(player2);
 
