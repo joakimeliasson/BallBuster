@@ -43,7 +43,6 @@ public class LightController implements IController {
     public void onCreate() {
         RayHandler.setGammaCorrection(false);
         lightHandler = new RayHandler(world);
-        //lightHandler.useDiffuseLight(true);  // Doesnt work well with day light(ambient) but has a cool night effect
 
         lightHandler.setBlurNum(3);
 
