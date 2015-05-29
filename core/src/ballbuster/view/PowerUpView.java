@@ -67,7 +67,7 @@ public class PowerUpView {
 
     public Player getHitPlayer(ArrayList<Player> playerList, Sprite sprite, Timer objectTimer) {
         for (Player player : playerList) {
-            if (hasCollision(player.getBall(), sprite)) {
+            if (hasCollision(player.getBall(), sprite)&& !player.getBall().hasPowerUp()) {
                 player.getBall().setHasPowerUp(true);
                 hideSprite(sprite);
                 objectTimer.reset();
