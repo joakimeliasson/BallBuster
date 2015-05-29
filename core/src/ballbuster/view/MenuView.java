@@ -107,7 +107,7 @@ public class MenuView{
         stage.addActor(checkAILabel);
 
         //Adds a title to the screen
-        Label titleLabel = new Label("BALL BUSTER", new Label.LabelStyle(font, Color.DARK_GRAY));
+        Label titleLabel = new Label("BallBuster", new Label.LabelStyle(font, Color.DARK_GRAY));
         stage.addActor(titleLabel);
         //titleLabel.setAlignment(Align.center);
         titleLabel.setPosition(0-titleLabel.getWidth()/2, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
@@ -151,6 +151,10 @@ public class MenuView{
     }
 
 
+    /*
+     * Used by the constructor to create buttons without the use of indexes
+     * Every button that does not rely on players should be created here
+     */
     private void createUnindexedButtons(){
 
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
@@ -194,6 +198,11 @@ public class MenuView{
 
     }
 
+
+    /*
+     * Used by the constructor to create buttons with the use of indexes
+     * Every button that relies on players should be created here
+     */
     private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
 
         final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
@@ -213,9 +222,7 @@ public class MenuView{
         /*
          * Creates a BBMenuButton and a Label for every keybind in the given list.
          * If more buttons are added, further drawables should be added.
-         *
-         * Rebind Buttons
-        */
+         */
         for(int i = 0; i < bindPrefixList.size(); i++) {
             Drawable drawable;
             switch(i%(bindPrefixList.size()/nbrOfPlayers)) {
@@ -334,7 +341,6 @@ public class MenuView{
      * Used to update the view itself
      */
     public void update() {
-
         batch.begin();
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -346,7 +352,6 @@ public class MenuView{
         currentMap.draw(batch);
         batch.end();
     }
-
 }
 
 
