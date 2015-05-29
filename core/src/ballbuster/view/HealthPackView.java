@@ -29,7 +29,7 @@ public class HealthPackView extends PowerUpView {
         timer.update(delta);
         healthPackTimer.update(delta);
         showSprite(sprite);
-        Player player = getHitPlayer(playerList, sprite, healthPackTimer);
+        Player player = this.getHitPlayer(playerList, sprite, healthPackTimer);
         if (timer.hasTimeElapsed()) {
             if (player != null)
                 sprite.setPosition(x, y);
@@ -43,6 +43,18 @@ public class HealthPackView extends PowerUpView {
             }
         }
 
+    }
+    @Override
+    public Player getHitPlayer(ArrayList<Player> playerList, Sprite sprite, Timer objectTimer) {
+        for (Player player : playerList) {
+            if (hasCollision(player.getBall(), sprite)) {
+                player.getBall().setHasPowerUp(true);
+                hideSprite(sprite);
+                objectTimer.reset();
+                return player;
+            }
+        }
+        return null;
     }
 
 }
