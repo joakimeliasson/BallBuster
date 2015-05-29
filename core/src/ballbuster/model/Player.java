@@ -146,12 +146,10 @@ public class Player {
         return message;
     }
 
-    public String applyHealthPack(PowerUp powerUp, ArrayList<Player> playerList) {
+    public void applyHealthPack(PowerUp powerUp, ArrayList<Player> playerList) {
         if (powerUp.getPowerUp() == "healthPack") {
             this.getBall().addHealthToShield(10);
-            message = "A player found a healthPack. +10HP";
         }
-        return message;
     }
 
     public String getMessage() {

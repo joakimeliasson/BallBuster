@@ -37,8 +37,8 @@ public class HealthPackView extends PowerUpView {
             if (player != null) {
                 int random = (int) (Math.random() * 20 + 10);
                 timer.reset(random);
-                String message = player.applyHealthPack(powerUp, playerList);
-                setMessage(message);
+                player.applyHealthPack(powerUp, playerList);
+                setMessage("");
                 resetBall(playerList, delta, healthPackTimer);
             }
         }
