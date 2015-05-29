@@ -17,11 +17,13 @@ public class AuraTest {
     public void setUp() throws Exception {
         aura = new Aura();
     }
+
     @Test
     public void testSetAuraStatus() {
         aura.setAuraStatus(true);
         assertTrue(aura.getAuraStatus());
     }
+
     @Test
     public void testSetPosition() {
         aura.setPosition(5f, 4f);

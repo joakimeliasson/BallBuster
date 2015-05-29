@@ -6,15 +6,14 @@ public class Aura {
     private float x;
     private float y;
 
-
-    public Aura(){
+    public Aura() {
     }
 
-    public void setAuraStatus(boolean b){
+    public void setAuraStatus(boolean b) {
         this.auraStatus = b;
     }
 
-    public boolean getAuraStatus(){
+    public boolean getAuraStatus() {
         return auraStatus;
     }
 

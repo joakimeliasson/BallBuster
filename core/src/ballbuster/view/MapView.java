@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class MapView {
 
-    private World world;
     private TiledMap tiledMap;
     private OrthogonalTiledMapRenderer mapRenderer;
     private ArrayList<BlockTileView> tiles = new ArrayList<>();
@@ -27,8 +26,7 @@ public class MapView {
     private ArrayList<Body> bodyListPlayer2;
 
     public MapView(String mapLocation, World world, OrthographicCamera camera) {
-        this.tiledMap = new TmxMapLoader().load(mapLocation); // "core/res/TiledMaps/dummyMap.tmx"
-        this.world = world;
+        this.tiledMap = new TmxMapLoader().load(mapLocation);
         this.camera = camera;
         this.bodyListPlayer1 = new ArrayList<>();
         this.bodyListPlayer2 = new ArrayList<>();
@@ -43,14 +41,18 @@ public class MapView {
          *  Create Box2d physics from blacktiles here
          */
         TiledMapTileLayer layer = (TiledMapTileLayer) tiledMap.getLayers().get("BlackBlock");
-        for(int row = 0; row < layer.getHeight(); row++) {
-            for(int col = 0; col < layer.getWidth(); col++) {
+        for (int row = 0; row < layer.getHeight(); row++) {
+            for (int col = 0; col < layer.getWidth(); col++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(col, row);
 
-                if(cell == null) {continue; }
-                if(cell.getTile() == null) {continue; }
+                if (cell == null) {
+                    continue;
+                }
+                if (cell.getTile() == null) {
+                    continue;
+                }
 
-                Tile tile = new Tile(col * layer.getTileWidth() - camera.viewportWidth/2, row * layer.getTileHeight() -camera.viewportHeight/2);
+                Tile tile = new Tile(col * layer.getTileWidth() - camera.viewportWidth / 2, row * layer.getTileHeight() - camera.viewportHeight / 2);
 
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
                 tileView.createBody();
@@ -65,14 +67,18 @@ public class MapView {
          *  Create Box2d physics from whitetiles here
          */
         layer = (TiledMapTileLayer) tiledMap.getLayers().get("WhiteBlock");
-        for(int row = 0; row < layer.getHeight(); row++) {
-            for(int col = 0; col < layer.getWidth(); col++) {
+        for (int row = 0; row < layer.getHeight(); row++) {
+            for (int col = 0; col < layer.getWidth(); col++) {
                 TiledMapTileLayer.Cell cell = layer.getCell(col, row);
 
-                if(cell == null) {continue; }
-                if(cell.getTile() == null) {continue; }
+                if (cell == null) {
+                    continue;
+                }
+                if (cell.getTile() == null) {
+                    continue;
+                }
 
-                Tile tile = new Tile(col * layer.getTileWidth()- camera.viewportWidth/2,row * layer.getTileHeight()- camera.viewportHeight/2);
+                Tile tile = new Tile(col * layer.getTileWidth() - camera.viewportWidth / 2, row * layer.getTileHeight() - camera.viewportHeight / 2);
 
                 BlockTileView tileView = new BlockTileView(world, tile, layer.getTileHeight(), layer.getTileHeight());
                 tileView.createBody();
@@ -95,8 +101,12 @@ public class MapView {
     public OrthographicCamera getRenderCamera() {
         return renderCamera;
     }
+
     public OrthogonalTiledMapRenderer getMapRenderer() {
-        return  mapRenderer;
+        return mapRenderer;
     }
-    public ArrayList<BlockTileView> getTileLocations() { return tileLocations; }
+
+    public ArrayList<BlockTileView> getTileLocations() {
+        return tileLocations;
+    }
 }

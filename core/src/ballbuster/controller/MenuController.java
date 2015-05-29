@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class MenuController implements ApplicationListener, InputProcessor {
 
-
     private List<Player> playerList;
     private List<Integer> keyList;
     private List<String> keyPrefixList;
@@ -34,8 +33,6 @@ public class MenuController implements ApplicationListener, InputProcessor {
 
     @Override
     public void create() {
-
-
         //Default keys for players
         keyList = new LinkedList<>();
         //Player 1 keys
@@ -160,9 +157,9 @@ public class MenuController implements ApplicationListener, InputProcessor {
     public void render() {
         if (ballBuster == null) {
             menuView.update();
-        }else if (!ballBuster.getIsGameOver()) {
+        } else if (!ballBuster.getIsGameOver()) {
             ballBuster.render();
-        }else{
+        } else {
             isInFocus = true;
             ballBuster = null;
         }
@@ -181,10 +178,10 @@ public class MenuController implements ApplicationListener, InputProcessor {
      */
     @Override
     public boolean keyDown(int keycode) {
-        if(isInFocus && currentBindIndex!=NO_INDEX){
+        if (isInFocus && currentBindIndex != NO_INDEX) {
             keyList.remove(currentBindIndex);
             keyList.add(currentBindIndex, keycode);
-            menuView.setBindLabel(currentBindIndex,keyPrefixList.get(currentBindIndex), keycode);
+            menuView.setBindLabel(currentBindIndex, keyPrefixList.get(currentBindIndex), keycode);
             Gdx.input.setInputProcessor(menuView.getStage());
         }
         return true;
@@ -227,6 +224,6 @@ public class MenuController implements ApplicationListener, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
-        
+
     }
 }

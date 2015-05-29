@@ -16,7 +16,7 @@ import java.util.ArrayList;
 /**
  * Created by Joakim on 2015-04-24.
  */
-public class AuraView{
+public class AuraView {
 
     private Sprite sprite;
 
@@ -30,27 +30,17 @@ public class AuraView{
 
     float stateTime;
 
-    private AuraView auraView;
-
-    private Player player;
-    private Aura aura;
-
     private Body body;
     private ArrayList<Body> bodyList;
 
-    private SpriteBatch batch;
-
-    public AuraView(Player player, Body body, ArrayList<Body> bodyList, SpriteBatch batch) {
-        this.player = player;
-        this.aura = player.getBall().getAura();
+    public AuraView(Body body, ArrayList<Body> bodyList) {
         this.body = body;
         this.bodyList = bodyList;
-        this.batch = batch;
     }
 
     public void createAnimation() {
-        walkSheet = new Texture(Gdx.files.internal("core/images/aurasheet.png"));
-        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth()/FRAME_COLS, walkSheet.getHeight()/FRAME_ROWS);
+        walkSheet = new Texture(Gdx.files.internal("aurasheet.png"));
+        TextureRegion[][] tmp = TextureRegion.split(walkSheet, walkSheet.getWidth() / FRAME_COLS, walkSheet.getHeight() / FRAME_ROWS);
         walkFrames = new TextureRegion[FRAME_COLS * FRAME_ROWS];
         int index = 0;
         for (int i = 0; i < FRAME_ROWS; i++) {
@@ -61,24 +51,27 @@ public class AuraView{
         walkAnimation = new Animation(0.025f, walkFrames);
         stateTime = 0f;
     }
+
     public void renderAnimation(SpriteBatch batch, Player player) {
         stateTime += Gdx.graphics.getDeltaTime();
         currentFrame = walkAnimation.getKeyFrame(stateTime, true);
         sprite = new Sprite(currentFrame);
         Aura aura = player.getBall().getAura();
-        aura.setPosition(player.getBall().getX2()* BallBuster.SCALE-sprite.getWidth()/2, player.getBall().getY2()*BallBuster.SCALE-sprite.getHeight()/2);
+        aura.setPosition(player.getBall().getX2() * BallBuster.SCALE - sprite.getWidth() / 2, player.getBall().getY2() * BallBuster.SCALE - sprite.getHeight() / 2);
         sprite.setPosition(aura.getX(), aura.getY());
         batch.begin();
         batch.draw(sprite, sprite.getX(), sprite.getY(), sprite.getOriginX(), sprite.getOriginY(),
                 sprite.getWidth(), sprite.getHeight(), sprite.getScaleX(), sprite.getScaleY(), sprite.getRotation());
         batch.end();
     }
-    public void activateAura(Aura aura, boolean b){
+
+    public void activateAura(Aura aura, boolean b) {
         aura.setAuraStatus(b);
     }
+
     public void activateMagnet() {
 
-        for(int i = 0; i < bodyList.size(); i++) {
+        for (int i = 0; i < bodyList.size(); i++) {
             float xDiff = bodyList.get(i).getPosition().x - body.getPosition().x;
             float yDiff = bodyList.get(i).getPosition().y - body.getPosition().y;
             float rad2 = xDiff * xDiff + yDiff * yDiff;
@@ -90,6 +83,7 @@ public class AuraView{
             }
         }
     }
+
     public void resetRestitution(Body body) {
         body.getFixtureList().get(0).setRestitution(1f);
     }

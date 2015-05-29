@@ -3,6 +3,7 @@ package ballbuster.tests;
 /**
  * Created by jacobth on 2015-03-30.
  */
+
 import ballbuster.model.Ball;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,25 +26,30 @@ public class BallTest {
     public void testCreateBall() {
         assertNotNull(ball);
     }
+
     @Test
     public void testGetX() {
         assertTrue(ball.getX() == 4f);
     }
+
     @Test
     public void testGetY() {
         assertTrue(ball.getY() == 5f);
     }
+
     @Test
     public void testSetPosition() {
-        ball.setPosition(1f,2f);
+        ball.setPosition(1f, 2f);
         assertTrue(ball.getX() == 1f);
         assertTrue(ball.getY() == 2f);
     }
+
     @Test
     public void testGetShield() {
-        int tmp = (int)ball.getShield();
+        int tmp = (int) ball.getShield();
         assertEquals(100, tmp);
     }
+
     @Test
     public void testDamage() {
         ball.shieldDamage(10);
@@ -51,21 +57,23 @@ public class BallTest {
     }
 
     @Test
-    public void testAddHealthToShield(){
+    public void testAddHealthToShield() {
         ball.addHealthToShield(10);
         assertTrue(ball.getShield() == 100);
         ball.shieldDamage(20);
         ball.addHealthToShield(10);
         assertTrue(ball.getShield() == 90);
     }
+
     @Test
     public void testGetX2() {
         ball.setBodyPosition(3f, 4f);
         assertTrue(ball.getX2() == 3f);
     }
+
     @Test
     public void testGetY2() {
-        ball.setBodyPosition(3f,4f);
+        ball.setBodyPosition(3f, 4f);
         assertTrue(ball.getY2() == 4f);
     }
 
@@ -82,7 +90,7 @@ public class BallTest {
     }
 
     @Test
-    public void testChangeMana(){
+    public void testChangeMana() {
         float mana = ball.getMana();
         ball.changeMana(10);
         assertTrue(ball.getMana() == ball.getMaximumMana());
@@ -93,19 +101,19 @@ public class BallTest {
     }
 
     @Test
-    public void testSetAndHasPowerUp(){
+    public void testSetAndHasPowerUp() {
         ball.setHasPowerUp(true);
         assertTrue(ball.hasPowerUp());
     }
 
     @Test
-    public void testSetAndGetRadius(){
+    public void testSetAndGetRadius() {
         ball.setRadius(2f);
         assertTrue(ball.getRadius() == 2f);
     }
 
     @Test
-    public void testSetAndGetSpeed(){
+    public void testSetAndGetSpeed() {
         ball.setSpeed(2f);
         assertTrue(ball.getSpeed() == 2f);
     }
@@ -114,9 +122,5 @@ public class BallTest {
     public void testMaximumMana() {
         assertTrue(ball.getMaximumMana() == 100);
     }
-
-
-
-
 
 }

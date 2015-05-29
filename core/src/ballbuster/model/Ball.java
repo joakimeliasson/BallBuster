@@ -32,12 +32,10 @@ public class Ball {
         mana = 100;
         maximumMana = 100;
         maximumShield = 100;
-
-
     }
 
     public void shieldDamage(double damage) {
-         shield = shield -damage;
+        shield = shield - damage;
     }
 
     public double getShield() {
@@ -51,35 +49,41 @@ public class Ball {
     public void setMana(float mana) {
         this.mana = mana;
     }
+
     public float getMaximumMana() {
         return maximumMana;
     }
+
     public double getMaximumShield() {
         return maximumShield;
     }
-    public void changeMana(float mana){
-        if(this.mana + mana < 0) {
+
+    public void changeMana(float mana) {
+        if (this.mana + mana < 0) {
             this.mana = 0;
-        } else if(this.mana + mana > getMaximumMana()) {
+        } else if (this.mana + mana > getMaximumMana()) {
             this.mana = getMaximumMana();
         } else {
             this.mana = this.mana + mana;
         }
     }
-    public void addHealthToShield(int health){
-        if (shield+health >= getMaximumShield())
+
+    public void addHealthToShield(int health) {
+        if (shield + health >= getMaximumShield())
             this.shield = getMaximumShield();
         else
-            this.shield = shield+health;
+            this.shield = shield + health;
     }
 
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
     }
+
     public void setRadius(float radius) {
         this.radius = radius;
     }
+
     public float getRadius() {
         return radius;
     }
@@ -100,21 +104,27 @@ public class Ball {
         x2 = x;
         y2 = y;
     }
+
     public float getX2() {
         return x2;
     }
+
     public float getY2() {
         return y2;
     }
+
     public float getSpeed() {
         return speed;
     }
+
     public void setSpeed(float speed) {
         this.speed = speed;
     }
+
     public boolean hasPowerUp() {
         return hasPowerUp;
     }
+
     public void setHasPowerUp(boolean b) {
         hasPowerUp = b;
     }

@@ -13,9 +13,9 @@ public class HudController implements IController {
     private HudView hud;
 
     public HudController(Player player, Player player2, SpriteBatch batch, OrthographicCamera camera) {
-        this.hud = new HudView(player,player2,batch,camera);
+        this.hud = new HudView(player, player2, batch, camera);
     }
-    
+
     @Override
     public void onCreate() {
     }

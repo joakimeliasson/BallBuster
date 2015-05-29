@@ -1,27 +1,17 @@
 package ballbuster.view;
 
-import ballbuster.controller.*;
-import ballbuster.model.Player;
-import ballbuster.model.PowerUp;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
-import java.util.ArrayList;
-
-
-public class BallBusterView{
+public class BallBusterView {
 
     private OrthographicCamera camera;
     private World world;
@@ -48,7 +38,7 @@ public class BallBusterView{
 
         batch = new SpriteBatch();
 
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
+        FileHandle backFileHandle = Gdx.files.internal("background3.png");
         backgroundTexture = new Texture(backFileHandle);
 
         background = new Sprite(backgroundTexture);
@@ -72,12 +62,15 @@ public class BallBusterView{
     public World getWorld() {
         return world;
     }
+
     public OrthographicCamera getCamera() {
         return camera;
     }
+
     public SpriteBatch getBatch() {
         return batch;
     }
+
     public void setDebugRenderer() {
         debugRenderer.render(world, debugMatrix);
     }

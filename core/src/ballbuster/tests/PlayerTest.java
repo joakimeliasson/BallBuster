@@ -9,10 +9,9 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
-
 /**
  * Created by Joakim on 2015-03-30.
-*/
+ */
 public class PlayerTest {
     private Player p;
     private Player p2;
@@ -20,8 +19,8 @@ public class PlayerTest {
     private ArrayList<Player> playerList;
 
     @Before
-    public void setUpPlayerTest(){
-        p = new Player(1,"Player1",1f,1f);
+    public void setUpPlayerTest() {
+        p = new Player(1, "Player1", 1f, 1f);
         p2 = new Player(2, "Player2", 1f, 1f);
         p.getBall().setHasPowerUp(true);
         p.getBall().setSpeed(12f);
@@ -32,29 +31,30 @@ public class PlayerTest {
         p.setKeys(1, 2, 3, 4, 5, 6);
         p2.setKeys(1, 2, 3, 4, 5, 6);
     }
+
     @Test
     public void testAddPlayer() {
         assertNotNull(p);
     }
 
     @Test
-    public void testPlayerId(){
+    public void testPlayerId() {
         assertEquals(1, p.getPlayerId());
     }
 
     @Test
-    public void testGetPlayerName(){
+    public void testGetPlayerName() {
         assertEquals("Player1", p.getPlayerName());
     }
 
     @Test
-    public void testSetPlayerName(){
+    public void testSetPlayerName() {
         p.setPlayerName("Player2");
         assertEquals("Player2", p.getPlayerName());
     }
 
     @Test
-    public void testPlayerHasBall(){
+    public void testPlayerHasBall() {
         assertNotNull(p.getBall());
     }
 
@@ -67,6 +67,7 @@ public class PlayerTest {
     public void testGetLeftKey() {
         assertEquals(2, p.getLeftKey());
     }
+
     @Test
     public void testGetDownKey() {
         assertEquals(3, p.getDownKey());
@@ -83,7 +84,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testGetSpeedKey(){
+    public void testGetSpeedKey() {
         assertEquals(6, p.getSpeedKey());
     }
 
@@ -115,7 +116,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testApplyPowerUpSlowDown(){
+    public void testApplyPowerUpSlowDown() {
         powerUp = new PowerUp("slowDown");
         p.applyPowerUp(powerUp, playerList);
         assertTrue(p.getBall().getSpeed() == 0.02f);
@@ -123,7 +124,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testApplyPowerUpInvertKeys(){
+    public void testApplyPowerUpInvertKeys() {
         powerUp = new PowerUp("invertKeys");
         p.applyPowerUp(powerUp, playerList);
         assertTrue(p.hasInvertedKeys());
@@ -137,7 +138,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testApplyPowerUpDamageOther(){
+    public void testApplyPowerUpDamageOther() {
         powerUp = new PowerUp("damageOther");
         double shield = p2.getBall().getShield();
         p.applyPowerUp(powerUp, playerList);
@@ -146,7 +147,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testApplyPowerUpInvertOther(){
+    public void testApplyPowerUpInvertOther() {
         powerUp = new PowerUp("invertOther");
         p.applyPowerUp(powerUp, playerList);
         assertTrue(p2.hasInvertedKeys());
@@ -161,19 +162,17 @@ public class PlayerTest {
     }
 
     @Test
-    public void testApplyHealthPack(){
+    public void testApplyHealthPack() {
         powerUp = new PowerUp("healthPack");
         double shield = p.getBall().getShield();
         p.applyHealthPack(powerUp, playerList);
-        if (shield < 90){
-            assertTrue(p.getBall().getShield() == shield+10);
+        if (shield < 90) {
+            assertTrue(p.getBall().getShield() == shield + 10);
         } else {
             assertTrue(p.getBall().getShield() == 100);
         }
         assertTrue(p.getMessage() == "A player found a healthPack. +10HP");
     }
-
-
 
 }
 
