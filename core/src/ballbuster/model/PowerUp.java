@@ -7,15 +7,15 @@ public class PowerUp {
 
     private String powerUp;
 
-    public PowerUp(String powerUp){
+    public PowerUp(String powerUp) {
         this.powerUp = powerUp;
     }
 
-    public String getPowerUp(){
+    public String getPowerUp() {
         return this.powerUp;
     }
 
-    public void setPowerUp(String powerUp){
+    public void setPowerUp(String powerUp) {
         this.powerUp = powerUp;
     }
 }

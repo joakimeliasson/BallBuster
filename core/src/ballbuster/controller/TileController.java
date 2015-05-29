@@ -17,7 +17,6 @@ import java.util.ArrayList;
  */
 public class TileController implements IController {
 
-    private TileView tileView;
     private ArrayList<TileView> tileViewList;
 
     public TileController(World world, SpriteBatch batch, Camera camera) {

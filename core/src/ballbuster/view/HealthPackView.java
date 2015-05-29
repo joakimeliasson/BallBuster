@@ -16,35 +16,33 @@ public class HealthPackView extends PowerUpView {
     private Timer healthPackTimer;
 
     private Timer timer;
-    private String message;
 
-    public HealthPackView(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, SpriteBatch batch) {
-        super(powerUp, playerList, sprite, batch);
+    public HealthPackView(ArrayList<Player> playerList, SpriteBatch batch) {
+        super(playerList, batch);
 
-        int random = (int )(Math.random() * 20);
+        int random = (int) (Math.random() * 20);
         this.timer = new Timer(random);
         healthPackTimer = new Timer(5f);
     }
 
-    public void healthPackSet(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, float delta, SpriteBatch batch, int x, int y){
+    public void healthPackSet(PowerUp powerUp, ArrayList<Player> playerList, Sprite sprite, float delta, SpriteBatch batch, int x, int y) {
         timer.update(delta);
         healthPackTimer.update(delta);
         showSprite(sprite);
         Player player = getHitPlayer(playerList, sprite, healthPackTimer);
-        if(timer.hasTimeElapsed()) {
+        if (timer.hasTimeElapsed()) {
             if (player != null)
                 sprite.setPosition(x, y);
             draw(sprite, batch);
             if (player != null) {
                 int random = (int) (Math.random() * 20 + 10);
                 timer.reset(random);
-                String message = player.applyHealthPack(powerUp,playerList);
+                String message = player.applyHealthPack(powerUp, playerList);
                 setMessage(message);
                 resetBall(playerList, delta, healthPackTimer);
             }
         }
 
     }
-
 
 }

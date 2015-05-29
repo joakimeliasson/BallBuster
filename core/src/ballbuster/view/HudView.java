@@ -45,16 +45,16 @@ public class HudView {
         manaBarRightPlayer = new Sprite(new Texture(Gdx.files.internal("core/images/healthBar/manabar.png")));
 
         int distanceFromScreenEdge = 32;
-        float leftBarPositionX  = -camera.viewportWidth/2 + distanceFromScreenEdge;
-        float leftBarPositionY  =  camera.viewportHeight/2 - leftBar.getHeight() - distanceFromScreenEdge;
-        float rightBarPositionX = camera.viewportWidth/2 - distanceFromScreenEdge - rightBar.getWidth();
-        float rightBarPositionY = camera.viewportHeight/2 - leftBar.getHeight() - distanceFromScreenEdge;
+        float leftBarPositionX = -camera.viewportWidth / 2 + distanceFromScreenEdge;
+        float leftBarPositionY = camera.viewportHeight / 2 - leftBar.getHeight() - distanceFromScreenEdge;
+        float rightBarPositionX = camera.viewportWidth / 2 - distanceFromScreenEdge - rightBar.getWidth();
+        float rightBarPositionY = camera.viewportHeight / 2 - leftBar.getHeight() - distanceFromScreenEdge;
 
-        leftBar.setPosition(leftBarPositionX,leftBarPositionY);
+        leftBar.setPosition(leftBarPositionX, leftBarPositionY);
         rightBar.setPosition(rightBarPositionX, rightBarPositionY);
 
-        hpBarLeftPlayer.setPosition((leftBarPositionX) + 34,leftBarPositionY + 42);
-        manaBarLeftPlayer.setPosition((leftBarPositionX) + 34,leftBarPositionY +11);
+        hpBarLeftPlayer.setPosition((leftBarPositionX) + 34, leftBarPositionY + 42);
+        manaBarLeftPlayer.setPosition((leftBarPositionX) + 34, leftBarPositionY + 11);
 
         hpBarRightPlayer.setPosition((rightBarPositionX) + 34, rightBarPositionY + 42);
         manaBarRightPlayer.setPosition((rightBarPositionX) + 34, rightBarPositionY + 11);
@@ -64,20 +64,20 @@ public class HudView {
 
         //calculate the percentage of mana and shield of each players so it can be displayed.
         float player1HP = (float) (player1.getBall().getShield() / player1MaxHp);
-        if (player1HP < 0 ) {
+        if (player1HP < 0) {
             player1HP = 0;
         }
-        float player1MP = (float)player1.getBall().getMana() / (float)player1MaxMp;
-        if(player1MP < 0) {
+        float player1MP = player1.getBall().getMana() / player1MaxMp;
+        if (player1MP < 0) {
             player1MP = 0;
         }
 
         float player2HP = (float) (player2.getBall().getShield() / player2MaxHp);
-        if (player2HP < 0 ) {
+        if (player2HP < 0) {
             player2HP = 0;
         }
 
-        float player2MP =  (float)player2.getBall().getMana() / (float)player2MaxMp ;
+        float player2MP = player2.getBall().getMana() / player2MaxMp;
         if (player2MP < 0) {
             player2MP = 0;
         }
@@ -85,17 +85,16 @@ public class HudView {
         batch.begin();
         //Player1
         batch.draw(leftBar, leftBar.getX(), leftBar.getY());
-        batch.draw(hpBarLeftPlayer,hpBarLeftPlayer.getX(),hpBarLeftPlayer.getY(),hpBarLeftPlayer.getWidth()*player1HP,hpBarLeftPlayer.getHeight());
-        batch.draw(manaBarLeftPlayer,manaBarLeftPlayer.getX(),manaBarLeftPlayer.getY(),manaBarLeftPlayer.getWidth()*player1MP,manaBarLeftPlayer.getHeight());
+        batch.draw(hpBarLeftPlayer, hpBarLeftPlayer.getX(), hpBarLeftPlayer.getY(), hpBarLeftPlayer.getWidth() * player1HP, hpBarLeftPlayer.getHeight());
+        batch.draw(manaBarLeftPlayer, manaBarLeftPlayer.getX(), manaBarLeftPlayer.getY(), manaBarLeftPlayer.getWidth() * player1MP, manaBarLeftPlayer.getHeight());
 
 
         //Player2
         batch.draw(rightBar, rightBar.getX(), rightBar.getY());
-        batch.draw(hpBarRightPlayer, hpBarRightPlayer.getX(),hpBarRightPlayer.getY(),hpBarRightPlayer.getWidth()*player2HP,hpBarRightPlayer.getHeight() );
-        batch.draw(manaBarRightPlayer, manaBarRightPlayer.getX(),manaBarRightPlayer.getY(),manaBarRightPlayer.getWidth()*player2MP,manaBarRightPlayer.getHeight() );
+        batch.draw(hpBarRightPlayer, hpBarRightPlayer.getX(), hpBarRightPlayer.getY(), hpBarRightPlayer.getWidth() * player2HP, hpBarRightPlayer.getHeight());
+        batch.draw(manaBarRightPlayer, manaBarRightPlayer.getX(), manaBarRightPlayer.getY(), manaBarRightPlayer.getWidth() * player2MP, manaBarRightPlayer.getHeight());
 
         batch.end();
-
     }
 
 }

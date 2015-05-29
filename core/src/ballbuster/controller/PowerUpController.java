@@ -22,7 +22,6 @@ public class PowerUpController implements IController {
     private HealthPackView healthPackView;
     private ArrayList<BlockTileView> tiles;
     private ArrayList<Point> forbiddenLocations;
-    private PowerUp powerUp;
     private ArrayList<Player> playerList;
     private ArrayList<PowerUp> powerUpList;
 
@@ -31,7 +30,6 @@ public class PowerUpController implements IController {
     private SpriteBatch batch;
     private int x;
     private int y;
-    private Point location;
     private Point spawnLocation;
     private Random random;
 
@@ -43,7 +41,6 @@ public class PowerUpController implements IController {
         this.batch = batch;
         this.tiles = tiles;
         forbiddenLocations = new ArrayList<>();
-        location = new Point();
         spawnLocation = new Point();
         random = new Random();
     }
@@ -82,8 +79,8 @@ public class PowerUpController implements IController {
         setForbiddenLocations();
         setHealthSpritePosition();
         healthSprite.setPosition(x, y);
-        powerUpView = new PowerUpView(powerUp, playerList, sprite, batch);
-        healthPackView = new HealthPackView(new PowerUp("healthPack"), playerList, healthSprite, batch);
+        powerUpView = new PowerUpView(playerList, batch);
+        healthPackView = new HealthPackView(playerList, batch);
     }
 
     @Override

@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * Created by jacobth on 2015-05-08.
  */
-public class MenuView{
+public class MenuView {
 
 
     private List<Label> bindLabelList;
@@ -54,7 +55,7 @@ public class MenuView{
      *
      * @Ensure that the size of the list of prefixes, and the size of the list of keys are the same.
      */
-    public MenuView(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList ){
+    public MenuView(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList) {
         stage = new Stage();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         stage.getViewport().setCamera(camera);
@@ -80,7 +81,7 @@ public class MenuView{
 
 
         createUnindexedButtons();
-        createIndexedButtons(nbrOfPlayers,bindPrefixList,keyList);
+        createIndexedButtons(nbrOfPlayers, bindPrefixList, keyList);
 
         /*
          * Places a label with the players name, for example "Player 1",
@@ -93,11 +94,11 @@ public class MenuView{
          *
          */
         float buttonHeight = bindButtonList.get(0).getHeight();
-        for(int i = 0; i<nbrOfPlayers; i++) {
-            Label playerLabel = new Label("Player " + (i+1), new Label.LabelStyle(font, Color.WHITE));
+        for (int i = 0; i < nbrOfPlayers; i++) {
+            Label playerLabel = new Label("Player " + (i + 1), new Label.LabelStyle(font, Color.WHITE));
             stage.addActor(playerLabel);
-            playerLabel.setPosition(bindButtonList.get(i*bindPrefixList.size()/nbrOfPlayers).getX(),
-                    bindButtonList.get(i*bindPrefixList.size()/nbrOfPlayers).getY()+buttonHeight);
+            playerLabel.setPosition(bindButtonList.get(i * bindPrefixList.size() / nbrOfPlayers).getX(),
+                    bindButtonList.get(i * bindPrefixList.size() / nbrOfPlayers).getY() + buttonHeight);
         }
 
         //Adds label next to AI button
@@ -110,7 +111,7 @@ public class MenuView{
         Label titleLabel = new Label("BallBuster", new Label.LabelStyle(font, Color.DARK_GRAY));
         stage.addActor(titleLabel);
         //titleLabel.setAlignment(Align.center);
-        titleLabel.setPosition(0-titleLabel.getWidth()/2, (float) (camera.viewportHeight*Math.pow(SCREEN_PARITION,-2)));
+        titleLabel.setPosition(0 - titleLabel.getWidth() / 2, (float) (camera.viewportHeight * Math.pow(SCREEN_PARITION, -2)));
 
         //Measurements for adjusting the screen, update code as needed
 
@@ -132,20 +133,20 @@ public class MenuView{
     /*
      * Utility method for the constructor
      */
-    private void readMapFile(){
-        try{
+    private void readMapFile() {
+        try {
             BufferedReader reader = new BufferedReader(new FileReader("core/images/maps.txt"));
             String line;
-            while((line=reader.readLine())!=null){
-                if(line.indexOf('.')==0){
+            while ((line = reader.readLine()) != null) {
+                if (line.indexOf('.') == 0) {
                     mapList.add(line.substring(1));
-                }else if(line.indexOf(':')==0){
+                } else if (line.indexOf(':') == 0) {
                     mapSprites.add(new Sprite(new Texture(line.substring(1))));
                 }
             }
             reader.close();
 
-        }catch(IOException e){
+        } catch (IOException e) {
             System.out.println("Map file read failed");
         }
     }
@@ -155,7 +156,7 @@ public class MenuView{
      * Used by the constructor to create buttons without the use of indexes
      * Every button that does not rely on players should be created here
      */
-    private void createUnindexedButtons(){
+    private void createUnindexedButtons() {
 
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/play.png"))));
@@ -190,10 +191,9 @@ public class MenuView{
         stage.addActor(exitButton);
 
         checkAIButton = new BBMenuButton(defaultToggleDrawable);
-        checkAIButton.setPosition(playButton.getX()+2*playButton.getWidth(), playButton.getY() +3*playButton.getHeight());
+        checkAIButton.setPosition(playButton.getX() + 2 * playButton.getWidth(), playButton.getY() + 3 * playButton.getHeight());
         checkAIButton.setBounds(checkAIButton.getX(), checkAIButton.getY(), 100, 100);
         stage.addActor(checkAIButton);
-
 
 
     }
@@ -203,7 +203,7 @@ public class MenuView{
      * Used by the constructor to create buttons with the use of indexes
      * Every button that relies on players should be created here
      */
-    private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
+    private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList) {
 
         final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
                 new Texture(Gdx.files.internal("core/images/leftbind.png"))));
@@ -223,9 +223,9 @@ public class MenuView{
          * Creates a BBMenuButton and a Label for every keybind in the given list.
          * If more buttons are added, further drawables should be added.
          */
-        for(int i = 0; i < bindPrefixList.size(); i++) {
+        for (int i = 0; i < bindPrefixList.size(); i++) {
             Drawable drawable;
-            switch(i%(bindPrefixList.size()/nbrOfPlayers)) {
+            switch (i % (bindPrefixList.size() / nbrOfPlayers)) {
                 case 0:
                     drawable = upBindButtonDrawable;
                     break;
@@ -255,19 +255,19 @@ public class MenuView{
              * starting from a new position for every player.
              * Add further if cases if more players are required.
              */
-            if(i < bindPrefixList.size()/2) {
-                bindButton.setPosition(-camera.viewportWidth /SCREEN_PARITION,
-                        camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
-                bindLabel.setPosition(-camera.viewportWidth /SCREEN_PARITION + bindButton.getWidth(),
-                        camera.viewportHeight/SCREEN_PARITION-(i+1)* (bindButton.getHeight()));
+            if (i < bindPrefixList.size() / 2) {
+                bindButton.setPosition(-camera.viewportWidth / SCREEN_PARITION,
+                        camera.viewportHeight / SCREEN_PARITION - (i + 1) * (bindButton.getHeight()));
+                bindLabel.setPosition(-camera.viewportWidth / SCREEN_PARITION + bindButton.getWidth(),
+                        camera.viewportHeight / SCREEN_PARITION - (i + 1) * (bindButton.getHeight()));
 
-            }else if(i < bindPrefixList.size()) {
+            } else if (i < bindPrefixList.size()) {
                 bindButton.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5)),
-                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
-                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION,-1.5) + bindButton.getWidth()),
-                        camera.viewportHeight/SCREEN_PARITION-(i%(bindPrefixList.size()/2)+1)*bindButton.getHeight());
+                        camera.viewportHeight / SCREEN_PARITION - (i % (bindPrefixList.size() / 2) + 1) * bindButton.getHeight());
+                bindLabel.setPosition((float) (camera.viewportWidth * Math.pow(SCREEN_PARITION, -1.5) + bindButton.getWidth()),
+                        camera.viewportHeight / SCREEN_PARITION - (i % (bindPrefixList.size() / 2) + 1) * bindButton.getHeight());
             }
-            bindButton.setBounds(bindButton.getX(),bindButton.getY(),bindButton.getWidth(),bindButton.getHeight());
+            bindButton.setBounds(bindButton.getX(), bindButton.getY(), bindButton.getWidth(), bindButton.getHeight());
             stage.addActor(bindButton);
             stage.addActor(bindLabel);
             bindButtonList.add(bindButton);
@@ -277,7 +277,7 @@ public class MenuView{
     }
 
 
-    public Stage getStage(){
+    public Stage getStage() {
         return stage;
     }
 
@@ -285,54 +285,58 @@ public class MenuView{
         return mapList.get(mapState);
     }
 
-    public List<BBMenuButton> getBindButtons(){
+    public List<BBMenuButton> getBindButtons() {
         return bindButtonList;
     }
 
-    public BBMenuButton getPlayButton(){
+    public BBMenuButton getPlayButton() {
         return playButton;
     }
 
-    public BBMenuButton getExitButton(){
+    public BBMenuButton getExitButton() {
         return exitButton;
     }
 
-    public BBMenuButton getCycleRightButton(){
+    public BBMenuButton getCycleRightButton() {
         return cycleRightButton;
     }
 
-    public BBMenuButton getCycleLeftButton(){
+    public BBMenuButton getCycleLeftButton() {
         return cycleLeftButton;
     }
 
-    public BBMenuButton getCheckAIButton(){return checkAIButton; }
+    public BBMenuButton getCheckAIButton() {
+        return checkAIButton;
+    }
 
 
-    public void setBindLabel(int index, String prefix, int keycode){
+    public void setBindLabel(int index, String prefix, int keycode) {
         bindLabelList.get(index).setText(prefix + Input.Keys.toString(keycode));
     }
 
-    public void toggleCheckBoxDrawable(boolean isAIActive){
-        if(isAIActive){
-            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("core/images/check.png")));
-        }else{
-            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("core/images/unchecked.png")));
+    public void toggleCheckBoxDrawable(boolean isAIActive) {
+        if (isAIActive) {
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture("core/images/check.png")));
+        } else {
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion(new Texture("core/images/unchecked.png")));
         }
     }
 
-    public void cycleRight(){
+    public void cycleRight() {
         mapState--;
-        if(mapState < 0) {mapState = mapSprites.size() - 1;}
-        mapSprites.get(mapState).setCenterX(currentMap.getX()+currentMap.getWidth()/2);
-        mapSprites.get(mapState).setCenterY(currentMap.getY() +currentMap.getHeight()/2);
+        if (mapState < 0) {
+            mapState = mapSprites.size() - 1;
+        }
+        mapSprites.get(mapState).setCenterX(currentMap.getX() + currentMap.getWidth() / 2);
+        mapSprites.get(mapState).setCenterY(currentMap.getY() + currentMap.getHeight() / 2);
         currentMap = mapSprites.get(mapState);
     }
 
-    public void cycleLeft(){
+    public void cycleLeft() {
         mapState++;
-        mapState = mapState%mapSprites.size();
-        mapSprites.get(mapState).setCenterX(currentMap.getX()+currentMap.getWidth()/2);
-        mapSprites.get(mapState).setCenterY(currentMap.getY() +currentMap.getHeight()/2);
+        mapState = mapState % mapSprites.size();
+        mapSprites.get(mapState).setCenterX(currentMap.getX() + currentMap.getWidth() / 2);
+        mapSprites.get(mapState).setCenterY(currentMap.getY() + currentMap.getHeight() / 2);
         currentMap = mapSprites.get(mapState);
     }
 
@@ -346,7 +350,7 @@ public class MenuView{
         batch.setProjectionMatrix(camera.combined);
         batch.draw(background, -camera.viewportWidth / 2, -camera.viewportHeight / 2);
 
-        for(Actor a: stage.getActors()){
+        for (Actor a : stage.getActors()) {
             a.draw(batch, DEFAULT_ALPHA);
         }
         currentMap.draw(batch);

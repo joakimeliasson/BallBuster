@@ -26,7 +26,7 @@ public class AuraController implements InputProcessor, IController {
         this.player = player;
         this.aura = player.getBall().getAura();
         this.batch = batch;
-        auraView = new AuraView(player, body, bodyList, batch);
+        auraView = new AuraView(body, bodyList);
     }
 
     @Override
