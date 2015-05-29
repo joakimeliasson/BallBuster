@@ -45,7 +45,7 @@ public class MenuView {
     private final OrthographicCamera camera;
     private final static float DEFAULT_ALPHA = 1f;
     private final static float SCREEN_PARITION = 2.2f;
-
+    private final static int[] SCREEN_RESOLUTION = {1920, 1080};
 
     /**
      * The only constructor for MenuView.
@@ -56,7 +56,7 @@ public class MenuView {
      */
     public MenuView(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList ){
         stage = new Stage();
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera(SCREEN_RESOLUTION[0], SCREEN_RESOLUTION[1]);
         stage.getViewport().setCamera(camera);
         bindLabelList = new LinkedList<>();
         mapSprites = new LinkedList<>();
@@ -68,12 +68,12 @@ public class MenuView {
         currentMap = mapSprites.get(mapState);
         currentMap.setCenterX(0);
         currentMap.setCenterY((float) (-camera.viewportHeight * Math.pow(SCREEN_PARITION, -1.5)));
-        font = new BitmapFont(Gdx.files.internal("core/images/test.fnt"));
+        font = new BitmapFont(Gdx.files.internal("test.fnt"));
         font.setScale(0.5f, 0.5f);
 
 
         batch = new SpriteBatch();
-        FileHandle backFileHandle = Gdx.files.internal("core/images/background3.png");
+        FileHandle backFileHandle = Gdx.files.internal("background3.png");
         Texture backgroundTexture = new Texture(backFileHandle);
         background = new Sprite(backgroundTexture);
         bindLabelList = new LinkedList<>();
@@ -116,7 +116,7 @@ public class MenuView {
 
         /*
         final Drawable measurementDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/Measurement.png"))));
+                new Texture(Gdx.files.internal("Measurement.png"))));
         for(int i = 0; i < 40; i++){
             BBMenuButton measurement = new BBMenuButton(measurementDrawable);
             BBMenuButton invMeasurement = new BBMenuButton(measurementDrawable);
@@ -134,7 +134,7 @@ public class MenuView {
      */
     private void readMapFile(){
         try{
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("core/images/maps.txt"), "UTF-8"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("maps.txt"), "UTF-8"));
             String line;
             while((line=reader.readLine())!=null){
                 if(line.indexOf('.')==0){
@@ -158,15 +158,15 @@ public class MenuView {
     private void createUnindexedButtons(){
 
         final Drawable playDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/play.png"))));
+                new Texture(Gdx.files.internal("play.png"))));
         final Drawable cycleRightDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempRight.png"))));
+                new Texture(Gdx.files.internal("tempRight.png"))));
         final Drawable cycleLeftDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/tempLeft.png"))));
+                new Texture(Gdx.files.internal("tempLeft.png"))));
         final Drawable exitDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/exit.png"))));
+                new Texture(Gdx.files.internal("exit.png"))));
         final Drawable defaultToggleDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/unchecked.png"))));
+                new Texture(Gdx.files.internal("unchecked.png"))));
 
         playButton = new BBMenuButton(playDrawable);
         playButton.setPosition(-playButton.getWidth() / 2, playButton.getHeight() / 2);
@@ -206,17 +206,17 @@ public class MenuView {
     private void createIndexedButtons(int nbrOfPlayers, List<String> bindPrefixList, List<Integer> keyList){
 
         final Drawable leftBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/leftbind.png"))));
+                new Texture(Gdx.files.internal("leftbind.png"))));
         final Drawable rightBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/rightbind.png"))));
+                new Texture(Gdx.files.internal("rightbind.png"))));
         final Drawable upBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/upbind.png"))));
+                new Texture(Gdx.files.internal("upbind.png"))));
         final Drawable downBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/downbind.png"))));
+                new Texture(Gdx.files.internal("downbind.png"))));
         final Drawable auraBindButtonDrawable = new TextureRegionDrawable(new TextureRegion(
-                new Texture(Gdx.files.internal("core/images/aurabind.png"))));
+                new Texture(Gdx.files.internal("aurabind.png"))));
         final Drawable missingDrawable = new TextureRegionDrawable(new TextureRegion
-                (new Texture(Gdx.files.internal("core/images/tempbind.png"))));
+                (new Texture(Gdx.files.internal("tempbind.png"))));
 
 
         /*
@@ -314,9 +314,9 @@ public class MenuView {
 
     public void toggleCheckBoxDrawable(boolean isAIActive){
         if(isAIActive){
-            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("core/images/check.png")));
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("check.png")));
         }else{
-            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("core/images/unchecked.png")));
+            checkAIButton.getStyle().imageUp = new TextureRegionDrawable(new TextureRegion( new Texture("unchecked.png")));
         }
     }
 
