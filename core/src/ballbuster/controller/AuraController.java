@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by jacobth on 2015-04-21.
  */
-public class AuraController implements InputProcessor, IController{
+public class AuraController implements InputProcessor, IController {
 
     private AuraView auraView;
 
@@ -26,12 +26,12 @@ public class AuraController implements InputProcessor, IController{
         this.player = player;
         this.aura = player.getBall().getAura();
         this.batch = batch;
-        auraView = new AuraView(player,body, bodyList, batch);
+        auraView = new AuraView(player, body, bodyList, batch);
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        if (Gdx.input.isKeyJustPressed(player.getAuraKey())){
+        if (Gdx.input.isKeyJustPressed(player.getAuraKey())) {
             if (aura.getAuraStatus())
                 auraView.activateAura(aura, false);
             else
@@ -83,14 +83,11 @@ public class AuraController implements InputProcessor, IController{
     @Override
     public void onRender() {
         keyDown(0);
-        if(aura.getAuraStatus()) {
+        if (aura.getAuraStatus()) {
             auraView.renderAnimation(batch, player);
             auraView.activateMagnet();
         }
     }
 
-    public Aura getAura() {
-        return aura;
-    }
 }
 

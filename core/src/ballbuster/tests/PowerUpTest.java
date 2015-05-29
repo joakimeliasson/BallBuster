@@ -4,7 +4,6 @@ import ballbuster.model.PowerUp;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -18,16 +17,19 @@ public class PowerUpTest {
     public void setUp() throws Exception {
         powerup = new PowerUp("Test");
     }
+
     @Test
     public void testCreatePowerUp() {
         assertNotNull(powerup);
     }
+
     @Test
     public void testGetPowerUp() {
         assertEquals(powerup.getPowerUp(), "Test");
     }
+
     @Test
-    public void testSetPowerUp(){
+    public void testSetPowerUp() {
         powerup.setPowerUp("PowerTest");
         assertEquals("PowerTest", powerup.getPowerUp());
     }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Joakim on 2015-04-20.
  */
-public class CollisionController implements ContactListener, IController{
+public class CollisionController implements ContactListener, IController {
 
     private ArrayList<Body> tileList;
     private ArrayList<BallController> ballList;
@@ -24,7 +24,7 @@ public class CollisionController implements ContactListener, IController{
     private CollisionView collisionView;
     private Timer timer;
 
-    public CollisionController(ArrayList<Body> tileList, ArrayList<BallController> ballList, SpriteBatch batch){
+    public CollisionController(ArrayList<Body> tileList, ArrayList<BallController> ballList, SpriteBatch batch) {
         this.tileList = tileList;
         this.ballList = ballList;
         this.batch = batch;
@@ -42,29 +42,27 @@ public class CollisionController implements ContactListener, IController{
         Body b = contact.getFixtureB().getBody();
         for (int k = 0; k < ballList.size(); k++) {
             for (int i = 0; i < tileList.size(); i++) {
-                 if (a == tileList.get(i) && b == ballList.get(k).getBody() && !ballList.get(k).getPlayer().hasSpeedUp()) {
-                     ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
-                     sound.play();
-                     player = ballList.get(k).getPlayer();
-                     int damage = (int)damage(ballList.get(k));
-                     String message = "-" + damage +" Damage!";
-                     this.message = message;
-                 }
-                else {
-                     sound.play();
-                 }
+                if (a == tileList.get(i) && b == ballList.get(k).getBody() && !ballList.get(k).getPlayer().hasSpeedUp()) {
+                    ballList.get(k).getBall().shieldDamage(damage(ballList.get(k)));
+                    sound.play();
+                    player = ballList.get(k).getPlayer();
+                    int damage = (int) damage(ballList.get(k));
+                    String message = "-" + damage + " Damage!";
+                    this.message = message;
+                } else {
+                    sound.play();
+                }
             }
         }
     }
 
-    public double damage(BallController ballController){
+    public double damage(BallController ballController) {
         double x = Math.pow(2, Math.abs(ballController.getBody().getLinearVelocity().x));
         double y = Math.pow(2, Math.abs(ballController.getBody().getLinearVelocity().y));
-        double dmg = Math.sqrt(x+y);
-        System.out.println("Damage: "+dmg+"\n");
-        return dmg/2;
+        double dmg = Math.sqrt(x + y);
+        System.out.println("Damage: " + dmg + "\n");
+        return dmg / 2;
     }
-
 
     @Override
     public void endContact(Contact contact) {
@@ -72,25 +70,22 @@ public class CollisionController implements ContactListener, IController{
 
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
-
     }
 
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {
-
     }
 
     @Override
     public void onCreate() {
-
     }
 
     @Override
     public void onRender() {
-        if(message != "" && message!=null)
+        if (message != "" && message != null)
             timer.update(Gdx.graphics.getDeltaTime());
 
-        if(timer.hasTimeElapsed()) {
+        if (timer.hasTimeElapsed()) {
             message = "";
             timer.reset();
         }

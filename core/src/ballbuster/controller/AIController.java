@@ -12,13 +12,13 @@ import java.util.ArrayList;
  */
 
 
-public class AIController extends BallController{
+public class AIController extends BallController {
     private ArrayList<Player> enemyPlayers = new ArrayList<>();
 
     public AIController(Player player, SpriteBatch batch, Texture texture, World world, Texture shieldTexture, ArrayList<Player> players) {
         super(player, batch, texture, world, shieldTexture);
-        for(Player p : players) {
-            if(p == player) {
+        for (Player p : players) {
+            if (p == player) {
                 continue;
             }
             enemyPlayers.add(p);
@@ -29,36 +29,32 @@ public class AIController extends BallController{
     public boolean keyDown(int keycode) {
         Player closestEnemy = getClosetEnemy();
 
-        if(closestEnemy.getBall().getX() < ball.getX()){
-            //MOVE LEFT
+        if (closestEnemy.getBall().getX() < ball.getX()) {                  //MOVE LEFT
             ballView.moveLeft(body.getPosition().x, body.getPosition().y);
-        } else {
-            //MOVE RIGHT
+        } else {                                                            //MOVE RIGHT
             ballView.moveRight(body.getPosition().x, body.getPosition().y);
         }
 
-        if(closestEnemy.getBall().getY() < ball.getY()){
-            //MOVE DOWN
+        if (closestEnemy.getBall().getY() < ball.getY()) {                  //MOVE DOWN
             ballView.moveDown(body.getPosition().x, body.getPosition().y);
-        } else {
-            //MOVE UP
+        } else {                                                            //MOVE UP
             ballView.moveUp(body.getPosition().x, body.getPosition().y);
         }
 
         return false;
     }
 
-    private Player getClosetEnemy(){
+    private Player getClosetEnemy() {
         float distanceBetweenPlayer = -1;
         Player closestPlayer = null;
-        for(Player p: enemyPlayers) {
+        for (Player p : enemyPlayers) {
             float x = p.getBall().getX();
             float y = p.getBall().getY();
-            if(distanceBetweenPlayer < 0) {
+            if (distanceBetweenPlayer < 0) {
                 distanceBetweenPlayer = ball.getX() - x + ball.getY() - y;
                 closestPlayer = p;
             } else {
-                if (distanceBetweenPlayer < (ball.getX() - x + ball.getY() - y)){
+                if (distanceBetweenPlayer < (ball.getX() - x + ball.getY() - y)) {
                     distanceBetweenPlayer = ball.getX() - x + ball.getY() - y;
                     closestPlayer = p;
                 }
@@ -70,11 +66,7 @@ public class AIController extends BallController{
     @Override
     public void onRender() {
         ballView.setPosition(ball);
-        // if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
         keyDown(0);
         ballView.renderBall(batch);
-        //}
-        //else
-        //batch.dispose();
     }
 }

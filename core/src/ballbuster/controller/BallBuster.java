@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Created by jacobth on 2015-04-28.
  */
-public class BallBuster extends Game{
+public class BallBuster extends Game {
 
     private BallBusterView ballBusterView;
 
@@ -50,7 +50,7 @@ public class BallBuster extends Game{
 
     private CollisionController collisionController;
 
-    private final String map; //Location of the map example: "core/res/TiledMaps/designmap.tmx"
+    private final String map;
 
     private World world;
     private OrthographicCamera camera;
@@ -77,9 +77,9 @@ public class BallBuster extends Game{
         createAura();
         createPowerUp();
         collision();
-        controllerList.add(new LightController(world, camera,playerList));
+        controllerList.add(new LightController(world, camera, playerList));
 
-        for(IController controller : controllerList)
+        for (IController controller : controllerList)
             controller.onCreate();
 
         collisionController = new CollisionController(tileWallController.getWallList(), ballList, batch);
@@ -91,22 +91,21 @@ public class BallBuster extends Game{
     public void render() {
         ballBusterView.onRender();
 
-        for(IController controller : controllerList)
+        for (IController controller : controllerList)
             controller.onRender();
 
         world.setContactListener(collisionController);
 
-        //ballBusterView.setDebugRenderer();
         ballBusterView.setDebugRenderer();
-        for(BallController ball: ballList){
-            if(ball.getBall().getShield()<0){
+        for (BallController ball : ballList) {
+            if (ball.getBall().getShield() < 0) {
                 isGameOver = true;
                 break;
             }
         }
     }
 
-    public boolean getIsGameOver(){
+    public boolean getIsGameOver() {
         return isGameOver;
     }
 
@@ -118,8 +117,8 @@ public class BallBuster extends Game{
         FileHandle shieldFileHandle = Gdx.files.internal("core/images/playershield.png");
         Texture shieldTexture = new Texture(shieldFileHandle);
 
-        player = new Player(1,"Player1",-camera.viewportWidth/2,-camera.viewportHeight/2);
-        player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT,Input.Keys.Q);
+        player = new Player(1, "Player1", -camera.viewportWidth / 2, -camera.viewportHeight / 2);
+        player.setKeys(Input.Keys.A, Input.Keys.D, Input.Keys.W, Input.Keys.S, Input.Keys.ALT_LEFT, Input.Keys.Q);
         playerList.add(player);
 
         FileHandle ballFileHandle2 = Gdx.files.internal("core/images/rightBall.png");
@@ -128,14 +127,14 @@ public class BallBuster extends Game{
         FileHandle shield2FileHandle = Gdx.files.internal("core/images/playershield2.png");
         Texture shieldTexture2 = new Texture(shield2FileHandle);
 
-        player2 = new Player(2, "Player2",camera.viewportWidth/2-100f, camera.viewportHeight/2-100f);
+        player2 = new Player(2, "Player2", camera.viewportWidth / 2 - 100f, camera.viewportHeight / 2 - 100f);
         player2.setKeys(Input.Keys.DPAD_LEFT, Input.Keys.DPAD_RIGHT, Input.Keys.DPAD_UP, Input.Keys.DPAD_DOWN, Input.Keys.SPACE, Input.Keys.M);
         this.playerList.add(player2);
 
         ballController = new BallController(player, batch, texture, world, shieldTexture);
-        if(isAIActive){
-            ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2,playerList);
-        }else{
+        if (isAIActive) {
+            ballController2 = new AIController(player2, batch, texture2, world, shieldTexture2, playerList);
+        } else {
             ballController2 = new BallController(player2, batch, texture2, world, shieldTexture2);
 
         }
@@ -143,21 +142,24 @@ public class BallBuster extends Game{
         controllerList.add(ballController);
         controllerList.add(ballController2);
 
-        hudController = new HudController(player,player2,batch,camera);
+        hudController = new HudController(player, player2, batch, camera);
         controllerList.add(hudController);
     }
+
     public void createMap() {
-        mapController = new MapController(map,world, camera);
+        mapController = new MapController(map, world, camera);
         controllerList.add(mapController);
         tileLocations = mapController.getTileLocations();
     }
+
     public void createAura() {
-        auraController = new AuraController(player, ballController.getBody(),mapController.getBodyListPlayer1(), batch);
+        auraController = new AuraController(player, ballController.getBody(), mapController.getBodyListPlayer1(), batch);
         auraController2 = new AuraController(player2, ballController2.getBody(), mapController.getBodyListPlayer2(), batch);
         controllerList.add(auraController);
         controllerList.add(auraController2);
     }
-    public void createPowerUp(){
+
+    public void createPowerUp() {
         powerUpList = new ArrayList<>();
         PowerUp speedUp = new PowerUp("speedUp");
         PowerUp slowDown = new PowerUp("slowDown");
@@ -176,7 +178,7 @@ public class BallBuster extends Game{
         FileHandle healthPackFileHandle = Gdx.files.internal("core/images/heart.png");
         Texture healthPackTexture = new Texture(healthPackFileHandle);
 
-        powerUpController = new PowerUpController(powerUpList,playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch, tileLocations);
+        powerUpController = new PowerUpController(powerUpList, playerList, new Sprite(powerUpTexture), new Sprite(healthPackTexture), batch, tileLocations);
         controllerList.add(powerUpController);
     }
 
@@ -185,6 +187,7 @@ public class BallBuster extends Game{
 
         controllerList.add(tileWallController);
     }
+
     private void collision() {
         ballList = new ArrayList<>();
 
@@ -192,7 +195,7 @@ public class BallBuster extends Game{
         ballList.add(ballController2);
     }
 
-    public List<Player> getPlayers(){
+    public List<Player> getPlayers() {
         List<Player> playerList = new LinkedList<>();
         playerList.add(player);
         playerList.add(player2);

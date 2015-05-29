@@ -25,7 +25,7 @@ public class BBMenuButtonTest {
     }
 
     @Test
-    public void testGetIndex(){
+    public void testGetIndex() {
         assertTrue(unindexedButton.getIndex() == -1);
         assertTrue(indexedButton.getIndex() == INDEX);
     }

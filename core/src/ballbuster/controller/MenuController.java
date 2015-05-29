@@ -19,7 +19,6 @@ import java.util.List;
  */
 public class MenuController implements ApplicationListener, InputProcessor {
 
-
     private List<Player> playerList;
     private List<Integer> keyList;
     private List<String> keyPrefixList;
@@ -32,14 +31,8 @@ public class MenuController implements ApplicationListener, InputProcessor {
     private boolean isAIActive = false;
     private final int NUMBER_OF_PLAYERS = 2;
 
-
-
-
-
     @Override
     public void create() {
-
-
         //Default keys for players
         keyList = new LinkedList<>();
         //Player 1 keys
@@ -67,15 +60,14 @@ public class MenuController implements ApplicationListener, InputProcessor {
         keyPrefixList.add("SpeedKey:");
         keyPrefixList.addAll(keyPrefixList);
 
-        menuView = new MenuView(NUMBER_OF_PLAYERS,keyPrefixList, keyList);
+        menuView = new MenuView(NUMBER_OF_PLAYERS, keyPrefixList, keyList);
 
         Gdx.input.setInputProcessor(menuView.getStage());
 
         addListeners();
-
     }
 
-    public void addListeners(){
+    public void addListeners() {
         menuView.getPlayButton().addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 /*
@@ -83,12 +75,12 @@ public class MenuController implements ApplicationListener, InputProcessor {
                  * and assigning keys to the players.
                  */
                 if (isInFocus) {
-                    ballBuster = new BallBuster(menuView.getMapFilePath(),isAIActive);
+                    ballBuster = new BallBuster(menuView.getMapFilePath(), isAIActive);
                     ballBuster.create();
                     playerList = ballBuster.getPlayers();
                     int bindNbr = 0;
 
-                    for(Player p: playerList) {
+                    for (Player p : playerList) {
                         p.setKeys(keyList.get(bindNbr), keyList.get(bindNbr + 1), keyList.get(bindNbr + 2),
                                 keyList.get(bindNbr + 3), keyList.get(bindNbr + 4), keyList.get(bindNbr + 5));
                         bindNbr = bindNbr + keyList.size() / NUMBER_OF_PLAYERS;
@@ -101,7 +93,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
         menuView.getCycleLeftButton().addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(isInFocus) {
+                if (isInFocus) {
                     menuView.cycleLeft();
                 }
                 return true;
@@ -111,7 +103,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
         menuView.getCycleRightButton().addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if(isInFocus) {
+                if (isInFocus) {
                     menuView.cycleRight();
                 }
                 return true;
@@ -128,10 +120,10 @@ public class MenuController implements ApplicationListener, InputProcessor {
             }
         });
 
-        menuView.getCheckAIButton().addListener(new InputListener(){
+        menuView.getCheckAIButton().addListener(new InputListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button){
-                if(isInFocus){
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (isInFocus) {
                     isAIActive = !isAIActive;
                     menuView.toggleCheckBoxDrawable(isAIActive);
                 }
@@ -140,7 +132,7 @@ public class MenuController implements ApplicationListener, InputProcessor {
         });
 
 
-        for(int i = 0; i < menuView.getBindButtons().size(); i++) {
+        for (int i = 0; i < menuView.getBindButtons().size(); i++) {
             BBMenuButton bindButton = menuView.getBindButtons().get(i);
             bindButton.addListener(new ClickListener() {
                 @Override
@@ -164,20 +156,25 @@ public class MenuController implements ApplicationListener, InputProcessor {
     public void render() {
         if (ballBuster == null) {
             menuView.update();
-        }else if (!ballBuster.getIsGameOver()) {
+        } else if (!ballBuster.getIsGameOver()) {
             ballBuster.render();
-        }else{
+        } else {
             isInFocus = true;
             ballBuster = null;
         }
     }
 
     @Override
-    public void pause () {}
+    public void pause() {
+    }
+
     @Override
-    public void resume () {}
+    public void resume() {
+    }
+
     @Override
-    public void dispose () {}
+    public void dispose() {
+    }
 
 
     /*
@@ -185,10 +182,10 @@ public class MenuController implements ApplicationListener, InputProcessor {
      */
     @Override
     public boolean keyDown(int keycode) {
-        if(isInFocus && currentBindIndex!=NO_INDEX){
+        if (isInFocus && currentBindIndex != NO_INDEX) {
             keyList.remove(currentBindIndex);
             keyList.add(currentBindIndex, keycode);
-            menuView.setBindLabel(currentBindIndex,keyPrefixList.get(currentBindIndex) ,keycode);
+            menuView.setBindLabel(currentBindIndex, keyPrefixList.get(currentBindIndex), keycode);
             Gdx.input.setInputProcessor(menuView.getStage());
         }
         return true;
@@ -231,6 +228,6 @@ public class MenuController implements ApplicationListener, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
-        
+
     }
 }

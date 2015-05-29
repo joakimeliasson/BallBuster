@@ -17,14 +17,17 @@ public class TileTest {
     public void setUp() throws Exception {
         tile = new Tile(2f, 3f);
     }
+
     @Test
     public void testGetX() {
         assertTrue(tile.getX() == 2f);
     }
+
     @Test
     public void testGetY() {
         assertTrue(tile.getY() == 3f);
     }
+
     @Test
     public void testSetPosition() {
         tile.setPosition(1f, 2f);
