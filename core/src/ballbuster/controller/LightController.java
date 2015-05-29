@@ -39,12 +39,13 @@ public class LightController implements IController {
         player1 = playerList.get(0);
         player2 = playerList.get(1);
 
-        lightBall1 = new box2dLight.PointLight(lightHandler, 100, Color.RED, 100, 0, 0); //(handler, number of rays, color, "radiuseffect",xPosition, yPosition)
+        lightBall1 = new box2dLight.PointLight(lightHandler, 100, Color.WHITE, 100, 0, 0); //(handler, number of rays, color, "radiuseffect",xPosition, yPosition)
         lightBall2 = new box2dLight.PointLight(lightHandler, 100, Color.BLUE, 100, 0, 0);
     }
 
     @Override
     public void onRender() {
+        if(dayTime <0.7f)
         dayTime = dayTime + 0.003f; //Speed of day will arise
         lightHandler.setAmbientLight(dayTime);
 
