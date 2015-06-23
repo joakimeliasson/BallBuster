@@ -1,0 +1,32 @@
+Meeting Agenda
+
+  Date: 2015-04-29
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+Resolve build errors, make sure everyone can successfully build and run the program
+
+2. Reports (15 min) from previous meeting
+Jacob did some refactoring of code
+Joakim fixed target and source compatibility
+Matthias continued working on the menu
+
+3. Discussion items (35 min)
+Build errors, resolved or not?
+Status on TiledMap, should we keep working with it or just do our own randomized maps
+
+4. Outcomes and assignments (5 min)
+Target and source compatibility fixed some problems, but gradle still gives us problems. No solution yet.
+We should keep TiledMap for now since Johan has put a lot of work into it, but needs to speed up.
+
+
+5. Wrap up
+Joakim will work on powerup functionality
+Jacob will do more refactoring of bad code
+Matthias will work on a launcher
+Johan will work with TiledMaps
+
+Next meeting will take place 05/05-2015 in group room 11 in Idéläran

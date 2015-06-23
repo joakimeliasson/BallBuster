@@ -1,0 +1,28 @@
+Meeting Agenda
+
+  Date: 2015-05-22
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+Bugs, important features left, read through project requirements
+
+2. Reports (15 min) from previous meeting
+Jacob cleaned up the code in powerupView and moved some model-specific code
+Matthias has made progress on the menu and launcher
+Johan started experimenting with lightning
+Joakim fixed some PMD issues
+
+3. Discussion items (35 min)
+Still some bugs left, collision with wall needs to be fixed. And we need an end-game scenario!
+
+4. Outcomes and assignments (5 min)
+Menu needs to refactored to avoid STAN4J telling us we have misdirected dependencies. - Matthias
+Healthpackview needs to be cleaned up - Joakim
+IController need to be cleaned up as well - Jacob
+
+5. Wrap up
+We will work on the assignments above.
+Johan will continue working with lightning.

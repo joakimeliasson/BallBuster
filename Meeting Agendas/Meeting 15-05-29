@@ -1,0 +1,22 @@
+Meeting Agenda
+
+  Date: 2015-05-29
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+Last meeting, anything left or are we happy with the result
+
+2. Reports (15 min) from previous meeting
+Jacob fixed a lot of bugs and pmd issues. Also fixed shield health to sync with healthbar
+Matthias cleaned up the menu code and made a game over condition
+Joakim wrote missing unit tests and fixed the long lasting healthpack bug
+Johan cleaned up the code in the project removing unused imports and code.
+
+3. Discussion items (35 min)
+Happy with the result except for a small shield bug that still exists.
+
+4. Outcomes and assignments (5 min)
+Jacob will fix the shield bug

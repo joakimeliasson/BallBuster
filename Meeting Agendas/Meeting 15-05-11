@@ -1,0 +1,28 @@
+Meeting Agenda
+
+  Date: 2015-05-11
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+Discuss progress of Kryonet.
+
+2. Reports (15 min) from previous meeting
+Jacob added sound on collision and changed the design to give a modern feeling
+Joakim wrote a server and a client program using Kryonet.
+Matthias continued working on the menu.
+Johan did some refactoring.
+
+3. Discussion items (35 min)
+How we are going to implement the Kryonet server to our program
+What else needs to be done
+
+4. Outcomes and assignments (5 min)
+The Kryonet program can start a server and connect a client, but hard to implement in our application.
+We will have to do more research on this.
+
+5. Wrap up
+Matthias will continue working on the launcher
+Joakim, Jacob and Johan will look at Kryonet

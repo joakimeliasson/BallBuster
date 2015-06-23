@@ -1,0 +1,30 @@
+Meeting Agenda
+
+  Date: 2015-04-02
+
+  Facilitator: Joakim Eliasson
+
+  Participants:Johan Segerlund, Matthias Andersson, Jacob Lundberg
+
+1. Objectives (5 min).
+Discuss progress from last meeting, discuss use of factories or not, start working with the physics engine
+
+2. Reports (15 min) from previous meeting
+Joakim created a class for player, a factory and tests for these.
+Jacob created a class for Ball and implemented it somewhat to get two movable balls on a playing field
+Johan added JUnit dependency for the project
+
+3. Discussion items (35 min)
+UML discussions
+Discussions regarding the requirements for the game
+
+4. Outcomes and assignments (5 min)
+We agreed on a new system of winning. Instead of knocking your own ball into the other the objective now is to bump the other ball into a wall.
+
+
+UML diagram
+
+
+5. Wrap up
+No specific tasks are assigned since holidays are coming up and some of us has re-exams to do.
+
