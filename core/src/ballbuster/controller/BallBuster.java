@@ -43,6 +43,7 @@ public class BallBuster extends Game {
     private TileController tileWallController;
     private PowerUpController powerUpController;
     private HudController hudController;
+    private MusicController musicController;
 
     private ArrayList<IController> controllerList;
     private ArrayList<BallController> ballList;
@@ -84,6 +85,13 @@ public class BallBuster extends Game {
         createAura();
         createPowerUp();
         collision();
+
+        hudController = new HudController(player, player2, batch, camera);
+        controllerList.add(hudController);
+
+        musicController = new MusicController();
+        controllerList.add(musicController);
+
         controllerList.add(new LightController(world, camera, playerList));
 
         for (IController controller : controllerList)
@@ -158,8 +166,6 @@ public class BallBuster extends Game {
         controllerList.add(ballController);
         controllerList.add(ballController2);
 
-        hudController = new HudController(player, player2, batch, camera);
-        controllerList.add(hudController);
     }
 
     public void createMap() {
